@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  turbopack: {
+    root: process.cwd(),
+  },
   // Original internal links used ".html" suffixes and "/index.html" paths.
   // These redirects keep any old bookmarks / external inbound links working
   // against the new clean App Router paths.
