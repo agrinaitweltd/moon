@@ -1,0 +1,9 @@
+/*
+ * Tailwind layers for NEW / glue markup only.
+ * Preflight is disabled in tailwind.config.ts so these never touch the ported
+ * Webflow styling. The Webflow design system itself is loaded as a plain
+ * stylesheet (/css/webflow-shared.css) via <link> in app/layout.tsx, exactly
+ * as the original site did — keeping the cascade and specificity identical.
+ */
+@tailwind components;
+@tailwind utilities;
