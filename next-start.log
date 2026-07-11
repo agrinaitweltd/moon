@@ -1,0 +1,8 @@
+
+> lawblacks-next@1.0.0 start
+> next start -p 3123
+
+▲ Next.js 16.2.10
+- Local:         http://localhost:3123
+- Network:       http://192.168.1.67:3123
+✓ Ready in 401ms
