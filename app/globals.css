@@ -10,13 +10,13 @@
 
 .navbar5_logo,
 .navbar5_logo_dark-mode {
-  height: 44px;
+  height: 80px;
   width: auto;
 }
 
 .navbar5_logo-link.w--current,
 .navbar5_logo-link.is-responsive.w--current {
-  height: 44px;
+  height: 84px;
 }
 
 .footer3_logo {
@@ -167,4 +167,163 @@ html.w-mod-ix3 .heading-style-hero {
   position: relative;
   width: 100%;
   max-width: 40rem;
+}
+
+/* Mobile Responsive Improvements */
+@media (max-width: 768px) {
+  /* Mobile Hero Section */
+  .heading-style-hero {
+    font-size: clamp(1.75rem, 5vw, 2.5rem) !important;
+    line-height: 1.2;
+  }
+
+  /* Mobile Search Form */
+  .moon-search_input {
+    height: 3.5rem;
+    font-size: 1rem;
+    padding: 0 4.5rem 0 1.25rem;
+  }
+
+  .moon-search_button {
+    width: 3rem;
+    height: 3rem;
+    right: 0.25rem;
+  }
+
+  .moon-search_button svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .moon-search_overlay {
+    padding: 4rem 1rem 1rem;
+  }
+
+  /* Mobile Service Cards */
+  .fs-4-card-slider_slide {
+    min-height: 220px !important;
+  }
+
+  .service-card_item {
+    height: 220px !important;
+  }
+
+  .service-card_text-wrapper {
+    font-size: 0.95rem !important;
+  }
+
+  /* Mobile Navigation Buttons */
+  .fs-4-card-slider_button {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+  }
+
+  .fs-4-card-slider_button svg,
+  .fs-1-card-slider_button svg {
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  /* Better touch targets */
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Padding adjustments for mobile */
+  .padding-section-large {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .padding-global {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Mobile heading sizing */
+  .heading-style-h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem) !important;
+  }
+
+  .heading-style-h3 {
+    font-size: clamp(1.25rem, 3.5vw, 1.75rem) !important;
+  }
+
+  /* Reduce text size slightly on mobile */
+  p {
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+  }
+
+  /* Mobile grid adjustments */
+  .w-layout-grid {
+    gap: 1rem !important;
+  }
+
+  /* Improve form spacing */
+  .signup-form-wrapper {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* Better image responsiveness */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Mobile menu improvements */
+  .navbar5_menu {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Reduce parallax intensity on mobile */
+  [data-scroll-speed] {
+    --scroll-speed: 0 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Extra small devices */
+  .heading-style-hero {
+    font-size: 1.5rem !important;
+  }
+
+  .heading-style-h2 {
+    font-size: 1.25rem !important;
+  }
+
+  .moon-search_input {
+    height: 3rem;
+    font-size: 0.95rem;
+  }
+
+  .fs-4-card-slider_slide {
+    min-height: 180px !important;
+  }
+
+  .service-card_item {
+    height: 180px !important;
+  }
+
+  .padding-section-large {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  /* Stack layout for forms */
+  .button-group {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+  }
 }
