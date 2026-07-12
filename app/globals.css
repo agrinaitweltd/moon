@@ -9,6 +9,18 @@
 @tailwind utilities;
 
 /*
+ * Site-wide typography. The Webflow design system routes every heading and
+ * body-text rule through these two custom properties (previously "graphie",
+ * a Typekit family tied to the old firm's account) — overriding them here
+ * swaps the typeface everywhere at once instead of touching each of the 13
+ * rules that reference them across webflow-shared.css.
+ */
+:root {
+  --_typography---font-styles--heading: var(--font-heading), Georgia, serif !important;
+  --_typography---font-styles--body: var(--font-body), Helvetica, Arial, sans-serif !important;
+}
+
+/*
  * Logo sizing only. Each logo-link contains two <img> variants — a light
  * (.navbar5_logo) and a dark (.navbar5_logo_dark-mode) — and the shared
  * stylesheet's variant rules already decide which single one is visible.

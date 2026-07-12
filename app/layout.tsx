@@ -1,8 +1,33 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
+import { Merriweather, Source_Sans_3 } from "next/font/google";
 import "./globals.css";
 import { SiteRuntime } from "@/components/layout/SiteRuntime";
 import { SITE_URL } from "@/lib/metadata";
+
+/*
+ * Typography for a legal/litigation audience: Merriweather is a screen-
+ * optimised serif built for long-form reading (used widely by law firms,
+ * journals, and publishers) — it carries the authority and tradition the
+ * subject calls for without tipping into decorative. Source Sans 3 is
+ * Adobe's own general-purpose companion sans, chosen for UI text/body copy
+ * because it stays highly legible at small sizes and pairs cleanly with
+ * Merriweather's weight. Both self-hosted via next/font (no runtime request
+ * to fonts.googleapis.com, no layout shift).
+ */
+const merriweather = Merriweather({
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  variable: "--font-heading",
+  display: "swap",
+});
+
+const sourceSans = Source_Sans_3({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-body",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -24,7 +49,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-wf-domain="www.moonstone.co.ug" suppressHydrationWarning>
+    <html
+      lang="en"
+      data-wf-domain="www.moonstone.co.ug"
+      className={`${merriweather.variable} ${sourceSans.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <link rel="preconnect" href="https://cdn.prod.website-files.com" crossOrigin="anonymous" />
         {/* The Webflow design system, self-hosted and served verbatim. */}
@@ -62,12 +92,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Mark JS/touch capability before paint (Webflow visibility gate). */}
         <Script id="wf-mod-js" strategy="beforeInteractive">
           {`!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);`}
-        </Script>
-
-        {/* Adobe Fonts (Typekit) */}
-        <Script src="https://use.typekit.net/fgt1zjs.js" strategy="afterInteractive" />
-        <Script id="typekit-load" strategy="afterInteractive">
-          {`try{Typekit.load();}catch(e){}`}
         </Script>
 
         {/* Google Tag Manager */}
