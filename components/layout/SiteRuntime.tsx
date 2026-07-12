@@ -281,43 +281,18 @@ function initScrollProgress(): () => void {
 
 // ------------------------------------------------------------ scroll theme ---
 /**
- * Sections marked [data-scroll-theme] (currently the manifesto + newsletter
- * sections, which already ship their own dark colour-scheme variables) flip a
- * shared full-viewport backdrop between light and dark as they cross the
- * midline, so the page background itself transitions rather than just the
- * section content.
+ * The manifesto and newsletter sections already ship their own solid dark
+ * inner panels (.dark_background / .wrapper_wide-screen), so the page already
+ * transitions white → dark → white as you scroll through them. An earlier
+ * version painted an extra full-viewport fixed backdrop on top of that, but
+ * because the footer is transparent (it relies on the white body background),
+ * that dark backdrop bled through and turned the footer black. This cleanup
+ * removes any such leftover backdrop; the natural section darkness is kept.
  */
-const SCROLL_THEME_SECTIONS = ".section_manifesto, .section_newsletter";
-
 function initScrollTheme(): () => void {
-  const targets = Array.from(document.querySelectorAll<HTMLElement>(SCROLL_THEME_SECTIONS));
-  if (!targets.length) return () => {};
-
-  let backdrop = document.querySelector<HTMLElement>(".scroll-theme-backdrop");
-  if (!backdrop) {
-    backdrop = document.createElement("div");
-    backdrop.className = "scroll-theme-backdrop";
-    backdrop.setAttribute("aria-hidden", "true");
-    document.body.prepend(backdrop);
-  }
-
-  const active = new Set<Element>();
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) active.add(entry.target);
-        else active.delete(entry.target);
-      });
-      document.documentElement.setAttribute("data-scroll-theme", active.size > 0 ? "dark" : "light");
-    },
-    { threshold: 0.4 }
-  );
-  targets.forEach((t) => observer.observe(t));
-
-  return () => {
-    observer.disconnect();
-    document.documentElement.removeAttribute("data-scroll-theme");
-  };
+  document.querySelectorAll(".scroll-theme-backdrop").forEach((el) => el.remove());
+  document.documentElement.removeAttribute("data-scroll-theme");
+  return () => {};
 }
 
 // ------------------------------------------------------ smooth scroll + gsap --

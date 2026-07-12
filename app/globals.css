@@ -9,22 +9,15 @@
 @tailwind utilities;
 
 /*
- * The exported logo <img> carries a stray Webflow component-variant class
- * (w-variant-4743bb7d-...) that the shared stylesheet sets to display:none —
- * a leftover from Webflow's variant system that assumed some other trigger
- * would swap it visible. Nothing does, so the logo was rendering invisible;
- * force it back on.
+ * Logo sizing only. Each logo-link contains two <img> variants — a light
+ * (.navbar5_logo) and a dark (.navbar5_logo_dark-mode) — and the shared
+ * stylesheet's variant rules already decide which single one is visible.
+ * Do NOT set `display` here or both render at once (double logo). Just size.
  */
 .navbar5_logo,
 .navbar5_logo_dark-mode {
-  display: inline-block !important;
   height: 44px !important;
   width: auto !important;
-}
-
-.navbar5_logo-link.w--current,
-.navbar5_logo-link.is-responsive.w--current {
-  height: 48px !important;
 }
 
 .footer3_logo {
@@ -373,28 +366,16 @@ html.w-mod-ix3 .heading-style-hero {
 }
 
 /* ==========================================================================
-   Scroll-driven section background theme
-   .section_manifesto and .section_newsletter already define their own dark
-   colour-scheme variables (white text, near-black --primary-colour-scheme
-   --background) — SiteRuntime toggles this attribute as those sections cross
-   the viewport midline so the page backdrop itself (not just the section
-   box) eases between white and near-black, rather than cutting sharply.
+   Footer background
+   The footer's links/text are near-black (designed for a light ground) and
+   the footer box itself is transparent, so it inherited the white <body>
+   background. Pin it white explicitly so nothing layered behind the page can
+   ever bleed through and turn the footer black.
    ========================================================================== */
-.scroll-theme-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-color: transparent;
-  transition: background-color 0.9s ease;
-}
-
-html[data-scroll-theme="dark"] .scroll-theme-backdrop {
-  background-color: var(--_primitives---colors--neutral-darkest, #222220);
-}
-
-html[data-scroll-theme="dark"] body {
-  transition: background-color 0.9s ease;
+.footer_component {
+  position: relative;
+  z-index: 1;
+  background-color: var(--_primitives---colors--white, #fff);
 }
 
 /* ==========================================================================
