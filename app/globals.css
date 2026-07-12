@@ -491,9 +491,6 @@ html.w-mod-ix3 .heading-style-hero {
     transform: translateY(28px);
   }
 
-  html.w-mod-ix3 .manifesto_content-left,
-  html.w-mod-ix3 .manifesto_content-top,
-  html.w-mod-ix3 .manifesto_content-bottom,
   html.w-mod-ix3 .text-image_content-left,
   html.w-mod-ix3 .text-image_image-wrapper,
   html.w-mod-ix3 .newsletter_content-left,
@@ -501,6 +498,29 @@ html.w-mod-ix3 .heading-style-hero {
     opacity: 1;
     transform: translateY(0);
     transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /*
+   * The manifesto ("We are a diverse team...") reveal runs noticeably longer
+   * and staggers its three pieces (image, heading/CTA, closing line + image)
+   * so it plays out as a sequence rather than one instant simultaneous fade.
+   */
+  html.w-mod-ix3 .manifesto_content-left {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 2.2s cubic-bezier(0.16, 1, 0.3, 1), transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html.w-mod-ix3 .manifesto_content-top {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s, transform 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+  }
+
+  html.w-mod-ix3 .manifesto_content-bottom {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s, transform 2.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s;
   }
 
   /* Gentle hover lift on cards and service tiles. */
