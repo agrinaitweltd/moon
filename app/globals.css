@@ -10,13 +10,13 @@
 
 .navbar5_logo,
 .navbar5_logo_dark-mode {
-  height: 160px !important;
+  height: 44px !important;
   width: auto !important;
 }
 
 .navbar5_logo-link.w--current,
 .navbar5_logo-link.is-responsive.w--current {
-  height: 168px !important;
+  height: 48px !important;
 }
 
 .footer3_logo {
