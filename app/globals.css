@@ -562,6 +562,29 @@ html.w-mod-ix3 .heading-style-hero {
 }
 
 /* ==========================================================================
+   Per-element scroll reveal — drives [fade="details"] and
+   [element-reveal="target"], which SiteRuntime's initScrollReveal toggles
+   .is-inview on as each individually enters the viewport (see that function
+   for why: Webflow's original IX2 animation *data* for these attributes
+   isn't part of the static export, so previously nothing here actually
+   played on scroll).
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  html.w-mod-js :is([fade="details"], [element-reveal="target"]) {
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html.w-mod-js :is([fade="details"], [element-reveal="target"]):not(.is-inview) {
+    transform: translateY(24px);
+  }
+
+  html.w-mod-js :is([fade="details"], [element-reveal="target"]).is-inview {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
    Additional scroll-reveal animations
    Extends the existing [element-reveal] / hero fade pattern to more content
    so more of the page animates in on scroll, not just the elements Webflow's

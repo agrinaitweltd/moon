@@ -478,6 +478,62 @@ function initLiteSearch(): () => void {
   };
 }
 
+// ------------------------------------------------------------ scroll reveal --
+/**
+ * Real per-element scroll-triggered reveals for [fade="details"] and
+ * [element-reveal="target"] — content Webflow's original site would have
+ * animated in via its Interactions 2.0 engine, but that engine's interaction
+ * *data* (which elements, what animation, what trigger) lives in Webflow's
+ * hosted project config, not in the exported HTML/CSS, so none of it carries
+ * over to a self-hosted export. Previously these elements were all just
+ * revealed together ~1.5s after page load regardless of scroll position (see
+ * the w-mod-ix3 fallback below) — most content below the fold never actually
+ * animated at all, it was just visible by the time you scrolled to it. This
+ * makes each one fade+slide in as it individually enters the viewport,
+ * which reads as much more alive, especially on mobile where a single page
+ * covers many more viewport-heights of scrolling.
+ */
+function initScrollReveal(): () => void {
+  const targets = Array.from(
+    document.querySelectorAll<HTMLElement>('[fade="details"], [element-reveal="target"]')
+  );
+  if (!targets.length) return () => {};
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (prefersReducedMotion) {
+    targets.forEach((t) => t.classList.add("is-inview"));
+    return () => {};
+  }
+
+  // Stagger siblings that share an immediate parent (e.g. timeline rows,
+  // service-card slides) so they cascade in rather than popping together.
+  const delayFor = new Map<HTMLElement, number>();
+  const seenParents = new Map<Element | null, number>();
+  targets.forEach((t) => {
+    const parent = t.parentElement;
+    const count = seenParents.get(parent) ?? 0;
+    delayFor.set(t, Math.min(count, 5) * 90);
+    seenParents.set(parent, count + 1);
+  });
+
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target as HTMLElement;
+        const delay = delayFor.get(el) ?? 0;
+        if (delay) el.style.transitionDelay = `${delay}ms`;
+        el.classList.add("is-inview");
+        obs.unobserve(el);
+      });
+    },
+    { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+  );
+  targets.forEach((t) => observer.observe(t));
+
+  return () => observer.disconnect();
+}
+
 // ----------------------------------------------------------- Webflow load ----
 async function initWebflow() {
   await loadScript(JQUERY);
@@ -515,6 +571,7 @@ export function SiteRuntime() {
     cleanups.push(initScrollTheme());
     cleanups.push(initSmoothScrollAndParallax());
     cleanups.push(initLiteSearch());
+    cleanups.push(initScrollReveal());
 
     initWebflow().catch(() => document.documentElement.classList.add("w-mod-ix3"));
 

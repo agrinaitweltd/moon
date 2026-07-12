@@ -59,12 +59,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="preconnect" href="https://cdn.prod.website-files.com" crossOrigin="anonymous" />
         {/* The Webflow design system, self-hosted and served verbatim. */}
         <link rel="stylesheet" href="/css/webflow-shared.css" />
-        {/* Webflow's visibility gate: hide reveal-animated elements until the
-            interactions engine (w-mod-ix3) is ready. */}
+        {/* Webflow's visibility gate: hide above-the-fold reveal-animated
+            elements, and hover-interaction targets ([hover-wipe="text"] swaps
+            content on :hover, not on scroll), until the interactions engine
+            (w-mod-ix3) is ready. */}
         <style
           dangerouslySetInnerHTML={{
             __html:
-              'html.w-mod-js:not(.w-mod-ix3) :is([grow-scroll="reverse"], [grow-scroll="shrink"], [dropdown="target"], [fade="details"], [element-reveal="target"], [hover-wipe="text"], [progress-bar], .heading-style-hero, .navbar_component, .home-header_search-form, [shape-grow="target"], .shape_circle) {visibility: hidden !important;}',
+              'html.w-mod-js:not(.w-mod-ix3) :is([grow-scroll="reverse"], [grow-scroll="shrink"], [dropdown="target"], [hover-wipe="text"], [progress-bar], .heading-style-hero, .navbar_component, .home-header_search-form, [shape-grow="target"], .shape_circle) {visibility: hidden !important;}',
+          }}
+        />
+        {/* [fade="details"] and [element-reveal="target"] (further down the
+            page, not above the fold) are instead revealed per-element as each
+            scrolls into view — see SiteRuntime's initScrollReveal — rather
+            than all at once on page load. */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html:
+              'html.w-mod-js :is([fade="details"], [element-reveal="target"]):not(.is-inview) {opacity: 0 !important; visibility: hidden !important;}',
           }}
         />
         <style
