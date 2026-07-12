@@ -17,7 +17,7 @@ import Lenis from "lenis";
  *   - navbar chevron + tab fixes
  *   - cookie-modal body-state observer
  *   - scroll-direction data-attributes on <body>
- *   - Algolia search modal
+ *   - self-contained site search (hero bar + navbar icon overlay)
  *
  * The original scripts hung off DOMContentLoaded / load; here everything runs
  * from a mount effect (DOM already parsed), which is the correct React
@@ -282,120 +282,148 @@ function initSmoothScrollAndParallax(): () => void {
   };
 }
 
-// ------------------------------------------------------------- Algolia -------
-async function initAlgolia() {
-  await loadScript("https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js");
-  await loadScript("https://cdn.jsdelivr.net/npm/@algolia/autocomplete-js@1/dist/umd/index.production.js");
+// ----------------------------------------------------------- lite search -----
+/**
+ * Self-contained replacement for the original Algolia widget, which pointed
+ * at a third-party crawl of the previous firm's site (wrong content, and not
+ * ours to keep using). Filters a small local /search-index.json built at
+ * build time from every real route (see tools/build-search-index.mjs).
+ */
+interface SearchEntry {
+  url: string;
+  title: string;
+  description: string;
+}
 
-  const w = window as unknown as Record<string, any>;
-  const aa = w["@algolia/autocomplete-js"];
-  const algoliasearch = w["algoliasearch"];
-  if (!aa || !algoliasearch) return;
-  const { autocomplete, getAlgoliaResults } = aa;
-  const searchClient = algoliasearch("2EGQWWPTN8", "d5f1636cba6adb5307494da777dd6b86");
-  let searchInstance: any = null;
+let searchIndexPromise: Promise<SearchEntry[]> | null = null;
+function getSearchIndex(): Promise<SearchEntry[]> {
+  if (!searchIndexPromise) {
+    searchIndexPromise = fetch("/search-index.json")
+      .then((r) => r.json())
+      .catch(() => []);
+  }
+  return searchIndexPromise;
+}
 
-  function getOrCreateContainer() {
-    let container = document.getElementById("search-container");
-    if (!container) {
-      container = document.createElement("div");
-      container.id = "search-container";
-      container.style.display = "none";
-      document.body.appendChild(container);
+function scoreEntry(entry: SearchEntry, query: string): number {
+  const q = query.toLowerCase();
+  const title = entry.title.toLowerCase();
+  const desc = entry.description.toLowerCase();
+  if (title.startsWith(q)) return 3;
+  if (title.includes(q)) return 2;
+  if (desc.includes(q)) return 1;
+  return 0;
+}
+
+function renderResults(container: HTMLElement, entries: SearchEntry[], query: string) {
+  if (!query) {
+    container.hidden = true;
+    container.innerHTML = "";
+    return;
+  }
+  const matches = entries
+    .map((e) => ({ e, score: scoreEntry(e, query) }))
+    .filter((m) => m.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 8)
+    .map((m) => m.e);
+
+  container.innerHTML = matches.length
+    ? matches
+        .map(
+          (m) =>
+            `<a href="${m.url}" class="moon-search_result" data-no-page-wipe>` +
+            `<div class="moon-search_result-title">${escapeHtml(m.title)}</div>` +
+            (m.description ? `<div class="moon-search_result-desc">${escapeHtml(m.description)}</div>` : "") +
+            `</a>`
+        )
+        .join("")
+    : `<div class="moon-search_empty">No pages found for "${escapeHtml(query)}"</div>`;
+  container.hidden = false;
+}
+
+function escapeHtml(s: string): string {
+  const div = document.createElement("div");
+  div.textContent = s;
+  return div.innerHTML;
+}
+
+function wireSearchField(input: HTMLInputElement, results: HTMLElement) {
+  if (input.dataset.liteSearchWired) return;
+  input.dataset.liteSearchWired = "1";
+  input.addEventListener("input", async () => {
+    const entries = await getSearchIndex();
+    renderResults(results, entries, input.value.trim());
+  });
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      input.value = "";
+      results.hidden = true;
+      input.blur();
     }
-    return container;
+  });
+  document.addEventListener("click", (e) => {
+    if (!(e.target instanceof Node)) return;
+    if (input.contains(e.target) || results.contains(e.target)) return;
+    results.hidden = true;
+  });
+}
+
+function wireAllInlineSearchFields() {
+  document.querySelectorAll<HTMLInputElement>('[data-lite-search="input"]').forEach((input) => {
+    const results = input.parentElement?.querySelector<HTMLElement>('[data-lite-search="results"]');
+    if (results) wireSearchField(input, results);
+  });
+}
+
+function getOrCreateOverlay(): { input: HTMLInputElement; overlay: HTMLElement } {
+  let overlay = document.querySelector<HTMLElement>(".moon-search_overlay");
+  if (overlay) {
+    return { overlay, input: overlay.querySelector<HTMLInputElement>('[data-lite-search="input"]')! };
   }
+  overlay = document.createElement("div");
+  overlay.className = "moon-search_overlay";
+  overlay.hidden = true;
+  overlay.innerHTML =
+    '<div class="moon-search_overlay-panel">' +
+    '<input type="text" class="moon-search_input" placeholder="Search for a service..." autocomplete="off" data-lite-search="input">' +
+    '<button type="button" class="moon-search_button" aria-label="Search"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M10 18C11.775 17.9996 13.4988 17.4054 14.897 16.312L19.293 20.708L20.707 19.294L16.311 14.898C17.405 13.4997 17.9996 11.7754 18 10C18 5.589 14.411 2 10 2C5.589 2 2 5.589 2 10C2 14.411 5.589 18 10 18ZM10 4C13.309 4 16 6.691 16 10C16 13.309 13.309 16 10 16C6.691 16 4 13.309 4 10C4 6.691 6.691 4 10 4Z" fill="currentColor"></path></svg></button>' +
+    '<div class="moon-search_results" data-lite-search="results" hidden></div>' +
+    "</div>";
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) overlay!.hidden = true;
+  });
+  document.body.appendChild(overlay);
+  const input = overlay.querySelector<HTMLInputElement>('[data-lite-search="input"]')!;
+  const results = overlay.querySelector<HTMLElement>('[data-lite-search="results"]')!;
+  wireSearchField(input, results);
+  return { overlay, input };
+}
 
-  function initSearch() {
-    if (searchInstance) return searchInstance;
-    getOrCreateContainer();
-    searchInstance = autocomplete({
-      container: "#search-container",
-      placeholder: "Search for a service...",
-      detachedMediaQuery: "(max-width: 6800px)",
-      detached: true,
-      openOnFocus: true,
-      renderDetachedInto({ container }: any) {
-        return container;
-      },
-      getSources({ query }: any) {
-        return [
-          {
-            sourceId: "pages",
-            getItems() {
-              if (!query) return [];
-              return getAlgoliaResults({
-                searchClient,
-                queries: [
-                  {
-                    indexName: "algolia_crawler_lawblacks_com_production_pages",
-                    query,
-                    params: { hitsPerPage: 6 },
-                  },
-                ],
-              });
-            },
-            templates: {
-              empty({ html }: any) {
-                return html`<div style="padding: 20px; color: #64748b; font-size: 14px; text-align: center;">Start typing to search...</div>`;
-              },
-              item({ item, html }: any) {
-                const smartCut = (str: string, limit: number) => {
-                  const words = str.split(" ");
-                  return words.length > limit ? words.slice(0, limit).join(" ") + "..." : str;
-                };
-                const title = item.title || "View Page";
-                const snippet = smartCut(item.description || item.content || "", 10);
-                return html`
-                  <a href="/${item.url}" style="display: block; padding: 15px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: inherit;">
-                    <p style="font-weight: 600; color: #1e293b; font-size: 14px;">${title}</p>
-                    <p style="font-size: 13px; color: #64748b; margin-top: 4px; line-height: 1.5;">${snippet}</p>
-                  </a>`;
-              },
-            },
-          },
-        ];
-      },
-    });
-    return searchInstance;
-  }
+function initLiteSearch(): () => void {
+  wireAllInlineSearchFields();
 
-  if (document.getElementById("search-container")) initSearch();
-
-  document.body.addEventListener("click", (e) => {
+  const onClick = (e: MouseEvent) => {
     const trigger = (e.target as HTMLElement).closest(".search-icon");
     if (!trigger) return;
     e.preventDefault();
-    const search = initSearch();
-    if (!search) return;
-    search.setIsOpen(true);
-    setTimeout(() => {
-      const input = document.querySelector<HTMLInputElement>(".aa-DetachedFormContainer .aa-Input, .aa-Input");
-      if (input) {
-        input.focus();
-        input.click();
-      }
-    }, 50);
-  });
+    const { overlay, input } = getOrCreateOverlay();
+    overlay.hidden = false;
+    setTimeout(() => input.focus(), 30);
+  };
+  document.body.addEventListener("click", onClick);
 
-  document.body.addEventListener(
-    "mousedown",
-    (event) => {
-      const clearBtn = (event.target as HTMLElement).closest(".aa-ClearButton");
-      if (!clearBtn) return;
-      event.preventDefault();
-      event.stopPropagation();
-      if (searchInstance) {
-        searchInstance.setQuery("");
-        searchInstance.refresh();
-      }
-      setTimeout(() => {
-        const input = document.querySelector<HTMLInputElement>(".aa-DetachedFormContainer .aa-Input, .aa-Input");
-        if (input) input.focus();
-      }, 10);
-    },
-    true
-  );
+  const onKeydown = (e: KeyboardEvent) => {
+    if (e.key !== "Escape") return;
+    const overlay = document.querySelector<HTMLElement>(".moon-search_overlay");
+    if (overlay && !overlay.hidden) overlay.hidden = true;
+  };
+  document.addEventListener("keydown", onKeydown);
+
+  return () => {
+    document.body.removeEventListener("click", onClick);
+    document.removeEventListener("keydown", onKeydown);
+  };
 }
 
 // ----------------------------------------------------------- Webflow load ----
@@ -432,9 +460,9 @@ export function SiteRuntime() {
     cleanups.push(initNavbarFixes());
     cleanups.push(initCookieObserver());
     cleanups.push(initSmoothScrollAndParallax());
+    cleanups.push(initLiteSearch());
 
     initWebflow().catch(() => document.documentElement.classList.add("w-mod-ix3"));
-    initAlgolia().catch(() => {});
 
     // Finsweet Attributes (CMS lists, social share, copy-to-clipboard).
     loadScript("https://cdn.jsdelivr.net/npm/@finsweet/attributes@2/attributes.js", {

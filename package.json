@@ -7,6 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "snapshot:pages": "node tools/snapshot-pages.mjs",
+    "build:search-index": "node tools/build-search-index.mjs",
     "start": "next start",
     "lint": "next lint"
   },
