@@ -24,7 +24,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-wf-domain="www.lawblacks.com" suppressHydrationWarning>
+    <html lang="en" data-wf-domain="www.moonstone.co.ug" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://cdn.prod.website-files.com" crossOrigin="anonymous" />
         {/* The Webflow design system, self-hosted and served verbatim. */}
