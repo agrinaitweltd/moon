@@ -10,18 +10,43 @@
 
 .navbar5_logo,
 .navbar5_logo_dark-mode {
-  height: 80px;
-  width: auto;
+  height: 160px !important;
+  width: auto !important;
 }
 
 .navbar5_logo-link.w--current,
 .navbar5_logo-link.is-responsive.w--current {
-  height: 84px;
+  height: 168px !important;
 }
 
 .footer3_logo {
   height: 52px;
   width: auto;
+}
+
+/*
+ * Fix the "Site by" credit logo: the shared stylesheet's
+ * .site-accreditation_logo-image rule (opacity: .35, no sizing) was written
+ * for the previous agency's small SVG badge. Kavo's mark is a 500x500 PNG, so
+ * without an explicit size it rendered at full pixel dimensions and, at 35%
+ * opacity, read as a barely-visible smear.
+ */
+.site-accreditation_logo-image {
+  height: 24px !important;
+  width: auto !important;
+  opacity: 0.85 !important;
+}
+
+/*
+ * The shared stylesheet's --_primitives---colors--yellow variable already
+ * resolves to navy everywhere text/backgrounds reference it, but .circle
+ * (the decorative blob behind the "For individuals"/"For businesses" and
+ * every service-listing hero) paints a literal hardcoded gold gradient on
+ * top instead of using the variable, so it stayed genuinely yellow.
+ */
+.circle {
+  background-image: none !important;
+  background-color: var(--_primitives---colors--navy-blue) !important;
 }
 
 /*
@@ -325,5 +350,178 @@ html.w-mod-ix3 .heading-style-hero {
 
   .btn {
     width: 100%;
+  }
+}
+
+/* ==========================================================================
+   Scroll progress bar
+   The bar element + base width/position rule already ship in the shared
+   stylesheet (.progress-bar); SiteRuntime drives its width on scroll. Forced
+   navy here regardless of which colour-scheme variable scope it renders in.
+   ========================================================================== */
+.progress-bar {
+  background-color: var(--_primitives---colors--navy-blue) !important;
+  transition: width 0.1s linear;
+}
+
+/* ==========================================================================
+   Scroll-driven section background theme
+   .section_manifesto and .section_newsletter already define their own dark
+   colour-scheme variables (white text, near-black --primary-colour-scheme
+   --background) — SiteRuntime toggles this attribute as those sections cross
+   the viewport midline so the page backdrop itself (not just the section
+   box) eases between white and near-black, rather than cutting sharply.
+   ========================================================================== */
+.scroll-theme-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: transparent;
+  transition: background-color 0.9s ease;
+}
+
+html[data-scroll-theme="dark"] .scroll-theme-backdrop {
+  background-color: var(--_primitives---colors--neutral-darkest, #222220);
+}
+
+html[data-scroll-theme="dark"] body {
+  transition: background-color 0.9s ease;
+}
+
+/* ==========================================================================
+   Cookie consent banner
+   ========================================================================== */
+.cookie-consent {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2000;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.cookie-consent.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.cookie-consent_panel {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+  max-width: 56rem;
+  width: 100%;
+  padding: 1.25rem 1.5rem;
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+}
+
+.cookie-consent_text {
+  flex: 1 1 20rem;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #222220;
+}
+
+.cookie-consent_link {
+  color: #1e3a5f;
+  text-decoration: underline;
+}
+
+.cookie-consent_actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.cookie-consent_btn {
+  padding: 0.65rem 1.5rem;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid #1e3a5f;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.cookie-consent_btn.is-decline {
+  background: transparent;
+  color: #1e3a5f;
+}
+
+.cookie-consent_btn.is-decline:hover {
+  background: rgba(30, 58, 95, 0.08);
+}
+
+.cookie-consent_btn.is-accept {
+  background: #1e3a5f;
+  color: #fff;
+}
+
+.cookie-consent_btn.is-accept:hover {
+  background: #16304d;
+}
+
+@media (max-width: 640px) {
+  .cookie-consent_panel {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .cookie-consent_actions {
+    justify-content: center;
+  }
+}
+
+/* ==========================================================================
+   Additional scroll-reveal animations
+   Extends the existing [element-reveal] / hero fade pattern to more content
+   so more of the page animates in on scroll, not just the elements Webflow's
+   own IX2 engine was wired to.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  html.w-mod-js:not(.w-mod-ix3) .manifesto_content-left,
+  html.w-mod-js:not(.w-mod-ix3) .manifesto_content-top,
+  html.w-mod-js:not(.w-mod-ix3) .manifesto_content-bottom,
+  html.w-mod-js:not(.w-mod-ix3) .text-image_content-left,
+  html.w-mod-js:not(.w-mod-ix3) .text-image_image-wrapper,
+  html.w-mod-js:not(.w-mod-ix3) .newsletter_content-left,
+  html.w-mod-js:not(.w-mod-ix3) .cta17_content-right {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  html.w-mod-ix3 .manifesto_content-left,
+  html.w-mod-ix3 .manifesto_content-top,
+  html.w-mod-ix3 .manifesto_content-bottom,
+  html.w-mod-ix3 .text-image_content-left,
+  html.w-mod-ix3 .text-image_image-wrapper,
+  html.w-mod-ix3 .newsletter_content-left,
+  html.w-mod-ix3 .cta17_content-right {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Gentle hover lift on cards and service tiles. */
+  .service-card_item,
+  .team-member_item,
+  .signpost_link-block {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .service-card_item:hover {
+    transform: translateY(-4px);
   }
 }

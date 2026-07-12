@@ -222,22 +222,102 @@ function initNavbarFixes(): () => void {
   return () => cleanups.forEach((c) => c());
 }
 
-// --------------------------------------------------------- cookie observer ---
-function initCookieObserver(): () => void {
-  const update = () => {
-    const modal = document.querySelector(".cky-preference-wrapper");
-    const isVisible = modal && window.getComputedStyle(modal).display !== "none";
-    document.body.classList.toggle("cky-modal-open", Boolean(isVisible));
+// ---------------------------------------------------------- cookie consent ---
+const COOKIE_CONSENT_KEY = "moonstone-cookie-consent";
+
+function initCookieConsent(): () => void {
+  if (localStorage.getItem(COOKIE_CONSENT_KEY)) return () => {};
+
+  const banner = document.createElement("div");
+  banner.className = "cookie-consent";
+  banner.setAttribute("role", "dialog");
+  banner.setAttribute("aria-label", "Cookie consent");
+  banner.innerHTML =
+    '<div class="cookie-consent_panel">' +
+    '<p class="cookie-consent_text">We use cookies to improve your experience on our site and to show you relevant content. By clicking &ldquo;Accept&rdquo; you agree to our use of cookies. See our <a href="/cookie-policy" class="cookie-consent_link">Cookie Policy</a> for details.</p>' +
+    '<div class="cookie-consent_actions">' +
+    '<button type="button" class="cookie-consent_btn is-decline">Decline</button>' +
+    '<button type="button" class="cookie-consent_btn is-accept">Accept</button>' +
+    "</div></div>";
+  document.body.appendChild(banner);
+
+  requestAnimationFrame(() => banner.classList.add("is-visible"));
+
+  const dismiss = (value: "accepted" | "declined") => {
+    localStorage.setItem(COOKIE_CONSENT_KEY, value);
+    banner.classList.remove("is-visible");
+    setTimeout(() => banner.remove(), 400);
   };
-  const observer = new MutationObserver(update);
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-    attributes: true,
-    attributeFilter: ["style", "class"],
-  });
-  update();
-  return () => observer.disconnect();
+
+  const onAccept = () => dismiss("accepted");
+  const onDecline = () => dismiss("declined");
+  banner.querySelector(".is-accept")?.addEventListener("click", onAccept);
+  banner.querySelector(".is-decline")?.addEventListener("click", onDecline);
+
+  return () => {
+    banner.querySelector(".is-accept")?.removeEventListener("click", onAccept);
+    banner.querySelector(".is-decline")?.removeEventListener("click", onDecline);
+    banner.remove();
+  };
+}
+
+// ---------------------------------------------------------- scroll progress --
+function initScrollProgress(): () => void {
+  const bar = document.querySelector<HTMLElement>(".progress-bar");
+  if (!bar) return () => {};
+  const onScroll = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = scrollable > 0 ? Math.min(100, Math.max(0, (window.scrollY / scrollable) * 100)) : 0;
+    bar.style.width = `${pct}%`;
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll);
+  return () => {
+    window.removeEventListener("scroll", onScroll);
+    window.removeEventListener("resize", onScroll);
+  };
+}
+
+// ------------------------------------------------------------ scroll theme ---
+/**
+ * Sections marked [data-scroll-theme] (currently the manifesto + newsletter
+ * sections, which already ship their own dark colour-scheme variables) flip a
+ * shared full-viewport backdrop between light and dark as they cross the
+ * midline, so the page background itself transitions rather than just the
+ * section content.
+ */
+const SCROLL_THEME_SECTIONS = ".section_manifesto, .section_newsletter";
+
+function initScrollTheme(): () => void {
+  const targets = Array.from(document.querySelectorAll<HTMLElement>(SCROLL_THEME_SECTIONS));
+  if (!targets.length) return () => {};
+
+  let backdrop = document.querySelector<HTMLElement>(".scroll-theme-backdrop");
+  if (!backdrop) {
+    backdrop = document.createElement("div");
+    backdrop.className = "scroll-theme-backdrop";
+    backdrop.setAttribute("aria-hidden", "true");
+    document.body.prepend(backdrop);
+  }
+
+  const active = new Set<Element>();
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) active.add(entry.target);
+        else active.delete(entry.target);
+      });
+      document.documentElement.setAttribute("data-scroll-theme", active.size > 0 ? "dark" : "light");
+    },
+    { threshold: 0.4 }
+  );
+  targets.forEach((t) => observer.observe(t));
+
+  return () => {
+    observer.disconnect();
+    document.documentElement.removeAttribute("data-scroll-theme");
+  };
 }
 
 // ------------------------------------------------------ smooth scroll + gsap --
@@ -255,22 +335,19 @@ function initSmoothScrollAndParallax(): () => void {
   gsap.ticker.lagSmoothing(0);
 
   const ctx = gsap.context(() => {
+    // The exported markup carries data-parallax-layer="" (no numeric value)
+    // on every layer, so matching by ["1".."4"] never found anything and
+    // just logged GSAP warnings. Layer speed by DOM order instead — this is
+    // what actually produces the intended stacked-image parallax depth.
+    const LAYER_SPEEDS = [70, 55, 40, 10];
     document.querySelectorAll<HTMLElement>("[data-parallax-layers]").forEach((triggerElement) => {
+      const layerEls = Array.from(triggerElement.querySelectorAll<HTMLElement>("[data-parallax-layer]"));
+      if (!layerEls.length) return;
       const tl = gsap.timeline({
         scrollTrigger: { trigger: triggerElement, start: "0% 0%", end: "100% 0%", scrub: 0 },
       });
-      const layers = [
-        { layer: "1", yPercent: 70 },
-        { layer: "2", yPercent: 55 },
-        { layer: "3", yPercent: 40 },
-        { layer: "4", yPercent: 10 },
-      ];
-      layers.forEach((layerObj, idx) => {
-        tl.to(
-          triggerElement.querySelectorAll(`[data-parallax-layer="${layerObj.layer}"]`),
-          { yPercent: layerObj.yPercent, ease: "none" },
-          idx === 0 ? undefined : "<"
-        );
+      layerEls.forEach((el, idx) => {
+        tl.to(el, { yPercent: LAYER_SPEEDS[idx] ?? LAYER_SPEEDS[LAYER_SPEEDS.length - 1], ease: "none" }, idx === 0 ? undefined : "<");
       });
     });
   });
@@ -458,7 +535,9 @@ export function SiteRuntime() {
     cleanups.push(initScrollDirection());
     cleanups.push(initMagneticButtons());
     cleanups.push(initNavbarFixes());
-    cleanups.push(initCookieObserver());
+    cleanups.push(initCookieConsent());
+    cleanups.push(initScrollProgress());
+    cleanups.push(initScrollTheme());
     cleanups.push(initSmoothScrollAndParallax());
     cleanups.push(initLiteSearch());
 
