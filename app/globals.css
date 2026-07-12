@@ -8,8 +8,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * The exported logo <img> carries a stray Webflow component-variant class
+ * (w-variant-4743bb7d-...) that the shared stylesheet sets to display:none —
+ * a leftover from Webflow's variant system that assumed some other trigger
+ * would swap it visible. Nothing does, so the logo was rendering invisible;
+ * force it back on.
+ */
 .navbar5_logo,
 .navbar5_logo_dark-mode {
+  display: inline-block !important;
   height: 44px !important;
   width: auto !important;
 }
