@@ -7,3 +7,19 @@
  */
 @tailwind components;
 @tailwind utilities;
+
+.navbar5_logo,
+.navbar5_logo_dark-mode {
+  height: 44px;
+  width: auto;
+}
+
+.navbar5_logo-link.w--current,
+.navbar5_logo-link.is-responsive.w--current {
+  height: 44px;
+}
+
+.footer3_logo {
+  height: 52px;
+  width: auto;
+}

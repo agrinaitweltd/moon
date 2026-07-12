@@ -2050,8 +2050,8 @@ textarea.w-input, textarea.w-select {
   --_primitives---colors--neutral-darkest: #222220;
   --text-color--text-alternate\<deleted\|relume-variable-text-color-3\>: var(--base-color-neutral--white\<deleted\|relume-variable-color-neutral-2\>);
   --_ui-styles---radius--100: 1000px;
-  --primary-colour-scheme--accent: var(--_primitives---colors--yellow);
-  --_primitives---colors--bright-yellow: #ffec00;
+  --primary-colour-scheme--accent: var(--_primitives---colors--navy-blue);
+  --_primitives---colors--bright-yellow: #1e3a5f;
   --_primitives---opacity--transparent: transparent;
   --_primitives---colors--black: black;
   --_ui-styles---stroke--border-width: 2px;
@@ -2074,7 +2074,8 @@ textarea.w-input, textarea.w-select {
   --base-color-neutral--black\<deleted\|relume-variable-color-neutral-1\>: black;
   --_primitives---opacity--neutral-darkest-10: #2222201a;
   --_primitives---colors--neutral-lighter: #c7c7cf;
-  --_primitives---colors--yellow: #fd0;
+  --_primitives---colors--yellow: #1e3a5f;
+  --_primitives---colors--navy-blue: #1e3a5f;
   --_primitives---opacity--neutral-darkest-15: #22222026;
   --_primitives---opacity--neutral-darkest-50: #22222080;
   --primary-colour-scheme--navigation: var(--_primitives---colors--black);
