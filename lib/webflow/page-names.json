@@ -1,0 +1,73 @@
+{
+  "/": {
+    "name": "Home",
+    "sections": {
+      "hero": "Hero section",
+      "services": "Services overview",
+      "about": "About preview",
+      "team": "Team showcase",
+      "cta": "Call-to-action",
+      "general": "General content"
+    }
+  },
+  "/about-us": {
+    "name": "About Us",
+    "sections": {
+      "hero": "Hero",
+      "story": "Our story",
+      "values": "Values & approach",
+      "services": "Services",
+      "team": "Team",
+      "general": "General content"
+    }
+  },
+  "/our-people": {
+    "name": "Our People",
+    "sections": {
+      "team": "Team member photos",
+      "general": "General content"
+    }
+  },
+  "/our-sectors": {
+    "name": "Our Sectors",
+    "sections": {
+      "hero": "Hero",
+      "sectors": "Practice areas",
+      "general": "General content"
+    }
+  },
+  "/our-services": {
+    "name": "Our Services",
+    "sections": {
+      "hero": "Hero",
+      "services": "Service listings",
+      "general": "General content"
+    }
+  },
+  "/careers": {
+    "name": "Careers",
+    "sections": {
+      "hero": "Hero",
+      "opportunities": "Job listings",
+      "culture": "Culture & benefits",
+      "general": "General content"
+    }
+  },
+  "/contact-us": {
+    "name": "Contact",
+    "sections": {
+      "form": "Contact form",
+      "office": "Office info",
+      "general": "General content"
+    }
+  },
+  "/why-choose-us": {
+    "name": "Why Choose Us",
+    "sections": {
+      "hero": "Hero",
+      "benefits": "Benefits & features",
+      "testimonials": "Client testimonials",
+      "general": "General content"
+    }
+  }
+}

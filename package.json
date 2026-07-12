@@ -8,6 +8,7 @@
     "build": "next build",
     "snapshot:pages": "node tools/snapshot-pages.mjs",
     "build:search-index": "node tools/build-search-index.mjs",
+    "watch:assets": "node scripts/watch-assets.mjs",
     "start": "next start",
     "lint": "next lint"
   },
