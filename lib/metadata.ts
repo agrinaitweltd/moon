@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { PageHead } from "./webflow/types";
 
-export const SITE_URL = "https://www.lawblacks.com";
+export const SITE_URL = "https://www.moonstone.co.ug";
 
 /**
  * Maps a page's extracted Webflow <head> data onto the Next.js Metadata API,

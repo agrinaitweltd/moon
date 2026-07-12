@@ -7,7 +7,7 @@ import { SITE_URL } from "@/lib/metadata";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Blacks Solicitors | Personal & Business Law Firm in Leeds",
+    default: "Moonstone Advocates | Distinguished Legal Services in Kampala, Uganda",
     template: "%s",
   },
   icons: {
