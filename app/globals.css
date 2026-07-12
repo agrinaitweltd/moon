@@ -30,12 +30,17 @@
  * .site-accreditation_logo-image rule (opacity: .35, no sizing) was written
  * for the previous agency's small SVG badge. Kavo's mark is a 500x500 PNG, so
  * without an explicit size it rendered at full pixel dimensions and, at 35%
- * opacity, read as a barely-visible smear.
+ * opacity, read as a barely-visible smear. Sized to sit legibly next to the
+ * "Site by" label at 2x its original fixed height.
  */
+.site-accreditation_logo {
+  gap: 0.5rem !important;
+}
+
 .site-accreditation_logo-image {
-  height: 24px !important;
+  height: 48px !important;
   width: auto !important;
-  opacity: 0.85 !important;
+  opacity: 0.9 !important;
 }
 
 /*
@@ -376,6 +381,77 @@ html.w-mod-ix3 .heading-style-hero {
   position: relative;
   z-index: 1;
   background-color: var(--_primitives---colors--white, #fff);
+}
+
+/* ==========================================================================
+   Mobile menu — glass panel + staggered entrance
+   Webflow's mobile nav breakpoint is 991px (where .navbar5_menu becomes the
+   full-height overlay panel). Layer a frosted-glass sheen on top of its solid
+   background and animate items in one at a time as [data-nav-menu-open]
+   appears on it, instead of the whole panel just popping into place.
+   ========================================================================== */
+@media (max-width: 991px) {
+  .navbar5_menu {
+    background-color: rgba(20, 20, 22, 0.82) !important;
+    backdrop-filter: blur(20px) saturate(160%);
+    background-image: linear-gradient(
+      165deg,
+      rgba(255, 255, 255, 0.14) 0%,
+      rgba(255, 255, 255, 0.03) 30%,
+      rgba(255, 255, 255, 0) 55%
+    );
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 -10px 40px rgba(0, 0, 0, 0.35);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .navbar5_menu-dropdown,
+    .navbar5_menu-right > * {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+
+    .navbar5_menu[data-nav-menu-open] .navbar5_menu-dropdown,
+    .navbar5_menu[data-nav-menu-open] .navbar5_menu-right > * {
+      animation: mobile-nav-item-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .navbar5_menu[data-nav-menu-open] .navbar5_menu-dropdown:nth-child(1) {
+      animation-delay: 0.08s;
+    }
+    .navbar5_menu[data-nav-menu-open] .navbar5_menu-dropdown:nth-child(2) {
+      animation-delay: 0.16s;
+    }
+    .navbar5_menu[data-nav-menu-open] .navbar5_menu-right > *:nth-child(1) {
+      animation-delay: 0.24s;
+    }
+    .navbar5_menu[data-nav-menu-open] .navbar5_menu-right > *:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+  }
+
+  @keyframes mobile-nav-item-in {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Glossy sheen + lift on the hamburger button itself. */
+  .navbar5_menu-button {
+    border-radius: 999px;
+    transition: background-color 0.3s ease;
+  }
+
+  .navbar5_menu-button:active {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+
+  .menu-icon1_line-top,
+  .menu-icon1_line-middle,
+  .menu-icon1_line-bottom {
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  }
 }
 
 /* ==========================================================================
