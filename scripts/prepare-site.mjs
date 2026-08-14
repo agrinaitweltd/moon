@@ -258,6 +258,143 @@ const moonstoneEnquiryForm = `<form class="moonstone-contact-form" action="/cont
   <button class="btn btn-primary" type="submit">Send enquiry</button>
 </form>`;
 
+const firmAbout = [
+  'Moonstone Advocates is a modern full-service law firm providing reliable, strategic and practical legal solutions to individuals, businesses and institutions.',
+  "Our approach is built around personal attention, technical excellence and partner-led service delivery. Every client matter receives direct involvement, ensuring solutions are thoughtful, timely and aligned with the client's objectives."
+];
+
+const firmValues = ['Integrity', 'Excellence', 'Commitment', 'Innovation', 'Trust', 'Accountability', 'Client Focus', 'Professionalism'];
+const firmExpertise = [
+  'Commercial Transactions & Advisory',
+  'Company Secretarial & Trustee Services',
+  'Banking & Finance',
+  'Tax and Revenue',
+  'Employment',
+  'Civil Litigation & Dispute Resolution',
+  'Family Law Practice',
+  'Energy & Infrastructure',
+  'Business Support'
+];
+
+const teamMembers = [
+  {
+    name: 'OCHORA EDWARD LABEJA',
+    role: 'Managing Partner',
+    path: '/meet-team/william-miles/index.html',
+    image: '/wp-content/uploads/2019/11/Will-2-600x600.png',
+    profile: [
+      'Ochora Edward Labeja is the Managing Partner of Moonstone Advocates and an Advocate of the High Court of Uganda. He provides partner-led support to businesses, institutions and individuals on corporate, commercial, employment, property, dispute resolution and family matters.',
+      'Edward is valued for practical legal judgment, direct client attention and commercially aware advice that helps clients move from uncertainty to clear legal action.'
+    ],
+    practice: ['Commercial & Corporate Law', 'Energy, Water & Infrastructure Law', 'Real Estate & Property Law', 'Employment & Labour Law', 'Litigation & Alternative Dispute Resolution', 'Family & Succession Law'],
+    credentials: ['LL.B Hons, Uganda Christian University', 'Diploma in Legal Practice, Law Development Centre', 'Member, East African Law Society'],
+    quote: 'Clients deserve more than legal opinions; they deserve committed legal partners.'
+  },
+  {
+    name: 'NORAH AMANYA',
+    role: 'Partner',
+    path: '/meet-team/eamon-chawke/index.html',
+    image: '/wp-content/uploads/2019/11/Eamon4.png',
+    profile: [
+      'Norah Amanya is a Partner at Moonstone Advocates with experience in complex commercial transactions, governance, extractives, energy and infrastructure. She has over 11 years of legal experience, including service as General Counsel at CITI Global and as a Senior Associate at Cristal Advocates and ABMAK.',
+      'Her work spans oil and gas, energy, immigration, family, estate management, corporate governance, banking and land conveyance. Norah is also a published author.'
+    ],
+    practice: ['Commercial Law', 'Oil and Gas Law', 'Immigration Law', 'Family Law and Estate Management', 'Corporate Structuring and Governance', 'Infrastructure and Project Financing', 'Banking Law', 'Land Conveyance'],
+    credentials: ['PODITRA', 'LLM Oil and Gas Law, University of Aberdeen', 'Postgraduate Diploma in Legal Practice, Law Development Centre', 'LLB, Uganda Christian University', 'Member, Uganda Law Society', 'Member, East African Law Society', 'Member, AIEN', 'Member, IAWL'],
+    quote: 'Clear legal advice should protect the client today and position them well for tomorrow.'
+  },
+  {
+    name: 'SANDE HAPPY',
+    role: 'Senior Associate',
+    path: '/meet-team/daniel-crate/index.html',
+    image: '/wp-content/uploads/2019/11/Daniel5.png',
+    profile: [
+      'Sande Happy is a Senior Associate in Dispute Resolution and Corporate & Commercial practice. He is an Advocate of the High Court and subordinate courts of Uganda with over six years of experience.',
+      'Happy handles commercial disputes before the Commercial Court, arbitration and alternative dispute resolution, land, employment and domestic disputes, labour matters and debt collection. His corporate work includes company registration, trademarks, patents, due diligence and mergers and acquisitions.'
+    ],
+    practice: ['Litigation', 'Banking and Finance', 'Energy and Infrastructure', 'Debt Recovery', 'Intellectual Property', 'Employment and Labour'],
+    credentials: ['Diploma in Law, Law Development Centre', 'LLB, Uganda Christian University', 'Member, Uganda Law Society', 'Member, East African Law Society'],
+    quote: 'Disputes are best handled with preparation, clarity and a steady focus on results.'
+  },
+  {
+    name: 'AKELLO SHIRLEY MARYLIN',
+    role: 'Associate',
+    path: '/meet-team/charlotte-owens/index.html',
+    image: '/wp-content/uploads/2019/11/Charlotte2.png',
+    profile: [
+      'Akello Shirley Marylin is an Associate in the Litigation Department. She first joined the firm as an intern and was retained after completing her Postgraduate Diploma in Legal Practice.',
+      'Shirley supports corporate clients on contract review and drafting, loan documentation, perfection of securities, employment advisory, governance, compliance, quality assurance, banking, finance and employment matters. She has a strong interest in litigation, artificial intelligence and technology governance.'
+    ],
+    practice: ['Litigation', 'Debt Recovery', 'Intellectual Property', 'Employment and Labour'],
+    credentials: ['Diploma in Law, Law Development Centre', 'LLB, Cavendish University', 'Member, Uganda Law Society', 'Member, East African Law Society'],
+    quote: 'Resilient legal support means staying precise, responsive and client-focused.'
+  },
+  {
+    name: 'MWAKA JAMES TOLIT',
+    role: 'Associate',
+    path: '/meet-team/mark-eiffe/index.html',
+    image: '/wp-content/uploads/2019/11/Mark5-600x600.png',
+    profile: [
+      'Mwaka James Tolit is an Associate in Litigation and Commercial practice. He advises on corporate and commercial matters, governance, compliance, disputes and litigation.',
+      'James has advised clients in banking, insurance, communications, e-commerce, oil and gas, agribusiness, hospitality, energy and transport. His work includes mergers and acquisitions, employment, new ventures, market entry, contracts, immigration, licensing and alternative dispute resolution.'
+    ],
+    practice: ['Litigation', 'Banking and Finance', 'Debt Recovery', 'Intellectual Property', 'Real Estate', 'Employment and Labour'],
+    credentials: ['Diploma in Law, ILPD Kigali', 'LLB, Uganda Christian University', 'Member, East African Law Society'],
+    quote: 'Strong advisory work connects commercial reality with dependable legal structure.'
+  },
+  {
+    name: 'ECHIBA EDWIN MICHEAL',
+    role: 'Consultant',
+    path: '/meet-team/mohammad-khan/index.html',
+    image: '/wp-content/uploads/2019/11/Mohammad-Khan-scaled-e1574675804904-600x600.jpg',
+    profile: [
+      'Echiba Edwin Micheal is a Consultant and external tax consultant to Moonstone Advocates. He provides strategic tax advisory, tax dispute support and regulatory compliance guidance.',
+      'Edwin is an Advocate of the High Court of Uganda, a tax consultant and governance professional with nine years of experience. He is a licensed tax agent with experience in tax advisory, compliance, disputes, transfer pricing and international tax, including prior work with KPMG Uganda and leading Ugandan tax lawyers and accountants.'
+    ],
+    practice: ['Taxation', 'Litigation', 'Banking and Finance', 'Debt Recovery', 'Employment and Labour'],
+    credentials: ['ADIT, ongoing', 'Chartered Institute of Taxation UK', 'ICSA, ongoing', 'PODITRA', 'LLM Oil and Gas Law', 'Postgraduate Diploma in Legal Practice, Law Development Centre', 'LLB, Uganda Christian University', 'Member, Uganda Law Society', 'Member, East African Law Society', 'Member, UTAA', 'Member, UCLF'],
+    quote: 'Tax and regulatory advice should be technically sound, practical and timely.'
+  }
+];
+
+const keyContacts = teamMembers.slice(0, 2);
+const listMarkup = (items) => `<ul>${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
+const paragraphs = (items) => items.map((item) => `<p>${item}</p>`).join('\n');
+const teamCard = (member) => `<div class="w-3/4 text-center flex flex-col mb-8 px-4 | sm:w-1/2 | md:w-1/4">
+                <a href="${member.path}">
+                    <img width="192" height="192" loading="lazy"
+                        class="mx-auto h-48 flex-1 mb-6 rounded-full object-cover" src="${member.image}" />
+                    <p class="font-heading mb-0 font-bold text-lg | lg:text-2xl">${member.name}</p>
+                    <p class="font-heading mt-0 font-bold text-purple text-sm | lg:text-md">${member.role}</p>
+                </a>
+            </div>`;
+const teamGrid = (members) => members.map(teamCard).join('\n                                    ');
+const profileBody = (member) => `${paragraphs(member.profile)}
+<p><strong>Practice Areas</strong></p>
+${listMarkup(member.practice)}
+<p><strong>Education, Qualifications and Memberships</strong></p>
+${listMarkup(member.credentials)}`;
+const fullTeamSection = `<section id="team" class="py-16 relative overflow-hidden bg-base-light">
+
+    <div class="w-48 h-48 rounded-full bg-base-shade absolute top-2 left-2 z-[-1]"></div>
+    <div class="w-96 h-96 rounded-full bg-base-shade absolute top-1/2 left-1/2 z-[-1]"></div>
+
+
+    <div class="relative z-[1] px-4 | md:container | lg:py-24 p-limit  overflow-hidden">
+                <div class="mb-12 mx-auto w-10/12 text-center content">
+            <h2 style="text-align: center;">Meet The <strong>Team</strong></h2>
+<p style="text-align: center;">Moonstone Advocates brings together advocates and consultants with experience across commercial advisory, disputes, tax, employment, property, energy, infrastructure and family law.</p>
+        </div>
+        
+        <div class="flex flex-wrap align-top justify-center mx-auto">
+                                    ${teamGrid(teamMembers)}
+                    </div>
+        <div class="container flex flex-wrap justify-center">
+            <a class="btn btn-primary_alt lg:mr-4 m-4" href="/contact/index.html">Contact the team</a>
+        </div>
+    </div>
+</section>`;
+
 const replacements = [
   [/Briffa Legal Limited/g, 'Moonstone Advocates'],
   [/Briffa Legal Ltd/g, 'Moonstone Advocates'],
@@ -461,7 +598,69 @@ for (const file of htmlFiles) {
   html = html.replace(/In an attempt to better handle the emergence of artificial intelligence and the impact this is having on dispute resolution and content creators, in December 2024, the government published proposals to…/g, 'Support for commercial disputes, civil claims, debt recovery, property disputes, arbitration and enforcement of judgments and court orders.');
   html = html.replace(/>Corporate Law<\/span>/g, '>Corporate & Commercial Advisory</span>');
   html = html.replace(/>Dispute Resolution<\/span>/g, '>Dispute Resolution</span>');
+  html = html.replace(
+    /<p><strong>We love what we do, but why choose us\?<\/strong><\/p>\s*<p>Well, we(?:&#8217;|’|')re consistently listed[\s\S]*?<p>We also have nice coffee\.<\/p>/g,
+    '<p><strong>Illuminating the Path to Justice</strong></p>\n<p>Moonstone Advocates is founded on a simple principle: clients deserve more than legal opinions — they deserve committed legal partners.</p>\n<p>We combine legal expertise with commercial awareness, ensuring our advice is practical, responsive and designed to achieve results.</p>'
+  );
+  html = html.replace(
+    /<h2>Creative Lawyers for Creative Businesses<\/h2>\s*<p><strong>Moonstone Advocates is a Kampala-based full service law firm\.[\s\S]*?<p>And since the beginning, that(?:&#8217;|’|')s exactly what we(?:&#8217;|’|')ve done\.[\s\S]*?<\/p>/g,
+    `<h2>Illuminating the Path to Justice</h2>\n<p><strong>${firmAbout[0]}</strong></p>\n<p>${firmAbout[1]}</p>\n<p><strong>Vision:</strong> To become a distinguished legal lighthouse in Africa — recognised for integrity, excellence and the ability to transform complex legal challenges into clear opportunities.</p>\n<p><strong>Mission:</strong> To provide exceptional legal and advisory services through committed advocates, innovative thinking and hands-on partnership, delivering solutions that protect our clients, advance their interests and create lasting value.</p>`
+  );
+  html = html.replace(/<h2 style="text-align: center;">Learn More About law<\/h2>/g, '<h2 style="text-align: center;">Learn More About Moonstone Advocates</h2>');
+  html = html.replace(
+    /<h2 style="text-align: center;">Key Contacts<\/h2>\s*<p style="text-align: center;">Our lovely team[\s\S]*?<\/p>\s*<\/div>\s*<div class="flex flex-wrap align-top justify-center mx-auto">[\s\S]*?<\/div>\s*<div class="container flex flex-wrap justify-center">/g,
+    `<h2 style="text-align: center;">Key Contacts</h2>\n<p style="text-align: center;">Our senior partners provide direct, hands-on guidance for clients seeking practical legal and advisory support.</p>\n        </div>\n        \n        <div class="flex flex-wrap align-top justify-center mx-auto">\n                                    ${teamGrid(keyContacts)}\n                    </div>\n        <div class="container flex flex-wrap justify-center">`
+  );
+  html = html.replace(
+    /<h2 style="text-align: center;">Meet The <strong>Team<\/strong><\/h2>\s*<p style="text-align: center;">We have specialised[\s\S]*?<\/p>\s*<\/div>\s*<div class="flex flex-wrap align-top justify-center mx-auto">[\s\S]*?<\/div>\s*<div class="container flex flex-wrap justify-center">/g,
+    `<h2 style="text-align: center;">Meet The <strong>Team</strong></h2>\n<p style="text-align: center;">Moonstone Advocates brings together advocates and consultants with experience across commercial advisory, disputes, tax, employment, property, energy, infrastructure and family law.</p>\n        </div>\n        \n        <div class="flex flex-wrap align-top justify-center mx-auto">\n                                    ${teamGrid(teamMembers)}\n                    </div>\n        <div class="container flex flex-wrap justify-center">`
+  );
+  html = html.replace(
+    /<h1>About Us<\/h1>\s*<p><strong>We(?:â€™|’|&#8217;)re a creative[\s\S]*?<\/p>\s*<p>Our skilled team[\s\S]*?<\/p>/g,
+    `<h1>About Us</h1>\n<p><strong>${firmAbout[0]}</strong></p>\n<p>${firmAbout[1]}</p>`
+  );
+  html = html.replace(
+    /<h2>Who Are We\?<\/h2>\s*<p><strong>Established in 1995[\s\S]*?<\/p>\s*<p>Whether you(?:&#8217;|’|')re involved[\s\S]*?<\/p>\s*<p>Plus, with offices[\s\S]*?<\/p>\s*<p>Why not arrange[\s\S]*?<\/p>/g,
+    `<h2>Who Are We?</h2>\n<p><strong>${firmAbout[0]}</strong></p>\n<p>${firmAbout[1]}</p>\n<p><strong>Vision:</strong> To become a distinguished legal lighthouse in Africa — recognised for integrity, excellence and the ability to transform complex legal challenges into clear opportunities.</p>\n<p><strong>Mission:</strong> To provide exceptional legal and advisory services through committed advocates, innovative thinking and hands-on partnership, delivering solutions that protect our clients, advance their interests and create lasting value.</p>`
+  );
+  html = html.replace(
+    /(<h2 style="text-align: center;">Meet The <strong>Team<\/strong><\/h2>\s*)<p style="text-align: center;">We have specialised[\s\S]*?<\/p>(\s*<\/div>\s*<div class="flex flex-wrap align-top justify-center mx-auto">)[\s\S]*?(\s*<\/div>\s*<div class="container flex flex-wrap justify-center">)/g,
+    `$1<p style="text-align: center;">Moonstone Advocates brings together advocates and consultants with experience across commercial advisory, disputes, tax, employment, property, energy, infrastructure and family law.</p>$2\n                                    ${teamGrid(teamMembers)}$3`
+  );
+  html = html.replace(/<section id="team" class="py-16 relative overflow-hidden bg-base-light">[\s\S]*?<\/section>/g, fullTeamSection);
+  html = html.replace(
+    /<h2 style="text-align: center;">Expertise<\/h2>\s*<\/div>/g,
+    `<h2 style="text-align: center;">Expertise</h2>\n<p style="text-align: center;">${firmExpertise.join(' • ')}</p>\n        </div>`
+  );
+  html = html.replace(
+    /<h2 style="text-align: center;">Values<\/h2>\s*<\/div>/g,
+    `<h2 style="text-align: center;">Values</h2>\n<p style="text-align: center;">${firmValues.join(' • ')}</p>\n        </div>`
+  );
+  for (const member of teamMembers) {
+    const memberPath = member.path.replace(/^\//, '');
+    if (file.replace(/\\/g, '/').endsWith(memberPath)) {
+      html = html.replace(/<p class="px-4 py-2 m-0 absolute bottom-0 left-0 inline-block font-bold bg-base-light font-heading">\s*[\s\S]*?\s*<\/p>/, `<p class="px-4 py-2 m-0 absolute bottom-0 left-0 inline-block font-bold bg-base-light font-heading">\n                    ${member.role}                </p>`);
+      html = html.replace(/<h1 class="mt-12 mb-4">[\s\S]*?<\/h1>\s*<p>[\s\S]*?<\/p>\s*<p>[\s\S]*?<\/p>\s*<p>[\s\S]*?<\/p>(?:\s*<p>[\s\S]*?<\/p>)*/m, `<h1 class="mt-12 mb-4">${member.name}</h1>\n                ${profileBody(member)}`);
+      html = html.replace(/<h1 class="mt-12 mb-4">[\s\S]*?<\/h1>[\s\S]*?<\/div>\s*<\/div>\s*<\/div>\s*<aside class="h-full transform/g, `<h1 class="mt-12 mb-4">${member.name}</h1>\n                ${profileBody(member)}\n\n            </div>\n        </div>\n    </div>\n\n    <aside class="h-full transform`);
+      html = html.replace(/<p style="text-align: center;"><strong>Contact us now<\/strong><\/p>/g, `<p style="text-align: center;"><strong>Contact ${member.name}</strong></p>`);
+      html = html.replace(/<p><strong>[\s\S]*?<\/strong><\/p>\s*<p>law lawyers[\s\S]*?<p>[\s\S]*?<\/p>\s*<p>– [\s\S]*?<\/p>/g, `<p><strong>${member.quote}</strong></p>\n<p>Moonstone Advocates provides practical, partner-led legal support from Kampala, Uganda.</p>\n<p>For assistance, contact info@moonstoneadvocates.com or +256 (0) 778 616565.</p>\n<p>– ${member.name}</p>`);
+    }
+  }
   html = html.replace(/Office required/g, 'Office');
+  html = html.replace(/commercial and private legal law/g, 'commercial and private legal services');
+  html = html.replace(/commercial and private legal lawyer/g, 'Moonstone Advocates lawyer');
+  html = html.replace(/commercial and private legal solicitors/g, 'legal professionals');
+  html = html.replace(/commercial and private legal content/g, 'legal resources');
+  html = html.replace(/commercial and private legal assets/g, 'legal interests');
+  html = html.replace(/law law/g, 'law');
+  html = html.replace(/Business Design Centre, Upper Street, Kampala/g, 'Plot 134 Semwata Road, Ntinda, Kampala');
+  html = html.replace(/Business Design Centre/g, 'Plot 134 Semwata Road, Ntinda');
+  html = html.replace(/The Academy/g, 'Plot 134 Semwata Road, Ntinda');
+  html = html.replace(/William Miles/g, 'Edward Labeja');
+  html = html.replace(/Éamon Chawke/g, 'Norah Amanya');
+  html = html.replace(/Eamon Chawke/g, 'Norah Amanya');
+  html = html.replace(/Daniel Crate/g, 'Sande Happy');
+  html = html.replace(/Cassine Bering/g, 'Akello Shirley Marylin');
   html = html.replace(/Book a consultation\./g, 'Book a consultation in Kampala.');
   html = html.replace(/P\.O\. Box 189860,\s*Kampala,\s*Uganda,\s*Uganda/g, 'P.O. Box 189860, Kampala, Uganda');
   html = html.replace(/href="mailto:info@"/g, 'href="mailto:info@moonstoneadvocates.com"');
@@ -473,8 +672,21 @@ for (const file of htmlFiles) {
   html = html.replace(/<p>&nbsp;<\/p>/g, '');
   html = html.replace(/<p>\s*<\/p>/g, '');
   html = html.replace(/<a href="([^"]+)"><span style="font-weight: 400;"><\/span><\/a>/g, '<a href="$1"><span style="font-weight: 400;">Moonstone Advocates privacy policy</span></a>');
-  html = html.replace(/Business Design Centre<br \/>\s*52 Upper Street<br \/>\s*Islington<br \/>\s*Kampala\s*/g, 'P.O. Box 189860<br />Kampala<br />Uganda');
-  html = html.replace(/The Academy<br \/>\s*42 Pearse Street<br \/>\s*Dublin, D02 HV59<br \/>\s*Uganda/g, 'Kampala<br />Uganda');
+  html = html.replace(/Business Design Centre<br \/>\s*52 Upper Street, Islington<br \/>\s*Kampala<br \/>\s*Uganda<br \/>\s*<\/p>/g, 'Plot 134 Semwata Road, Ntinda<br />P.O. Box 189860<br />Kampala, Uganda</p>');
+  html = html.replace(/Business Design Centre<br \/>\s*52 Upper Street<br \/>\s*Islington<br \/>\s*Kampala\s*/g, 'Plot 134 Semwata Road, Ntinda<br />P.O. Box 189860<br />Kampala<br />Uganda');
+  html = html.replace(/The Academy<br \/>\s*42 Pearse Street<br \/>\s*Dublin<br \/>\s*D02 HV59<br \/>\s*Uganda<\/p>/g, 'Plot 134 Semwata Road, Ntinda<br />P.O. Box 189860<br />Kampala, Uganda</p>');
+  html = html.replace(/The Academy<br \/>\s*42 Pearse Street<br \/>\s*Dublin, D02 HV59<br \/>\s*Uganda/g, 'Plot 134 Semwata Road, Ntinda<br />P.O. Box 189860<br />Kampala, Uganda');
+  html = html.replace(/<p><strong>Irish Office<\/strong><\/p>/g, '<p><strong>Senior Partner Contacts</strong></p>');
+  html = html.replace(/<p><a href="\/contact\/index\.html">Contact Moonstone Advocates<\/a><br \/>\s*<a href="mailto:info@moonstoneadvocates\.com\?subject=Enquiry Uganda">info@moonstoneadvocates\.com<\/a><\/p>/g, '<p><a href="/contact/index.html">Contact Moonstone Advocates</a><br /><a href="mailto:info@moonstoneadvocates.com">info@moonstoneadvocates.com</a><br /><a href="tel:+256778616565">+256 (0) 778 616565</a><br />www.moonstoneadvocates.com</p>');
+  html = html.replace(/<p><a href="https:\/\/www\.lawsociety\.ie\/whyuseasolicitor">[\s\S]*?<\/a><\/p>/g, '<p>Edward Labeja, Managing Partner<br /><a href="tel:+256778616565">+256 778 616 565</a><br /><a href="mailto:leo@moonstoneadvocates.com">leo@moonstoneadvocates.com</a></p><p>Norah Amanya, Partner<br /><a href="tel:+256772986509">+256 772 986 509</a><br /><a href="mailto:naa@moonstoneadvocates.com">naa@moonstoneadvocates.com</a></p>');
+  html = html.replace(
+    /<div class="mt-4 md:ml-4 md:mt-0">\s*Moonstone Advocates is a trading name of Moonstone Advocates \(BLL\)[\s\S]*?<\/div>/g,
+    '<div class="mt-4 md:ml-4 md:mt-0">Moonstone Advocates is a modern full-service law firm based in Kampala, Uganda. We provide reliable, strategic and practical legal solutions to individuals, businesses and institutions. For enquiries, contact info@moonstoneadvocates.com or +256 (0) 778 616565.</div>'
+  );
+  html = html.replace(
+    /<p>Moonstone Advocates is a trading name of Moonstone Advocates \(BLL\)[\s\S]*?<\/p>/g,
+    '<p>Moonstone Advocates is a modern full-service law firm based in Kampala, Uganda. For enquiries, contact info@moonstoneadvocates.com or +256 (0) 778 616565.</p>'
+  );
   html = html.replace(/<p><a href="ireland-office\/index\.html"><em>More information about our Irish office<\/em><\/a><\/p>/g, '<p><a href="/contact/index.html"><em>Contact the Moonstone Advocates team</em></a></p>');
   html = html.replace(/<noscript class="ninja-forms-noscript-message">[\s\S]*?<\/noscript>\s*<div id="nf-form-[^"]+" class="nf-form-cont"[\s\S]*?<\/div>\s*<\/div>/g, moonstoneEnquiryForm);
   html = html.replace(/<noscript class="ninja-forms-noscript-message">[\s\S]*?<\/noscript>\s*<div id="nf-form-[^"]+" class="nf-form-cont"[\s\S]*?<\/div>/g, moonstoneEnquiryForm);
