@@ -270,6 +270,45 @@ const moonstoneEnquiryForm = `<form class="moonstone-contact-form" action="/cont
   <button class="btn btn-primary" type="submit">Send enquiry</button>
 </form>`;
 
+const moonstoneContactBlock = `<h2>Contact Moonstone Advocates</h2>
+<p>Moonstone Advocates welcomes enquiries from individuals, businesses and institutions seeking clear, practical legal support in Uganda.</p>
+<p><strong>Address:</strong><br />Plot 134 Semwata Road, Ntinda<br />P.O. Box 189860<br />Kampala, Uganda</p>
+<p><strong>Telephone:</strong> <a href="tel:+256778616565">+256 (0) 778 616565</a><br /><strong>Email:</strong> <a href="mailto:info@moonstoneadvocates.com">info@moonstoneadvocates.com</a><br /><strong>Website:</strong> www.moonstoneadvocates.com</p>
+<p><strong>Senior partner contacts:</strong><br />Edward Labeja, Managing Partner: <a href="tel:+256778616565">+256 778 616 565</a>, <a href="mailto:leo@moonstoneadvocates.com">leo@moonstoneadvocates.com</a><br />Norah Amanya, Partner: <a href="tel:+256772986509">+256 772 986 509</a>, <a href="mailto:naa@moonstoneadvocates.com">naa@moonstoneadvocates.com</a></p>`;
+
+const contactPageMain = `<section class="banner relative bg-navy z-[1]">
+    <div class="relative pt-32 pb-24 overflow-hidden">
+        <div class="relative container z-[1]">
+            <div class="px-6 mb-12 md:w-8/12 text-base-light">
+                <div class="max-w-3xl ">
+                    <h1>Contact Moonstone Advocates</h1>
+                    <p><strong>Speak directly with our team about your legal matter.</strong></p>
+                    <p>We provide practical, partner-led legal and advisory support from Kampala, Uganda.</p>
+                </div>
+            </div>
+            <a class="btn btn-primary lg:mr-4 " href="#consultation" target="_self">CONTACT US</a>
+        </div>
+        <aside class="absolute z-0 w-5/6 h-full lg:w-1/2 -right-24 -top-12 lg:-right-36 lg:-top-20 xl:-right-48 xl:-top-24"></aside>
+    </div>
+    <div class="bg"></div>
+</section>
+<section class="py-16 bg-base-light" id="consultation">
+  <div class="relative z-[1] px-4 | md:container">
+    <div class="mx-auto max-w-3xl content" data-aos="fade-up">
+      ${moonstoneContactBlock}
+      ${moonstoneEnquiryForm}
+    </div>
+  </div>
+</section>
+<section class="py-16 bg-yellow">
+  <div class="relative z-[1] px-4 | md:container">
+    <div class="mx-auto max-w-3xl content" data-aos="fade-up">
+      <h2>Visit Us</h2>
+      <p>Our office is located at Plot 134 Semwata Road, Ntinda, Kampala. Meetings are available by appointment so our team can prepare properly for your enquiry.</p>
+    </div>
+  </div>
+</section>`;
+
 const firmAbout = [
   'Moonstone Advocates is a modern full-service law firm providing reliable, strategic and practical legal solutions to individuals, businesses and institutions.',
   "Our approach is built around personal attention, technical excellence and partner-led service delivery. Every client matter receives direct involvement, ensuring solutions are thoughtful, timely and aligned with the client's objectives."
@@ -534,6 +573,12 @@ for (const file of htmlFiles) {
 .moonstone-contact-form label{display:grid;gap:.35rem;font-weight:700}
 .moonstone-contact-form input,.moonstone-contact-form textarea{width:100%;border:1px solid rgba(24,26,52,.2);border-radius:.25rem;padding:.85rem 1rem;color:#181a34;background:#fff}
 .moonstone-contact-form textarea{resize:vertical}
+.custom-css{overflow-x:hidden}
+.custom-css img{max-width:100%;height:auto}
+.custom-css header img[src="/images/logo.png"]{max-width:246px;width:min(246px,58vw);height:auto}
+.custom-css footer img[src="/images/logo.png"]{max-width:180px;width:min(180px,48vw);height:auto}
+.custom-css section>.relative,.custom-css section>.container,.custom-css .content,.custom-css footer .container{box-sizing:border-box}
+@media (max-width:767px){.custom-css section>.relative,.custom-css section>.container,.custom-css .content,.custom-css footer .container{padding-left:1rem!important;padding-right:1rem!important}.custom-css .banner{margin-left:0!important;margin-right:0!important;padding-left:0!important;padding-right:0!important}.custom-css .banner .px-6,.custom-css .banner .px-8,.custom-css .banner .px-4{padding-left:1rem!important;padding-right:1rem!important}.custom-css h1{font-size:2.25rem!important;line-height:1.05!important;overflow-wrap:anywhere}.custom-css h2{font-size:1.85rem!important;line-height:1.12!important;overflow-wrap:anywhere}.custom-css p,.custom-css li,.custom-css a{overflow-wrap:anywhere}.custom-css .btn{white-space:normal;text-align:center}.custom-css nav:not(.hidden){left:0!important;right:0!important;width:100vw!important;max-width:100vw!important;padding-left:1rem!important;padding-right:1rem!important;overflow-y:auto}.custom-css #team .flex.flex-wrap{margin-left:0!important;margin-right:0!important}.custom-css #team .flex.flex-col{width:100%!important;max-width:320px}.moonstone-contact-form{max-width:100%}}
 .moonstone-services-menu{width:min(92vw,760px)!important;gap:1rem}
 .moonstone-services-menu .moonstone-service-menu-item{flex:1 1 320px}
 .moonstone-service-menu-item details{border-bottom:1px solid rgba(255,255,255,.18);padding:.15rem 0 .5rem}
@@ -568,7 +613,7 @@ for (const file of htmlFiles) {
     /<img src="\/wp-content\/themes\/briffa\/assets\/images\/briffa-logo\.svg" alt="Moonstone Advocates" \/>/g,
     '<img src="/images/logo.png" alt="Moonstone Advocates" />'
   );
-  html = html.replace(/<img src="\/wp-content\/themes\/briffa\/assets\/images\/b-logo\.svg">/g, '<img src="/images/footer-logo.png" alt="Moonstone Advocates">');
+  html = html.replace(/<img src="\/wp-content\/themes\/briffa\/assets\/images\/b-logo\.svg">/g, '<img src="/images/logo.png" alt="Moonstone Advocates">');
   html = html.replace(
     /<img loading="lazy" width="1400" height="950" src="\/wp-content\/uploads\/2023\/07\/Briffa-Vector-1-1\.svg"/g,
     '<img loading="eager" width="1400" height="950" src="/wp-content/uploads/2023/07/moonstone-advocates-hero.svg"'
@@ -646,6 +691,10 @@ for (const file of htmlFiles) {
     `$1<p style="text-align: center;">Moonstone Advocates brings together advocates and consultants with experience across commercial advisory, disputes, tax, employment, property, energy, infrastructure and family law.</p>$2\n                                    ${teamGrid(teamMembers)}$3`
   );
   html = html.replace(/<section id="team" class="py-16 relative overflow-hidden bg-base-light">[\s\S]*?<\/section>/g, fullTeamSection);
+  const normalizedFile = file.replace(/\\/g, '/');
+  if (/\/contact\/(?:index\.html|london-office\/index\.html|ireland-office\/index\.html)$/.test(normalizedFile)) {
+    html = html.replace(/<\/header>[\s\S]*?<footer class="relative z-0 text-base-light bg-navy overflow-hidden">/, `</header>${contactPageMain}<footer class="relative z-0 text-base-light bg-navy overflow-hidden">`);
+  }
   html = html.replace(
     /<h2 style="text-align: center;">Expertise<\/h2>\s*<\/div>/g,
     `<h2 style="text-align: center;">Expertise</h2>\n<p style="text-align: center;">${firmExpertise.join(' • ')}</p>\n        </div>`
@@ -667,6 +716,7 @@ for (const file of htmlFiles) {
   html = html.replace(/Office required/g, 'Office');
   html = html.replace(/commercial and private legal law/g, 'commercial and private legal services');
   html = html.replace(/commercial and private legal lawyer/g, 'Moonstone Advocates lawyer');
+  html = html.replace(/commercial and private legal servicesyer/g, 'Moonstone Advocates lawyer');
   html = html.replace(/commercial and private legal solicitors/g, 'legal professionals');
   html = html.replace(/commercial and private legal content/g, 'legal resources');
   html = html.replace(/commercial and private legal assets/g, 'legal interests');
@@ -674,6 +724,20 @@ for (const file of htmlFiles) {
   html = html.replace(/Business Design Centre, Upper Street, Kampala/g, 'Plot 134 Semwata Road, Ntinda, Kampala');
   html = html.replace(/Business Design Centre/g, 'Plot 134 Semwata Road, Ntinda');
   html = html.replace(/The Academy/g, 'Plot 134 Semwata Road, Ntinda');
+  html = html.replace(/52 Upper Street, Islington<br \/>\s*Kampala<br \/>\s*Uganda<br \/>/g, 'P.O. Box 189860<br />Kampala<br />Uganda<br />');
+  html = html.replace(/52 Upper Street<br \/>\s*Islington<br \/>/g, 'P.O. Box 189860<br />Kampala<br />');
+  html = html.replace(/Dublin, D02 HV59<br \/>\s*Uganda/g, 'Kampala, Uganda');
+  html = html.replace(/Dublin<br \/>\s*D02 HV59<br \/>\s*Uganda/g, 'Kampala<br />Uganda');
+  html = html.replace(/<p>52 Upper Street<\/p>\s*<p>Islington, Kampala<\/p>/g, '<p>Plot 134 Semwata Road, Ntinda</p><p>Kampala, Uganda</p>');
+  html = html.replace(/Our office is based in Islington, Kampala\.[\s\S]*?<\/p>/g, '<p>Our office is based at Plot 134 Semwata Road, Ntinda, Kampala. Meetings are available by appointment so our team can prepare for your enquiry.</p>');
+  html = html.replace(/The closest Underground station[\s\S]*?<\/p>/g, '<p>For directions or to arrange a meeting, contact info@moonstoneadvocates.com or call +256 (0) 778 616565.</p>');
+  html = html.replace(/There are several bus stops[\s\S]*?<\/p>/g, '<p>Clients are encouraged to book appointments in advance for efficient service.</p>');
+  html = html.replace(/A paid car park is attached[\s\S]*?<\/p>/g, '<p>Our team can confirm meeting arrangements when your appointment is scheduled.</p>');
+  html = html.replace(/Our lawyers provide full support[\s\S]*?commercial and private legal rights worldwide\.<\/p>/g, '<p>Our lawyers provide practical legal support for businesses, institutions and individuals across Uganda, with advice tailored to each client matter.</p>');
+  html = html.replace(/Our Irish office is based[\s\S]*?Meetings are available by appointment\.<\/p>/g, '<p>Moonstone Advocates is based at Plot 134 Semwata Road, Ntinda, Kampala. Meetings are available by appointment.</p>');
+  html = html.replace(/Located in the iconic Academy[\s\S]*?<\/p>/g, '<p>Our Kampala office supports clients with corporate, regulatory, dispute resolution, property, employment, family, finance, energy and criminal law matters.</p>');
+  html = html.replace(/law Lawyers Uganda/g, 'Moonstone Advocates Uganda');
+  html = html.replace(/<p>Moonstone Advocates LLP<br \/>\s*Plot 134 Semwata Road, Ntinda<br \/>\s*42 Pearse Street<br \/>\s*Dublin<br \/>\s*D02 HV59<\/p>/g, '<p>Moonstone Advocates<br />Plot 134 Semwata Road, Ntinda<br />P.O. Box 189860<br />Kampala, Uganda</p>');
   html = html.replace(/William Miles/g, 'Edward Labeja');
   html = html.replace(/Éamon Chawke/g, 'Norah Amanya');
   html = html.replace(/Eamon Chawke/g, 'Norah Amanya');
@@ -740,6 +804,12 @@ for (const file of htmlFiles) {
       .replace(/\/wp-content\/uploads\/2019\/10\/Music-–-What-Is-A-Distribution-Deal-And-Do-I-Need-One\.svg/g, '/wp-content/uploads/2023/07/moonstone-advocates-hero.svg');
     return `${attr}="${asset}"`;
   });
+  html = html.replace(/\b(href|action)="([^"]*?)index\.html(#[^"]*)?"/g, (match, attr, prefix, hash = '') => {
+    const clean = prefix.endsWith('/') ? prefix : `${prefix}/`;
+    return `${attr}="${clean}${hash}"`;
+  });
+  html = html.replace(/href="\/industry-insights-legal-videos-library\/index\.html@vp_filter=[^"#]*(#[^"]*)?"/g, 'href="/industry-insights-legal-videos-library/"');
+  html = html.replace(/<a class="underline" href="\/key-industry-sector\/music\/"><\/a>/g, '<a class="underline" href="/key-industry-sector/music/">music sector legal support</a>');
 
   if (!html.includes('/moonstone-local.js')) {
     html = html.replace(
