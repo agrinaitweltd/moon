@@ -1,6 +1,10 @@
 node_modules/
 dist/
 public/
+!public/
+public/*
+!public/images/
+!public/images/**
 screenshots/
 www.briffa.com/
 .DS_Store

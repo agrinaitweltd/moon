@@ -1,9 +1,11 @@
-import { copyFileSync, cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, cpSync, existsSync, mkdtempSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 
 const root = process.cwd();
 const cleanedSource = path.join(root, 'prepared-site');
 const target = path.join(root, process.argv[2] || 'public');
+const userImages = path.join(root, 'public/images');
 const source = path.resolve(target) === path.resolve(cleanedSource)
   ? path.join(root, 'www.briffa.com')
   : existsSync(cleanedSource)
@@ -14,9 +16,19 @@ if (!existsSync(source)) {
   throw new Error(`Missing wget source folder: ${source}`);
 }
 
+let imageBackup = '';
+if (existsSync(userImages)) {
+  imageBackup = mkdtempSync(path.join(os.tmpdir(), 'moonstone-images-'));
+  cpSync(userImages, path.join(imageBackup, 'images'), { recursive: true });
+}
+
 rmSync(target, { recursive: true, force: true });
 mkdirSync(target, { recursive: true });
 cpSync(source, target, { recursive: true });
+if (imageBackup) {
+  cpSync(path.join(imageBackup, 'images'), path.join(target, 'images'), { recursive: true });
+  rmSync(imageBackup, { recursive: true, force: true });
+}
 
 const originalHero = path.join(target, 'wp-content/uploads/2023/07/Briffa-Vector-1-1.svg');
 const moonstoneHero = path.join(target, 'wp-content/uploads/2023/07/moonstone-advocates-hero.svg');
@@ -281,7 +293,7 @@ const teamMembers = [
     name: 'OCHORA EDWARD LABEJA',
     role: 'Managing Partner',
     path: '/meet-team/william-miles/index.html',
-    image: '/wp-content/uploads/2019/11/Will-2-600x600.png',
+    image: '/images/team-edward.png',
     profile: [
       'Ochora Edward Labeja is the Managing Partner of Moonstone Advocates and an Advocate of the High Court of Uganda. He provides partner-led support to businesses, institutions and individuals on corporate, commercial, employment, property, dispute resolution and family matters.',
       'Edward is valued for practical legal judgment, direct client attention and commercially aware advice that helps clients move from uncertainty to clear legal action.'
@@ -294,7 +306,7 @@ const teamMembers = [
     name: 'NORAH AMANYA',
     role: 'Partner',
     path: '/meet-team/eamon-chawke/index.html',
-    image: '/wp-content/uploads/2019/11/Eamon4.png',
+    image: '/images/team-norah.png',
     profile: [
       'Norah Amanya is a Partner at Moonstone Advocates with experience in complex commercial transactions, governance, extractives, energy and infrastructure. She has over 11 years of legal experience, including service as General Counsel at CITI Global and as a Senior Associate at Cristal Advocates and ABMAK.',
       'Her work spans oil and gas, energy, immigration, family, estate management, corporate governance, banking and land conveyance. Norah is also a published author.'
@@ -307,7 +319,7 @@ const teamMembers = [
     name: 'SANDE HAPPY',
     role: 'Senior Associate',
     path: '/meet-team/daniel-crate/index.html',
-    image: '/wp-content/uploads/2025/01/Jamal-e1735906159316-600x600.jpg',
+    image: '/images/team-sande.png',
     profile: [
       'Sande Happy is a Senior Associate in Dispute Resolution and Corporate & Commercial practice. He is an Advocate of the High Court and subordinate courts of Uganda with over six years of experience.',
       'Happy handles commercial disputes before the Commercial Court, arbitration and alternative dispute resolution, land, employment and domestic disputes, labour matters and debt collection. His corporate work includes company registration, trademarks, patents, due diligence and mergers and acquisitions.'
@@ -320,7 +332,7 @@ const teamMembers = [
     name: 'AKELLO SHIRLEY MARYLIN',
     role: 'Associate',
     path: '/meet-team/charlotte-owens/index.html',
-    image: '/wp-content/uploads/2022/10/Cassine-600x600.jpg',
+    image: '/images/team-akello.png',
     profile: [
       'Akello Shirley Marylin is an Associate in the Litigation Department. She first joined the firm as an intern and was retained after completing her Postgraduate Diploma in Legal Practice.',
       'Shirley supports corporate clients on contract review and drafting, loan documentation, perfection of securities, employment advisory, governance, compliance, quality assurance, banking, finance and employment matters. She has a strong interest in litigation, artificial intelligence and technology governance.'
@@ -333,7 +345,7 @@ const teamMembers = [
     name: 'MWAKA JAMES TOLIT',
     role: 'Associate',
     path: '/meet-team/mark-eiffe/index.html',
-    image: '/wp-content/uploads/2024/12/Joe2-600x600.png',
+    image: '/images/team-mwaka.png',
     profile: [
       'Mwaka James Tolit is an Associate in Litigation and Commercial practice. He advises on corporate and commercial matters, governance, compliance, disputes and litigation.',
       'James has advised clients in banking, insurance, communications, e-commerce, oil and gas, agribusiness, hospitality, energy and transport. His work includes mergers and acquisitions, employment, new ventures, market entry, contracts, immigration, licensing and alternative dispute resolution.'
@@ -346,7 +358,7 @@ const teamMembers = [
     name: 'ECHIBA EDWIN MICHEAL',
     role: 'Consultant',
     path: '/meet-team/mohammad-khan/index.html',
-    image: '/wp-content/uploads/2026/04/Raf-600x600.png',
+    image: '/images/team-echiba.png',
     profile: [
       'Echiba Edwin Micheal is a Consultant and external tax consultant to Moonstone Advocates. He provides strategic tax advisory, tax dispute support and regulatory compliance guidance.',
       'Edwin is an Advocate of the High Court of Uganda, a tax consultant and governance professional with nine years of experience. He is a licensed tax agent with experience in tax advisory, compliance, disputes, transfer pricing and international tax, including prior work with KPMG Uganda and leading Ugandan tax lawyers and accountants.'
@@ -546,11 +558,17 @@ for (const file of htmlFiles) {
   html = html.replace(/<meta property="og:url" content="[^"]*" \/>/g, '<meta property="og:url" content="/" />');
   html = html.replace(/<meta name="twitter:site" content="[^"]*" \/>/g, '');
   html = html.replace(/<link rel="canonical" href="[^"]*" \/>/g, '<link rel="canonical" href="/" />');
+  html = html.replace(/"image":\s*"\/wp-content\/themes\/briffa\/assets\/images\/briffa-logo\.svg"/g, '"image": "/images/logo.png"');
+  html = html.replace(/<link rel="icon" href="[^"]*cropped-[^"]*-32x32\.png" sizes="32x32" \/>/g, '<link rel="icon" href="/images/favicon-32x32.png" sizes="32x32" />');
+  html = html.replace(/<link rel="icon" href="[^"]*cropped-[^"]*-192x192\.png" sizes="192x192" \/>/g, '<link rel="icon" href="/images/favicon-192x192.png" sizes="192x192" />');
+  html = html.replace(/<link rel="apple-touch-icon" href="[^"]*cropped-[^"]*-180x180\.png" \/>/g, '<link rel="apple-touch-icon" href="/images/favicon-180x180.png" />');
+  html = html.replace(/<meta name="msapplication-TileImage" content="[^"]*cropped-[^"]*-270x270\.png" \/>/g, '<meta name="msapplication-TileImage" content="/images/favicon-270x270.png" />');
   html = html.replace(/alt="logo"/g, 'alt="Moonstone Advocates"');
   html = html.replace(
     /<img src="\/wp-content\/themes\/briffa\/assets\/images\/briffa-logo\.svg" alt="Moonstone Advocates" \/>/g,
-    '<span class="moonstone-wordmark" aria-label="Moonstone Advocates"><span>MOONSTONE</span><span>ADVOCATES</span><i></i></span>'
+    '<img src="/images/logo.png" alt="Moonstone Advocates" />'
   );
+  html = html.replace(/<img src="\/wp-content\/themes\/briffa\/assets\/images\/b-logo\.svg">/g, '<img src="/images/footer-logo.png" alt="Moonstone Advocates">');
   html = html.replace(
     /<img loading="lazy" width="1400" height="950" src="\/wp-content\/uploads\/2023\/07\/Briffa-Vector-1-1\.svg"/g,
     '<img loading="eager" width="1400" height="950" src="/wp-content/uploads/2023/07/moonstone-advocates-hero.svg"'
@@ -699,6 +717,16 @@ for (const file of htmlFiles) {
   html = html.replace(/<span class="review-more-placeholder">… More<\/span><span class="review-full-text">\s*<\/span>/g, '');
   html = html.replace(/<span class="review-more-placeholder">\.\.\. More<\/span><span class="review-full-text">\s*<\/span>/g, '');
   html = html.replace(/<span class="review-full-text">\s*<\/span>/g, '');
+  html = html.replace(
+    /<section class="pt-20 pb-10 md:pt-24 md:pb-16 relative overflow-x-hidden\s+bg-base-light ">\s*<div class="relative z-\[1\] px-4 \| md:container">\s*<div class="mb-12 mx-auto max-w-3xl content "\s*data-aos="fade-up">\s*<\/div>\s*<div class="mt-4 flex justify-center flex-wrap">\s*<\/div>\s*<\/div>\s*<\/section>/g,
+    '<section class="pt-20 pb-10 md:pt-24 md:pb-16 relative overflow-x-hidden  bg-base-light "><div class="relative z-[1] px-4 | md:container"><div class="mb-12 mx-auto max-w-3xl content " data-aos="fade-up"><h2 style="text-align: center;">Legal Updates and Client Briefings</h2><p style="text-align: center;">Moonstone Advocates shares practical updates and briefings on legal developments affecting businesses, institutions and individuals in Uganda.</p></div><div class="mt-4 flex justify-center flex-wrap"><a class="btn btn-primary_alt lg:mr-4 m-4" href="/contact/index.html">Request a briefing</a></div></div></section>'
+  );
+  html = html.replace(
+    /<section\s+class="pt-24 pb-10 md:pt-32 md:pb-16 relative overflow-x-hidden">\s*<div class="relative z-\[1\] px-4 \| md:container">\s*<div class="mb-12 mx-auto max-w-3xl content" data-aos="fade-up">\s*<\/div>\s*<\/div>\s*<\/section>/g,
+    '<section class="pt-24 pb-10 md:pt-32 md:pb-16 relative overflow-x-hidden"><div class="relative z-[1] px-4 | md:container"><div class="mb-12 mx-auto max-w-3xl content" data-aos="fade-up"><h2 style="text-align: center;">Arrange a Session With Our Team</h2><p style="text-align: center;">For tailored training, board briefings or legal awareness sessions, contact Moonstone Advocates and we will help shape the right format for your organisation.</p></div></div></section>'
+  );
+  html = html.replace(/<section([^>]*)>\s*<\/section>/g, '<section$1><div class="container py-12 content"><p>Moonstone Advocates provides clear, practical legal support for clients across Uganda.</p></div></section>');
+  html = html.replace(/<section([^>]*)>\s*<div class="container"><\/div>\s*<\/section>/g, '<section$1><div class="container py-12 content"><p>Our team is available to advise on corporate, regulatory, dispute resolution, property, employment, family, finance, energy and criminal law matters.</p></div></section>');
   html = html.replace(/<p>\s*<iframe[\s\S]*?Briffa[\s\S]*?<\/iframe>\s*<\/p>/g, '<p>Visit Moonstone Advocates at Plot 134 Semwata Road, Ntinda, Kampala. Meetings are available by appointment.</p>');
   html = html.replace(/wp-admin/g, '');
   html = html.replace(/\b(href|src)="([^"]+)"/g, (match, attr, value) => `${attr}="${normalizeInternalUrl(value, file)}"`);
@@ -740,6 +768,28 @@ for (const file of allFiles) {
 }
 
 const helper = `(() => {
+  const animatedSelectors = [
+    ['section:not(.banner)', 'fade-up'],
+    ['.content h1, .content h2, .content h3', 'fade-up'],
+    ['.moonstone-practice-card', 'zoom-in'],
+    ['#team .flex.flex-col', 'fade-up'],
+    ['.btn', 'zoom-in']
+  ];
+
+  animatedSelectors.forEach(([selector, animation]) => {
+    document.querySelectorAll(selector).forEach((element, index) => {
+      if (element.hasAttribute('data-aos')) return;
+      element.setAttribute('data-aos', animation);
+      element.setAttribute('data-aos-delay', String(Math.min((index % 6) * 70, 350)));
+    });
+  });
+
+  if (window.AOS && typeof window.AOS.refreshHard === 'function') {
+    window.AOS.refreshHard();
+  } else if (window.AOS && typeof window.AOS.refresh === 'function') {
+    window.AOS.refresh();
+  }
+
   document.addEventListener('submit', (event) => {
     const form = event.target;
     if (!(form instanceof HTMLFormElement)) return;
