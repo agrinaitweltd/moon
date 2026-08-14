@@ -344,13 +344,12 @@ for (const file of htmlFiles) {
   html = html.replace(/cropped-briffa-favicon/g, 'cropped-moonstone-favicon');
   if (themeCss) {
     html = html.replace(
-      /<link rel="stylesheet" href="\/wp-content\/themes\/briffa\/dist\/styles\.css"[^>]*>/g,
+      /<link rel="stylesheet" href="(?:\/|(?:\.\.\/)*|)wp-content\/themes\/briffa\/dist\/styles\.css"[^>]*>/g,
       `<style id="moonstone-theme-css">\n${themeCss}\n</style>`
     );
-    html = html.replace(
-      /<link rel="stylesheet" href="wp-content\/themes\/briffa\/dist\/styles\.css"[^>]*>/g,
-      `<style id="moonstone-theme-css">\n${themeCss}\n</style>`
-    );
+    if (!html.includes('id="moonstone-theme-css"')) {
+      html = html.replace('</head>', `<style id="moonstone-theme-css">\n${themeCss}\n</style>\n</head>`);
+    }
   }
 
   html = html.replace(/<html lang="en-GB"/g, '<html lang="en-UG"');
