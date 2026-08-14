@@ -1,0 +1,57 @@
+AOS.init({
+  offset: 150,
+  once: true,
+});
+
+function openPopup(form) {
+  form.classList.add("form-open");
+}
+function closePopup(popup) {
+  const vid = popup.querySelector("iframe");
+  if (vid) vid.src = "";
+  popup.classList.remove("form-open");
+}
+
+// Open form popup on cta clicks.
+const popupForm = document.getElementById("consultation-form");
+const formAnchors = document.querySelectorAll('[href="#consultation"]');
+for (let i = 0; i < formAnchors.length; i++) {
+  formAnchors[i].addEventListener("click", () => openPopup(popupForm), false);
+}
+
+// Close popups.
+const popupCloseButtons = document.querySelectorAll(
+  ".popup-close, .popup-cover"
+);
+
+popupCloseButtons.forEach((popupClose) => {
+  const popup = popupClose.closest(".popup");
+  if (popup) {
+    popupClose.addEventListener("click", (e) => {
+      closePopup(popup);
+      e.stopPropagation();
+      return false;
+    });
+  }
+});
+
+// Open video popups
+const videoPopupTriggers = document.querySelectorAll(".video-trigger");
+videoPopupTriggers.forEach((trigger) => {
+  trigger.addEventListener("click", () => {
+    const popup = trigger.querySelector(".popup");
+    const vid = popup.querySelector(`iframe`);
+    if (vid) vid.src = vid.getAttribute("data-src");
+    openPopup(popup);
+  });
+});
+
+// var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+// (function(){
+// var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+// s1.async=true;
+// s1.src='https://embed.tawk.to/5dd240f443be710e1d1dc74a/default';
+// s1.charset='UTF-8';
+// s1.setAttribute('crossorigin','*');
+// s0.parentNode.insertBefore(s1,s0);
+// })();

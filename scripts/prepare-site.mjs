@@ -40,11 +40,7 @@ const walk = (dir, out = []) => {
   return out;
 };
 
-let allFiles = walk(target);
-for (const file of allFiles) {
-  if (path.basename(file).includes('@')) rmSync(file, { force: true });
-}
-allFiles = walk(target);
+const allFiles = walk(target);
 const htmlFiles = allFiles.filter((file) => file.toLowerCase().endsWith('.html'));
 
 const moonstoneSeoTitle = 'Moonstone Advocates | Lawyers in Kampala, Uganda';
@@ -255,155 +251,6 @@ const overviewCards = (areas) =>
   <ul>${area.items.map((item) => `<li>${item}</li>`).join('')}</ul>
 </article>`).join('\n');
 
-const serviceByPath = new Map(serviceAreas.map((area) => [area.path, area]));
-const sectorByPath = new Map(sectorAreas.map((area) => [area.path, area]));
-
-const pageUrl = (filePath) => `/${filePath.replace(/\\/g, '/').replace(/\/?index\.html$/, '/')}`;
-
-const contactForm = `<form class="moonstone-contact-form" action="/contact/" method="post">
-  <label>Name <input required name="name" type="text" /></label>
-  <label>Email <input required name="email" type="email" /></label>
-  <label>How can we help? <textarea required name="message" rows="5"></textarea></label>
-  <button class="btn btn-primary" type="submit">Send enquiry</button>
-</form>`;
-
-const serviceContent = (area) => `<section class="moonstone-page-hero bg-purple text-base-light">
-  <div class="container max-w-screen-xl mx-auto px-4 py-20">
-    <p class="font-heading text-yellow font-bold mb-4">Moonstone Advocates services</p>
-    <h1 class="font-heading text-4xl md:text-6xl font-bold">${area.title}</h1>
-    <p class="max-w-3xl mt-6 text-lg">Practical legal support for clients who need clear advice, careful documentation and responsive representation in Uganda.</p>
-  </div>
-</section>
-<section class="bg-base-light">
-  <div class="container max-w-screen-xl mx-auto px-4 py-16 grid lg:grid-cols-[1fr_360px] gap-12">
-    <div class="content">
-      <h2>How we help</h2>
-      <p>Moonstone Advocates advises individuals, businesses, organisations and institutions with a focus on practical outcomes, plain communication and commercially aware legal solutions.</p>
-      <div class="moonstone-detail-grid">
-        ${area.items.map((item) => `<article id="${slugify(item)}"><h3>${item}</h3><p>We provide focused advice and documentation support for ${item.toLowerCase()}, helping clients understand their options, manage risk and move matters forward with confidence.</p></article>`).join('\n        ')}
-      </div>
-    </div>
-    <aside class="moonstone-side-panel">
-      <h2>Speak to us</h2>
-      <p>Tell us what you need help with and the team will guide you on the next step.</p>
-      <a class="btn btn-primary mt-4" href="/contact/">Contact us</a>
-    </aside>
-  </div>
-</section>`;
-
-const sectorContent = (area) => `<section class="moonstone-page-hero bg-purple text-base-light">
-  <div class="container max-w-screen-xl mx-auto px-4 py-20">
-    <p class="font-heading text-yellow font-bold mb-4">Sectors</p>
-    <h1 class="font-heading text-4xl md:text-6xl font-bold">${area.title}</h1>
-    <p class="max-w-3xl mt-6 text-lg">Legal advice shaped around the commercial, regulatory and personal realities of this sector.</p>
-  </div>
-</section>
-<section class="bg-base-light">
-  <div class="container max-w-screen-xl mx-auto px-4 py-16 grid lg:grid-cols-[1fr_360px] gap-12">
-    <div class="content">
-      <h2>Sector support</h2>
-      <p>We support ${area.title.toLowerCase()} with advisory, transactional, regulatory and dispute-related legal needs. Our work is designed to be clear, responsive and aligned with the realities of operating in Uganda.</p>
-      <div class="moonstone-detail-grid">
-        ${serviceAreas.slice(0, 6).map((service) => `<article><h3>${service.title}</h3><p>Advice and representation connected to ${service.title.toLowerCase()} for clients in this sector.</p></article>`).join('\n        ')}
-      </div>
-    </div>
-    <aside class="moonstone-side-panel">
-      <h2>Need guidance?</h2>
-      <p>Contact Moonstone Advocates to discuss the facts, risks and available options.</p>
-      <a class="btn btn-primary mt-4" href="/contact/">Contact us</a>
-    </aside>
-  </div>
-</section>`;
-
-const contactContent = `<section class="moonstone-page-hero bg-purple text-base-light">
-  <div class="container max-w-screen-xl mx-auto px-4 py-20">
-    <p class="font-heading text-yellow font-bold mb-4">Contact</p>
-    <h1 class="font-heading text-4xl md:text-6xl font-bold">Contact Moonstone Advocates</h1>
-    <p class="max-w-3xl mt-6 text-lg">Speak to a Kampala-based legal team about your business, property, family, employment, regulatory, finance or dispute matter.</p>
-  </div>
-</section>
-<section class="bg-base-light">
-  <div class="container max-w-screen-xl mx-auto px-4 py-16 grid lg:grid-cols-[1fr_420px] gap-12">
-    <div class="content">
-      <h2>Send an enquiry</h2>
-      <p>Share a short summary of the issue and the team will respond with the appropriate next step.</p>
-      ${contactForm}
-    </div>
-    <aside class="moonstone-side-panel">
-      <h2>Kampala Office</h2>
-      <p><strong>Email:</strong><br><a href="mailto:info@moonstoneadvocates.com">info@moonstoneadvocates.com</a></p>
-      <p><strong>Address:</strong><br>P.O. Box 189860<br>Kampala, Uganda</p>
-      <p><strong>Office hours:</strong><br>Monday to Friday, 9:00 am to 5:30 pm</p>
-    </aside>
-  </div>
-</section>`;
-
-const genericContent = (title, intro) => `<section class="moonstone-page-hero bg-purple text-base-light">
-  <div class="container max-w-screen-xl mx-auto px-4 py-20">
-    <p class="font-heading text-yellow font-bold mb-4">Moonstone Advocates</p>
-    <h1 class="font-heading text-4xl md:text-6xl font-bold">${title}</h1>
-    <p class="max-w-3xl mt-6 text-lg">${intro}</p>
-  </div>
-</section>
-<section class="bg-base-light">
-  <div class="container max-w-screen-xl mx-auto px-4 py-16">
-    <div class="content max-w-4xl">
-      <h2>${title}</h2>
-      <p>Moonstone Advocates provides practical legal services from Kampala, Uganda. Our team works with businesses, institutions, families and individuals across advisory, transactional, regulatory and dispute matters.</p>
-      <p>For current information or assistance with a specific matter, please contact the firm directly.</p>
-      <a class="btn btn-primary mt-4" href="/contact/">Contact us</a>
-    </div>
-  </div>
-</section>`;
-
-const moonstoneFooter = `<footer class="overflow-hidden bg-navy text-base-light">
-  <div class="container max-w-screen-xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8">
-    <div>
-      <p class="font-heading text-2xl font-bold">Moonstone Advocates</p>
-      <p class="mt-4">Practical legal solutions for businesses, organisations and individuals in Uganda.</p>
-    </div>
-    <div>
-      <p class="font-heading text-lg font-bold">Kampala Office</p>
-      <p class="mt-4">P.O. Box 189860<br>Kampala, Uganda</p>
-      <p><a href="mailto:info@moonstoneadvocates.com">info@moonstoneadvocates.com</a></p>
-    </div>
-    <div>
-      <p class="font-heading text-lg font-bold">Quick Links</p>
-      <p class="mt-4"><a href="/key-practice-area/">Services</a><br><a href="/key-industry-sector/">Sectors</a><br><a href="/about/">About</a><br><a href="/contact/">Contact</a></p>
-    </div>
-  </div>
-</footer>`;
-
-const cleanContentFor = (file) => {
-  const rel = path.relative(target, file).replace(/\\/g, '/');
-  if (rel === 'index.html') return null;
-  if (rel.startsWith('contact/')) return contactContent;
-  const service = serviceByPath.get(rel);
-  if (service) return serviceContent(service);
-  const sector = sectorByPath.get(rel);
-  if (sector) return sectorContent(sector);
-  if (rel === 'key-practice-area/index.html') {
-    return genericContent('Legal Services', 'Explore Moonstone Advocates services across corporate, tax, dispute resolution, property, employment, family, finance, public sector, energy and criminal law.') + `<section class="bg-base-light pb-16"><div class="moonstone-practice-grid">${overviewCards(serviceAreas)}</div></section>`;
-  }
-  if (rel === 'key-industry-sector/index.html') {
-    return genericContent('Sectors', 'Explore the sectors and client groups supported by Moonstone Advocates.') + `<section class="bg-base-light pb-16"><div class="moonstone-practice-grid">${sectorAreas.map((area) => `<article class="moonstone-practice-card"><h3>${area.title}</h3><p>Focused support for ${area.title.toLowerCase()}.</p></article>`).join('')}</div></section>`;
-  }
-  const pageTitles = new Map([
-    ['about/index.html', ['About Moonstone Advocates', 'A Kampala-based law firm providing practical legal solutions for businesses, organisations and individuals.']],
-    ['meet-team/daniel-crate/index.html', ['Our Team', 'Meet the lawyers and legal professionals behind Moonstone Advocates.']],
-    ['careers/index.html', ['Careers', 'Build your legal career with a practical, client-focused team in Kampala.']],
-    ['partners/index.html', ['Partners', 'Information for firms, consultants and professional partners working with Moonstone Advocates.']],
-    ['events/index.html', ['Events', 'Updates, events and legal briefings from Moonstone Advocates.']],
-    ['case-studies/index.html', ['Practice Areas', 'Examples of the legal issues and client needs Moonstone Advocates supports.']],
-    ['reviews/index.html', ['Client Care', 'Client-focused service, clear communication and practical legal advice.']],
-    ['content-hub/index.html', ['Legal Resources', 'Helpful legal updates and practical guidance from Moonstone Advocates.']],
-    ['privacy-cookie-policy/index.html', ['Privacy & Cookie Policy', 'Information about privacy, data handling and website cookies.']],
-    ['complaints-procedure/index.html', ['Complaints Procedure', 'How to raise a concern about service received from Moonstone Advocates.']]
-  ]);
-  const [title, intro] = pageTitles.get(rel) || ['Moonstone Advocates', 'Practical legal advice and representation from Kampala, Uganda.'];
-  return genericContent(title, intro);
-};
-
 const replacements = [
   [/Briffa Legal Limited/g, 'Moonstone Advocates'],
   [/Briffa Legal Ltd/g, 'Moonstone Advocates'],
@@ -532,14 +379,6 @@ for (const file of htmlFiles) {
 .moonstone-contact-form label{display:grid;gap:.35rem;font-weight:700}
 .moonstone-contact-form input,.moonstone-contact-form textarea{width:100%;border:1px solid rgba(24,26,52,.2);border-radius:.25rem;padding:.85rem 1rem;color:#181a34;background:#fff}
 .moonstone-contact-form textarea{resize:vertical}
-.moonstone-page-hero{position:relative;overflow:hidden}
-.moonstone-page-hero:after{content:"";position:absolute;right:8%;bottom:-72px;width:180px;height:180px;border-radius:999px;background:#f5bb20;opacity:.9}
-.moonstone-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.5rem}
-.moonstone-detail-grid article,.moonstone-side-panel{background:#fff;border-radius:.5rem;padding:1.25rem;box-shadow:0 12px 30px rgba(24,26,52,.08)}
-.moonstone-detail-grid h3,.moonstone-side-panel h2{font-family:Jost,sans-serif;font-size:1.15rem;margin:0 0 .5rem;color:#181a34}
-.moonstone-detail-grid p,.moonstone-side-panel p{margin:.5rem 0;color:#181a34}
-.moonstone-side-panel{align-self:start}
-@media (max-width:767px){.moonstone-detail-grid{grid-template-columns:1fr}.moonstone-page-hero:after{width:120px;height:120px;right:-32px}}
 .moonstone-services-menu{width:min(92vw,760px)!important;gap:1rem}
 .moonstone-services-menu .moonstone-service-menu-item{flex:1 1 320px}
 .moonstone-service-menu-item details{border-bottom:1px solid rgba(255,255,255,.18);padding:.15rem 0 .5rem}
@@ -642,20 +481,6 @@ for (const file of htmlFiles) {
   html = html.replace(/"value":"https:\\\/\\\/www\.[^"]*"/g, '"value":""');
   html = html.replace(/wp-admin/g, '');
   html = html.replace(/\b(href|src)="([^"]+)"/g, (match, attr, value) => `${attr}="${normalizeInternalUrl(value, file)}"`);
-  html = html.replace(/\bhref="([^"]*?)index\.html(#[^"]*)?"/g, (match, before, hash = '') => {
-    const clean = before.endsWith('/') ? before : `${before}/`;
-    return `href="${clean}${hash}"`;
-  });
-
-  const cleanBody = cleanContentFor(file);
-  if (cleanBody) {
-    html = html.replace(/<\/header>[\s\S]*?<footer class="overflow-hidden">/, `</header>\n${cleanBody}\n<footer class="overflow-hidden">`);
-  }
-  html = html.replace(/<footer class="overflow-hidden">[\s\S]*?<\/footer>/, moonstoneFooter);
-  html = html.replace(/<script id="nf-front-end-js-extra"[\s\S]*?(?=<script src="\/moonstone-local\.js"|<\/body>)/g, '');
-  html = html.replace(/<script id="tmpl-nf-[\s\S]*?<\/script>/g, '');
-  html = html.replace(/<noscript class="ninja-forms-noscript-message">[\s\S]*?<\/noscript>/g, '');
-  html = html.replace(/<div id="nf-form-[\s\S]*?<\/div>\s*<\/div>/g, '');
 
   if (!html.includes('/moonstone-local.js')) {
     html = html.replace(
