@@ -204,7 +204,7 @@ const sectorAreas = [
 
 const navListItems = (areas) =>
   areas.map((area) => `                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="${area.path}"
+              <a class="text-base-light font-heading text-base hover:underline" href="/${area.path}"
                 title="${area.title}">
                 ${area.title}              </a>
             </li>
@@ -213,17 +213,34 @@ const navListItems = (areas) =>
 const slugify = (value) =>
   value.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
+const skipUrl = /^(?:\/|#|[a-z][a-z0-9+.-]*:|data:|\{\{\{)/i;
+const normalizeInternalUrl = (value, file) => {
+  if (skipUrl.test(value)) return value;
+  if (value.startsWith('?')) return value;
+
+  const hashIndex = value.indexOf('#');
+  const queryIndex = value.indexOf('?');
+  const splitIndex = [hashIndex, queryIndex].filter((index) => index >= 0).sort((a, b) => a - b)[0] ?? -1;
+  const pathname = splitIndex >= 0 ? value.slice(0, splitIndex) : value;
+  const suffix = splitIndex >= 0 ? value.slice(splitIndex) : '';
+  if (!pathname || pathname.startsWith('//')) return value;
+
+  const currentDir = path.relative(target, path.dirname(file)).replace(/\\/g, '/');
+  const absolute = path.posix.normalize(`/${path.posix.join(currentDir, pathname)}`);
+  return `${absolute}${suffix}`;
+};
+
 const servicesMenu = (areas) =>
   areas.map((area) => `                        <li class="moonstone-service-menu-item my-2">
               <details>
                 <summary>
-                  <a class="text-base-light font-heading text-base hover:underline" href="${area.path}"
+                  <a class="text-base-light font-heading text-base hover:underline" href="/${area.path}"
                     title="${area.title}">
                     ${area.title}
                   </a>
                 </summary>
                 <ul>
-                  ${area.items.map((item) => `<li><a href="${area.path}#${slugify(item)}">${item}</a></li>`).join('\n                  ')}
+                  ${area.items.map((item) => `<li><a href="/${area.path}#${slugify(item)}">${item}</a></li>`).join('\n                  ')}
                 </ul>
               </details>
             </li>`).join('\n');
@@ -358,6 +375,10 @@ for (const file of htmlFiles) {
 .moonstone-practice-card ul{margin:0;padding-left:1.1rem}
 .moonstone-practice-card li{margin:.25rem 0}
 @media (max-width:767px){.moonstone-practice-grid{grid-template-columns:1fr}}
+.moonstone-contact-form{display:grid;gap:1rem;max-width:560px;margin:1.5rem auto 0;text-align:left}
+.moonstone-contact-form label{display:grid;gap:.35rem;font-weight:700}
+.moonstone-contact-form input,.moonstone-contact-form textarea{width:100%;border:1px solid rgba(24,26,52,.2);border-radius:.25rem;padding:.85rem 1rem;color:#181a34;background:#fff}
+.moonstone-contact-form textarea{resize:vertical}
 .moonstone-services-menu{width:min(92vw,760px)!important;gap:1rem}
 .moonstone-services-menu .moonstone-service-menu-item{flex:1 1 320px}
 .moonstone-service-menu-item details{border-bottom:1px solid rgba(255,255,255,.18);padding:.15rem 0 .5rem}
@@ -413,11 +434,19 @@ for (const file of htmlFiles) {
     /(<a[^>]+href="key-practice-area\/index\.html"[^>]*>\s*Services\s*<\/a>[\s\S]*?<ul[^>]*>)[\s\S]*?(<\/ul>\s*<\/li>\s*<li\s+class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy group[^>]*>\s*<a[^>]+href="key-industry-sector\/index\.html")/,
     `$1\n${servicesMenu(serviceAreas)}\n          $2`
   );
+  html = html.replace(
+    /(<a[^>]+title="Services"[^>]*>\s*Services\s*<\/a>[\s\S]*?<ul[^>]*>)[\s\S]*?(<\/ul>\s*<\/li>\s*<li[\s\S]*?<a[^>]+title="Sectors")/,
+    `$1\n${servicesMenu(serviceAreas)}\n          $2`
+  );
   html = html.replace(/(<a[^>]+href="key-practice-area\/index\.html"[^>]*>\s*Services\s*<\/a>[\s\S]*?<ul)([^>]*>)/, '$1 class="moonstone-services-menu"$2');
   html = html.replace(/<ul class="moonstone-services-menu"\s+class="([^"]*)">/, '<ul class="$1 moonstone-services-menu">');
   html = html.replace(/moonstone-services-menu(?:\s+moonstone-services-menu)+/g, 'moonstone-services-menu');
   html = html.replace(
     /(<a[^>]+href="key-industry-sector\/index\.html"[^>]*>\s*Sectors\s*<\/a>[\s\S]*?<ul[^>]*>)[\s\S]*?(<\/ul>\s*<\/li>\s*<li\s+class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy group[^>]*>\s*<a[^>]+href="(?:about|meet-team)[^"]*")/,
+    `$1\n${navListItems(sectorAreas)}\n          $2`
+  );
+  html = html.replace(
+    /(<a[^>]+title="Sectors"[^>]*>\s*Sectors\s*<\/a>[\s\S]*?<ul[^>]*>)[\s\S]*?(<\/ul>\s*<\/li>\s*<li[\s\S]*?<a[^>]+href="\/?(?:about|meet-team)[^"]*")/,
     `$1\n${navListItems(sectorAreas)}\n          $2`
   );
   html = html.replace(/Corporate law vs dispute resolution, what&#8217;s the difference/g, 'Corporate & Commercial Advisory for Ugandan Businesses');
@@ -429,10 +458,29 @@ for (const file of htmlFiles) {
   html = html.replace(/Office required/g, 'Office');
   html = html.replace(/Book a consultation\./g, 'Book a consultation in Kampala.');
   html = html.replace(/P\.O\. Box 189860,\s*Kampala,\s*Uganda,\s*Uganda/g, 'P.O. Box 189860, Kampala, Uganda');
+  html = html.replace(/href="mailto:info@"/g, 'href="mailto:info@moonstoneadvocates.com"');
+  html = html.replace(/href="mailto:info@\?([^"]*)"/g, 'href="mailto:info@moonstoneadvocates.com?$1"');
+  html = html.replace(/>info@</g, '>info@moonstoneadvocates.com<');
+  html = html.replace(/<a href="tel:"><\/a>(?:\s*\([^)]+\))?/g, '<a href="/contact/index.html">Contact Moonstone Advocates</a>');
+  html = html.replace(/<a href="tel:"\s*><\/a>/g, '<a href="/contact/index.html">Contact Moonstone Advocates</a>');
+  html = html.replace(/<p><a href="\/contact\/index\.html">Contact Moonstone Advocates<\/a><br \/>/g, '<p><a href="/contact/index.html">Contact Moonstone Advocates</a><br />');
+  html = html.replace(/<p>&nbsp;<\/p>/g, '');
+  html = html.replace(/<p>\s*<\/p>/g, '');
+  html = html.replace(/<a href="([^"]+)"><span style="font-weight: 400;"><\/span><\/a>/g, '<a href="$1"><span style="font-weight: 400;">Moonstone Advocates privacy policy</span></a>');
+  html = html.replace(/Business Design Centre<br \/>\s*52 Upper Street<br \/>\s*Islington<br \/>\s*Kampala\s*/g, 'P.O. Box 189860<br />Kampala<br />Uganda');
+  html = html.replace(/The Academy<br \/>\s*42 Pearse Street<br \/>\s*Dublin, D02 HV59<br \/>\s*Uganda/g, 'Kampala<br />Uganda');
+  html = html.replace(/<p><a href="ireland-office\/index\.html"><em>More information about our Irish office<\/em><\/a><\/p>/g, '<p><a href="/contact/index.html"><em>Contact the Moonstone Advocates team</em></a></p>');
+  html = html.replace(/<noscript class="ninja-forms-noscript-message">[\s\S]*?<div id="nf-form-1-cont"[\s\S]*?<\/div>/g, `<form class="moonstone-contact-form" action="/contact/index.html" method="post">
+  <label>Name <input required name="name" type="text" /></label>
+  <label>Email <input required name="email" type="email" /></label>
+  <label>How can we help? <textarea required name="message" rows="5"></textarea></label>
+  <button class="btn btn-primary" type="submit">Send enquiry</button>
+</form>`);
   html = html.replace(/"adminAjax":"[^"]*"/g, '"adminAjax":""');
   html = html.replace(/"requireBaseUrl":"[^"]*"/g, '"requireBaseUrl":""');
   html = html.replace(/"value":"https:\\\/\\\/www\.[^"]*"/g, '"value":""');
   html = html.replace(/wp-admin/g, '');
+  html = html.replace(/\b(href|src)="([^"]+)"/g, (match, attr, value) => `${attr}="${normalizeInternalUrl(value, file)}"`);
 
   if (!html.includes('/moonstone-local.js')) {
     html = html.replace(
