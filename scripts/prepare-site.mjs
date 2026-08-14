@@ -577,26 +577,28 @@ for (const file of htmlFiles) {
 .custom-css{overflow-x:hidden}
 body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!important}
 .custom-css img{max-width:100%;height:auto}
-.custom-css header .container{padding-top:.55rem!important;padding-bottom:.55rem!important}
-.custom-css header aside{height:auto!important;min-height:34px!important;max-width:126px!important}
-.custom-css header nav>ul{padding-top:.25rem!important;padding-bottom:.25rem!important}
-.custom-css header nav>ul>li{padding-top:.45rem!important;padding-bottom:.45rem!important}
-.custom-css header nav>ul>li>a{padding-top:.25rem!important;padding-bottom:.25rem!important}
 .custom-css header img[src="/images/logo.png"]{max-width:118px;max-height:34px;width:auto;height:auto;object-fit:contain;transition:transform .35s ease,opacity .35s ease}
 .custom-css header a:hover img[src="/images/logo.png"]{transform:translateY(-1px) scale(1.02)}
 .custom-css footer img[src="/images/logo.png"]{max-width:180px;width:min(180px,48vw);height:auto}
 .custom-css section>.relative,.custom-css section>.container,.custom-css .content,.custom-css footer .container{box-sizing:border-box}
-.custom-css .btn,.custom-css .moonstone-practice-card,.custom-css #team .flex.flex-col,.custom-css .content a{transition:transform .28s ease,box-shadow .28s ease,opacity .28s ease,background-color .28s ease}
+.custom-css .btn,.custom-css .moonstone-practice-card,.custom-css #team .flex.flex-col,.custom-css .content a,.custom-css article,.custom-css form input,.custom-css form textarea{transition:transform .28s ease,box-shadow .28s ease,opacity .28s ease,background-color .28s ease,border-color .28s ease}
 .custom-css .btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(24,26,51,.18)}
-.custom-css .moonstone-practice-card:hover,.custom-css #team .flex.flex-col:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(24,26,51,.12)}
+.custom-css .moonstone-practice-card:hover,.custom-css #team .flex.flex-col:hover,.custom-css article:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(24,26,51,.12)}
+.custom-css form input:focus,.custom-css form textarea:focus{outline:none;border-color:#6481b9;box-shadow:0 0 0 4px rgba(100,129,185,.16)}
 .custom-css .banner img,.custom-css section img[src="/images/image.png"]{animation:moonstone-soft-float 7s ease-in-out infinite alternate}
 .custom-css .bg-yellow.rounded-full,.custom-css .bg-purple.rounded-full{animation:moonstone-pulse 5.5s ease-in-out infinite alternate}
 .custom-css nav a{transition:opacity .25s ease,color .25s ease,transform .25s ease}
 .custom-css nav a:hover{transform:translateY(-1px)}
+.moonstone-page-loader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#fcf7fb;transition:opacity .55s ease,visibility .55s ease}
+.moonstone-page-loader:before{content:"";width:44px;height:44px;border-radius:999px;border:4px solid rgba(24,26,51,.12);border-top-color:#eab736;animation:moonstone-spin .8s linear infinite}
+.moonstone-page-loader.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
+.moonstone-page-ready main{animation:moonstone-page-in .7s ease both}
 @keyframes moonstone-soft-float{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(0,-10px,0) scale(1.015)}}
 @keyframes moonstone-pulse{from{transform:scale(1);opacity:.92}to{transform:scale(1.06);opacity:1}}
+@keyframes moonstone-spin{to{transform:rotate(360deg)}}
+@keyframes moonstone-page-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.custom-css *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
-@media (max-width:767px){.custom-css header .container{padding-top:.45rem!important;padding-bottom:.45rem!important}.custom-css header aside{min-height:28px!important;max-width:98px!important}.custom-css header img[src="/images/logo.png"]{max-width:92px;max-height:28px}.custom-css section>.relative,.custom-css section>.container,.custom-css .content,.custom-css footer .container{padding-left:1rem!important;padding-right:1rem!important}.custom-css .banner{margin-left:0!important;margin-right:0!important;padding-left:0!important;padding-right:0!important}.custom-css .banner .px-6,.custom-css .banner .px-8,.custom-css .banner .px-4{padding-left:1rem!important;padding-right:1rem!important}.custom-css h1{font-size:2.25rem!important;line-height:1.05!important;overflow-wrap:anywhere}.custom-css h2{font-size:1.85rem!important;line-height:1.12!important;overflow-wrap:anywhere}.custom-css p,.custom-css li,.custom-css a{overflow-wrap:anywhere}.custom-css .btn{white-space:normal;text-align:center}.custom-css nav:not(.hidden){left:0!important;right:0!important;width:100vw!important;max-width:100vw!important;padding-left:1rem!important;padding-right:1rem!important;overflow-y:auto}.custom-css #team .flex.flex-wrap{margin-left:0!important;margin-right:0!important}.custom-css #team .flex.flex-col{width:100%!important;max-width:320px}.moonstone-contact-form{max-width:100%}}
+@media (max-width:767px){.custom-css header img[src="/images/logo.png"]{max-width:92px;max-height:28px}.custom-css section>.relative,.custom-css section>.container,.custom-css .content,.custom-css footer .container{padding-left:1rem!important;padding-right:1rem!important}.custom-css .banner{margin-left:0!important;margin-right:0!important;padding-left:0!important;padding-right:0!important}.custom-css .banner .px-6,.custom-css .banner .px-8,.custom-css .banner .px-4{padding-left:1rem!important;padding-right:1rem!important}.custom-css h1{font-size:2.25rem!important;line-height:1.05!important;overflow-wrap:anywhere}.custom-css h2{font-size:1.85rem!important;line-height:1.12!important;overflow-wrap:anywhere}.custom-css p,.custom-css li,.custom-css a{overflow-wrap:anywhere}.custom-css .btn{white-space:normal;text-align:center}.custom-css nav:not(.hidden){left:0!important;right:0!important;width:100vw!important;max-width:100vw!important;padding-left:1rem!important;padding-right:1rem!important;overflow-y:auto}.custom-css #team .flex.flex-wrap{margin-left:0!important;margin-right:0!important}.custom-css #team .flex.flex-col{width:100%!important;max-width:320px}.moonstone-contact-form{max-width:100%}}
 .moonstone-services-menu{width:min(92vw,760px)!important;gap:1rem}
 .moonstone-services-menu .moonstone-service-menu-item{flex:1 1 320px}
 .moonstone-service-menu-item details{border-bottom:1px solid rgba(255,255,255,.18);padding:.15rem 0 .5rem}
@@ -618,16 +620,8 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
     html = html.replace(
       '</head>',
       `<style id="moonstone-final-header-fix">
-.custom-css header.menu>.container{padding-top:.45rem!important;padding-bottom:.45rem!important;min-height:0!important;height:auto!important}
-.custom-css header.menu aside{height:auto!important;min-height:34px!important;max-width:126px!important}
-.custom-css header.menu aside:last-child{display:flex!important;align-items:center!important;justify-content:flex-end!important;gap:.75rem!important;min-height:34px!important;height:auto!important;line-height:1!important}
-.custom-css header.menu aside:last-child .btn{padding:.45rem .9rem!important;font-size:.8rem!important;line-height:1.1!important;margin:0!important}
-.custom-css header.menu button{margin-left:0!important}
 .custom-css header.menu img[src="/images/logo.png"]{max-width:118px!important;max-height:34px!important;width:auto!important;height:auto!important;object-fit:contain!important}
-.custom-css header.menu nav>ul{padding-top:.2rem!important;padding-bottom:.2rem!important}
-.custom-css header.menu nav>ul>li{padding-top:.35rem!important;padding-bottom:.35rem!important}
-.custom-css header.menu nav>ul>li>a{padding-top:.2rem!important;padding-bottom:.2rem!important}
-@media (max-width:767px){.custom-css header.menu>.container{padding-top:.4rem!important;padding-bottom:.4rem!important}.custom-css header.menu aside{min-height:28px!important;max-width:98px!important}.custom-css header.menu aside:last-child{max-width:none!important;min-width:auto!important;min-height:28px!important}.custom-css header.menu aside:last-child .btn{padding:.38rem .7rem!important;font-size:.72rem!important}.custom-css header.menu img[src="/images/logo.png"]{max-width:92px!important;max-height:28px!important}}
+@media (max-width:767px){.custom-css header.menu img[src="/images/logo.png"]{max-width:92px!important;max-height:28px!important;width:auto!important;height:auto!important}}
 </style>
 </head>`
     );
@@ -858,6 +852,9 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
       `<script src="/moonstone-local.js"></script>\n</body>`
     );
   }
+  if (!html.includes('class="moonstone-page-loader"')) {
+    html = html.replace(/<body([^>]*)>/, '<body$1><div class="moonstone-page-loader" aria-hidden="true"></div>');
+  }
 
   writeFileSync(file, html);
 }
@@ -879,6 +876,17 @@ for (const file of allFiles) {
 }
 
 const helper = `(() => {
+  const hideLoader = () => {
+    document.body.classList.add('moonstone-page-ready');
+    document.querySelector('.moonstone-page-loader')?.classList.add('is-hidden');
+  };
+  if (document.readyState === 'complete') {
+    window.setTimeout(hideLoader, 120);
+  } else {
+    window.addEventListener('load', () => window.setTimeout(hideLoader, 180), { once: true });
+    window.setTimeout(hideLoader, 1400);
+  }
+
   const animatedSelectors = [
     ['section:not(.banner)', 'fade-up'],
     ['.banner h1, .banner p', 'fade-up'],
@@ -886,6 +894,8 @@ const helper = `(() => {
     ['.content li', 'fade-up'],
     ['.moonstone-practice-card', 'zoom-in'],
     ['.grid > div, .grid > article', 'fade-up'],
+    ['article, .content blockquote, form label', 'fade-up'],
+    ['section img', 'zoom-in'],
     ['#team .flex.flex-col', 'fade-up'],
     ['footer .container > *', 'fade-up'],
     ['.btn', 'zoom-in']
@@ -908,6 +918,20 @@ const helper = `(() => {
   } else if (window.AOS && typeof window.AOS.refresh === 'function') {
     window.AOS.refresh();
     document.body.classList.add('moonstone-aos-ready');
+  }
+
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.matchMedia('(pointer: fine)').matches) {
+    document.querySelectorAll('.moonstone-practice-card, #team .flex.flex-col, article').forEach((card) => {
+      card.addEventListener('mousemove', (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width - 0.5) * 5;
+        const y = ((event.clientY - rect.top) / rect.height - 0.5) * -5;
+        card.style.transform = 'translateY(-6px) rotateX(' + y.toFixed(2) + 'deg) rotateY(' + x.toFixed(2) + 'deg)';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+      });
+    });
   }
 
   document.addEventListener('submit', (event) => {
