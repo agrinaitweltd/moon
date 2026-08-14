@@ -1,0 +1,17 @@
+{
+  "name": "moonstone-advocates-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "predev": "node scripts/prepare-site.mjs public",
+    "dev": "vite public --host 0.0.0.0",
+    "prebuild": "node scripts/prepare-site.mjs public",
+    "build": "vite build public --outDir ../dist --emptyOutDir",
+    "preview": "vite preview dist --host 0.0.0.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.62.1",
+    "vite": "^8.2.1"
+  }
+}
