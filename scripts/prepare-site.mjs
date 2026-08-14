@@ -908,72 +908,101 @@ writeFileSync(
 );
 
 const cleanUrl = (url) => url.replace(/index\.html(#.*)?$/, (match, hash = '') => hash || '');
-const simpleNav = `<header class="relative z-50 bg-base-light py-5">
-  <div class="container flex items-center justify-between gap-6">
-    <a href="/" aria-label="Moonstone Advocates"><img src="/images/logo.png" alt="Moonstone Advocates" style="max-width:246px;width:min(246px,58vw);height:auto" /></a>
-    <nav class="hidden lg:flex gap-6 font-heading">
-      <a href="/services/">Services</a>
-      <a href="/sectors/">Sectors</a>
-      <a href="/about/">About</a>
-      <a href="/contact/">Contact</a>
-    </nav>
-  </div>
-</header>`;
-const simpleFooter = `<footer class="relative z-0 text-base-light bg-navy overflow-hidden">
-  <div class="container py-12">
-    <img src="/images/logo.png" alt="Moonstone Advocates" style="max-width:180px;width:min(180px,48vw);height:auto" />
-    <p>Plot 134 Semwata Road, Ntinda<br />P.O. Box 189860<br />Kampala, Uganda</p>
-    <p><a href="mailto:info@moonstoneadvocates.com">info@moonstoneadvocates.com</a><br /><a href="tel:+256778616565">+256 (0) 778 616565</a></p>
-  </div>
-</footer>`;
-const cleanPage = ({ title, intro, items, type }) => `<!DOCTYPE html>
-<html lang="en-UG">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${title} | Moonstone Advocates</title>
-  <meta name="description" content="${intro.replace(/"/g, '&quot;')}">
-  <link rel="icon" href="/images/favicon-32x32.png" sizes="32x32">
-  <link rel="icon" href="/images/favicon-192x192.png" sizes="192x192">
-  <link rel="apple-touch-icon" href="/images/favicon-180x180.png">
-  <style id="moonstone-theme-css">${themeCss}</style>
-  <style>
-    body{margin:0;overflow-x:hidden}.moonstone-clean-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:2rem}.moonstone-clean-list li{background:#fff;border-radius:.5rem;padding:1rem;color:#181a34}.moonstone-clean-link{display:inline-block;margin-top:2rem}@media(max-width:767px){.container{padding-left:1rem!important;padding-right:1rem!important}.moonstone-clean-list{grid-template-columns:1fr}h1{font-size:2.25rem!important;line-height:1.05!important}h2{font-size:1.85rem!important;line-height:1.12!important}p,li,a{overflow-wrap:anywhere}}
-  </style>
-</head>
-<body class="custom-css">
-${simpleNav}
-<main>
-  <section class="banner relative bg-navy z-[1]">
-    <div class="relative pt-32 pb-24 overflow-hidden">
-      <div class="relative container z-[1]">
-        <div class="px-6 mb-12 md:w-8/12 text-base-light">
-          <div class="max-w-3xl">
-            <h1>${title}</h1>
-            <p><strong>${intro}</strong></p>
-          </div>
-        </div>
-        <a class="btn btn-primary lg:mr-4" href="/contact/">Contact us</a>
-      </div>
-      <div class="bg"></div>
+const escapeHtml = (value) =>
+  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const templateCacheDir = path.join(target, '.moonstone-templates');
+mkdirSync(templateCacheDir, { recursive: true });
+for (const [templateSource, templateName] of [
+  [path.join(target, 'key-practice-area/ip-disputes/index.html'), 'service.html'],
+  [path.join(target, 'key-industry-sector/technology/index.html'), 'sector.html']
+]) {
+  if (existsSync(templateSource)) copyFileSync(templateSource, path.join(templateCacheDir, templateName));
+}
+const pageTemplate = (templatePath, fallbackTemplatePath) => {
+  const template = readFileSync(existsSync(templatePath) ? templatePath : fallbackTemplatePath, 'utf8');
+  const bannerStart = template.indexOf('<section class="banner');
+  const bannerEnd = template.indexOf('</section>', bannerStart) + '</section>'.length;
+  const footerStart = template.indexOf('<footer');
+  return {
+    beforeBanner: template.slice(0, bannerStart),
+    banner: template.slice(bannerStart, bannerEnd),
+    footerAndAfter: template.slice(footerStart)
+  };
+};
+const serviceTemplate = pageTemplate(
+  path.join(templateCacheDir, 'service.html'),
+  path.join(root, 'www.briffa.com/key-practice-area/ip-disputes/index.html')
+);
+const sectorTemplate = pageTemplate(
+  path.join(templateCacheDir, 'sector.html'),
+  path.join(root, 'www.briffa.com/key-industry-sector/technology/index.html')
+);
+const relatedLinks = (areas, currentTitle) =>
+  areas
+    .filter((area) => area.title !== currentTitle)
+    .slice(0, 6)
+    .map((area) => `<a class="btn btn-primary_alt lg:mr-4 m-4" href="${cleanUrl(`/${area.path}`)}">${escapeHtml(area.title)}</a>`)
+    .join('\n');
+const styledPage = ({ title, intro, items, type }) => {
+  const template = type === 'sector' ? sectorTemplate : serviceTemplate;
+  const relatedAreas = type === 'sector' ? sectorAreas : serviceAreas;
+  const banner = template.banner
+    .replace(/<h1[\s\S]*?<\/h1>/, `<h1 class="vc_custom_heading us_custom_6df4bc3a">${escapeHtml(title)}</h1>`)
+    .replace(/<p class="vc_custom_heading us_custom_6df4bc3a">[\s\S]*?<\/p>/, `<p class="vc_custom_heading us_custom_6df4bc3a">${escapeHtml(intro)}</p>`);
+  const itemList = items.map((item) => `<li>${typeof item === 'string' ? escapeHtml(item) : item}</li>`).join('\n');
+  const middle = `
+<section class="relative grid grid-cols-1 overflow-hidden md:grid-cols-2 bg-base-light">
+  <div class="lg:flex lg:pr-32 py-28">
+    <div class="content px-4 md:pl-12 lg:pl-24 xl:pl-24 4k:pl-64" data-aos="fade-up">
+      <h2>${type === 'sector' ? 'Legal Support for This Sector' : `${escapeHtml(title)} Lawyers`}</h2>
+      <p>${escapeHtml(intro)}</p>
+      <p>Moonstone Advocates works with clients in Uganda through clear advice, carefully prepared documentation and practical representation. We focus on the legal details that affect the commercial, regulatory and personal outcome of each matter.</p>
     </div>
-  </section>
-  <section class="py-16 bg-base-light">
-    <div class="relative z-[1] px-4 | md:container">
-      <div class="mx-auto max-w-4xl content">
-        <h2>${type === 'service' ? 'How We Can Help' : 'Sector Support'}</h2>
-        <p>Moonstone Advocates provides clear, practical and partner-led support tailored to the needs of each client matter.</p>
-        <ul class="moonstone-clean-list">${items.map((item) => `<li>${item}</li>`).join('')}</ul>
-        <a class="btn btn-primary moonstone-clean-link" href="/contact/">Make an enquiry</a>
-      </div>
+  </div>
+  <div class="relative min-h-[300px] bg-navy">
+    <img src="/images/image.png" alt="Moonstone Advocates" class="absolute inset-0 object-cover w-full h-full opacity-80" />
+  </div>
+</section>
+<section class="pt-32 bg-base-light">
+  <div class="relative z-[1] px-4 | md:container">
+    <div class="mb-12 mx-auto max-w-3xl content" data-aos="fade-up">
+      <h2 style="text-align: center;">How can we help?</h2>
+      <p style="text-align: center;">Our team supports clients with the following matters:</p>
+      <ul>${itemList}</ul>
     </div>
-  </section>
-</main>
-${simpleFooter}
-<script src="/moonstone-local.js"></script>
-</body>
-</html>
-`;
+  </div>
+</section>
+<section id="team" class="py-16 relative overflow-hidden bg-base-light">
+  <div class="relative z-[1] px-4 | md:container">
+    <div class="mb-12 mx-auto max-w-3xl content" data-aos="fade-up">
+      <h2>${type === 'sector' ? 'Key Contacts' : `Key Contacts for ${escapeHtml(title)}`}</h2>
+      <p>Speak with Moonstone Advocates for partner-led guidance and responsive support. We will review the issue, explain the available options and help you move forward with confidence.</p>
+    </div>
+  </div>
+</section>
+<section class="py-8 md:py-16 relative z-[1] bg-purple">
+  <div class="hidden md:block w-48 h-48 z-[1] rounded-full bg-yellow absolute -top-24 right-8"></div>
+  <div class="relative container z-[1]">
+    <div class="text-base-light text-center max-w-3xl mx-auto content" data-aos="fade-up">
+      <h2 class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl">Contact Moonstone Advocates.</h2>
+      <p class="text-lg font-bold">For advice on ${escapeHtml(title.toLowerCase())}, contact our Kampala team and we will guide you on the next steps.</p>
+      <a class="btn btn-primary" href="/contact/">Make an enquiry</a>
+    </div>
+  </div>
+</section>
+<section class="py-20 relative overflow-hidden bg-base-light">
+  <div class="relative z-[1] px-4 | md:container">
+    <div class="mb-8 mx-auto max-w-3xl content" data-aos="fade-up">
+      <h2 style="text-align: center;">${type === 'sector' ? 'Other sectors' : 'Similar services'}</h2>
+    </div>
+    <div class="container flex flex-wrap justify-center">${relatedLinks(relatedAreas, title)}</div>
+  </div>
+</section>`;
+  const beforeBanner = template.beforeBanner
+    .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(title)} | Moonstone Advocates</title>`)
+    .replace(/<meta name="description" content="[^"]*"/, `<meta name="description" content="${escapeHtml(intro)}"`);
+  return `${beforeBanner}${banner}${middle}${template.footerAndAfter}`;
+};
 
 const writeCleanPage = (area, type) => {
   const dir = path.join(target, area.path.replace(/\/?index\.html$/, ''));
@@ -987,18 +1016,18 @@ const writeCleanPage = (area, type) => {
     'Dispute prevention and resolution',
     'Practical client support'
   ];
-  writeFileSync(path.join(dir, 'index.html'), cleanPage({ title: area.title, intro, items, type }));
+  writeFileSync(path.join(dir, 'index.html'), styledPage({ title: area.title, intro, items, type }));
 };
 
 mkdirSync(path.join(target, 'services'), { recursive: true });
-writeFileSync(path.join(target, 'services/index.html'), cleanPage({
+writeFileSync(path.join(target, 'services/index.html'), styledPage({
   title: 'Services',
   intro: 'Explore Moonstone Advocates services across corporate advisory, tax, disputes, property, employment, family, finance, public sector, energy and criminal law.',
   items: serviceAreas.map((area) => `<a href="${cleanUrl(`/${area.path}`)}">${area.title}</a>`),
   type: 'service'
 }));
 mkdirSync(path.join(target, 'sectors'), { recursive: true });
-writeFileSync(path.join(target, 'sectors/index.html'), cleanPage({
+writeFileSync(path.join(target, 'sectors/index.html'), styledPage({
   title: 'Sectors',
   intro: 'Moonstone Advocates supports clients across commercial, financial, property, energy, public sector, family, employment, tax, disputes and criminal defence sectors.',
   items: sectorAreas.map((area) => `<a href="${cleanUrl(`/${area.path}`)}">${area.title}</a>`),
