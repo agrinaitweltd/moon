@@ -20,13 +20,18 @@
     ['article, .content blockquote, form label', 'fade-up'],
     ['section img', 'zoom-in'],
     ['#team .flex.flex-col', 'fade-up'],
-    ['footer .container > *', 'fade-up'],
-    ['.btn', 'zoom-in']
+    ['.moonstone-footer-intro, .moonstone-footer-links > div, .moonstone-footer-bottom > *', 'fade-up']
   ];
+
+  document.querySelectorAll('[data-aos]').forEach((element) => {
+    element.removeAttribute('data-aos');
+    element.removeAttribute('data-aos-delay');
+    element.removeAttribute('data-aos-duration');
+  });
 
   animatedSelectors.forEach(([selector, animation]) => {
     document.querySelectorAll(selector).forEach((element, index) => {
-      if (!element.hasAttribute('data-aos')) element.setAttribute('data-aos', animation);
+      if (element.matches('a, button') || element.closest('header')) return;
       element.classList.add('moonstone-reveal');
       if (animation === 'zoom-in') element.classList.add('moonstone-reveal-scale');
       if (animation === 'fade-left') element.classList.add('moonstone-reveal-left');
@@ -47,31 +52,6 @@
     reveals.forEach((element) => observer.observe(element));
   } else {
     reveals.forEach((element) => element.classList.add('is-visible'));
-  }
-
-  if (window.AOS && typeof window.AOS.init === 'function') {
-    window.AOS.init({ once: true, duration: 760, offset: 80, easing: 'ease-out-cubic' });
-    document.body.classList.add('moonstone-aos-ready');
-  } else if (window.AOS && typeof window.AOS.refreshHard === 'function') {
-    window.AOS.refreshHard();
-    document.body.classList.add('moonstone-aos-ready');
-  } else if (window.AOS && typeof window.AOS.refresh === 'function') {
-    window.AOS.refresh();
-    document.body.classList.add('moonstone-aos-ready');
-  }
-
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.matchMedia('(pointer: fine)').matches) {
-    document.querySelectorAll('.moonstone-practice-card, #team .flex.flex-col, article').forEach((card) => {
-      card.addEventListener('mousemove', (event) => {
-        const rect = card.getBoundingClientRect();
-        const x = ((event.clientX - rect.left) / rect.width - 0.5) * 5;
-        const y = ((event.clientY - rect.top) / rect.height - 0.5) * -5;
-        card.style.transform = 'translateY(-6px) rotateX(' + y.toFixed(2) + 'deg) rotateY(' + x.toFixed(2) + 'deg)';
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-      });
-    });
   }
 
   document.querySelectorAll('article, .moonstone-practice-card, #team .flex.flex-col, .gmbrr .listing > div').forEach((item) => {

@@ -280,6 +280,7 @@ const moonstoneContactBlock = `<h2>Contact Moonstone Advocates</h2>
 const moonstoneFooter = `<footer class="moonstone-footer overflow-hidden">
   <div class="moonstone-footer-main">
     <div class="moonstone-footer-intro">
+      <a class="moonstone-footer-logo" href="/" aria-label="Moonstone Advocates home"><img src="/images/logo.png" alt="Moonstone Advocates" /></a>
       <h2>Moonstone Advocates</h2>
       <p>Clear, practical and partner-led legal counsel for businesses, institutions and individuals in Uganda.</p>
       <a class="btn btn-primary_alt" href="/contact/">Start a conversation</a>
@@ -348,7 +349,8 @@ const teamMembers = [
   {
     name: 'OCHORA EDWARD LABEJA',
     role: 'Managing Partner',
-    path: '/meet-team/william-miles/index.html',
+    path: '/team/ochora-edward-labeja/index.html',
+    sourcePath: '/meet-team/william-miles/index.html',
     image: '/images/team-edward.png',
     profile: [
       'Ochora Edward Labeja is the Managing Partner of Moonstone Advocates and an Advocate of the High Court of Uganda. He provides partner-led support to businesses, institutions and individuals on corporate, commercial, employment, property, dispute resolution and family matters.',
@@ -361,7 +363,8 @@ const teamMembers = [
   {
     name: 'NORAH AMANYA',
     role: 'Partner',
-    path: '/meet-team/eamon-chawke/index.html',
+    path: '/team/norah-amanya/index.html',
+    sourcePath: '/meet-team/eamon-chawke/index.html',
     image: '/images/team-norah.png',
     profile: [
       'Norah Amanya is a Partner at Moonstone Advocates with experience in complex commercial transactions, governance, extractives, energy and infrastructure. She has over 11 years of legal experience, including service as General Counsel at CITI Global and as a Senior Associate at Cristal Advocates and ABMAK.',
@@ -374,7 +377,8 @@ const teamMembers = [
   {
     name: 'SANDE HAPPY',
     role: 'Senior Associate',
-    path: '/meet-team/daniel-crate/index.html',
+    path: '/team/sande-happy/index.html',
+    sourcePath: '/meet-team/daniel-crate/index.html',
     image: '/images/team-sande.png',
     profile: [
       'Sande Happy is a Senior Associate in Dispute Resolution and Corporate & Commercial practice. He is an Advocate of the High Court and subordinate courts of Uganda with over six years of experience.',
@@ -387,7 +391,8 @@ const teamMembers = [
   {
     name: 'AKELLO SHIRLEY MARYLIN',
     role: 'Associate',
-    path: '/meet-team/charlotte-owens/index.html',
+    path: '/team/akello-shirley-marylin/index.html',
+    sourcePath: '/meet-team/charlotte-owens/index.html',
     image: '/images/team-akello.png',
     profile: [
       'Akello Shirley Marylin is an Associate in the Litigation Department. She first joined the firm as an intern and was retained after completing her Postgraduate Diploma in Legal Practice.',
@@ -400,7 +405,8 @@ const teamMembers = [
   {
     name: 'MWAKA JAMES TOLIT',
     role: 'Associate',
-    path: '/meet-team/mark-eiffe/index.html',
+    path: '/team/mwaka-james-tolit/index.html',
+    sourcePath: '/meet-team/mark-eiffe/index.html',
     image: '/images/team-mwaka.png',
     profile: [
       'Mwaka James Tolit is an Associate in Litigation and Commercial practice. He advises on corporate and commercial matters, governance, compliance, disputes and litigation.',
@@ -413,7 +419,8 @@ const teamMembers = [
   {
     name: 'ECHIBA EDWIN MICHEAL',
     role: 'Consultant',
-    path: '/meet-team/mohammad-khan/index.html',
+    path: '/team/echiba-edwin-micheal/index.html',
+    sourcePath: '/meet-team/mohammad-khan/index.html',
     image: '/images/team-echiba.png',
     profile: [
       'Echiba Edwin Micheal is a Consultant and external tax consultant to Moonstone Advocates. He provides strategic tax advisory, tax dispute support and regulatory compliance guidance.',
@@ -624,6 +631,7 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
 .moonstone-footer{background:#f8f4f7;color:#181a34;border-top:1px solid rgba(24,26,52,.1)}
 .moonstone-footer-main{max-width:1280px;margin:0 auto;padding:4.5rem 2rem 3.5rem;display:grid;grid-template-columns:minmax(240px,.85fr) minmax(0,1.65fr);gap:4rem}
 .moonstone-footer-intro{max-width:360px}.moonstone-footer-intro h2{font-family:Jost,sans-serif;font-size:2rem;line-height:1.1;margin:0 0 1rem}.moonstone-footer-intro p{margin:0 0 1.5rem;line-height:1.7}
+.moonstone-footer-logo{display:inline-block;margin-bottom:1.35rem}.moonstone-footer-logo img{display:block;width:auto;height:auto;max-width:150px;max-height:44px;object-fit:contain;transition:transform .4s ease}.moonstone-footer-logo:hover img{transform:translateY(-3px) scale(1.025)}
 .moonstone-footer-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem}.moonstone-footer-links div{display:flex;flex-direction:column;align-items:flex-start;gap:.65rem}.moonstone-footer-links h3{font-family:Jost,sans-serif;font-size:1.05rem;margin:0 0 .4rem}.moonstone-footer-links a{color:#181a34;text-decoration:none;line-height:1.45;transition:color .25s ease,transform .25s ease}.moonstone-footer-links a:hover{color:#6f3e78;transform:translateX(4px)}
 .moonstone-footer-bottom{background:#181a34;color:#fff;display:flex;justify-content:space-between;gap:1rem;padding:1rem max(2rem,calc((100vw - 1216px)/2));font-size:.9rem}.moonstone-footer-bottom a{color:#fff;text-decoration:none}
 @media (prefers-reduced-motion:reduce){.custom-css *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
@@ -642,6 +650,13 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
 @media (min-width:1024px){li.group:hover>.moonstone-services-menu{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}.moonstone-service-menu-item details[open] ul{display:block}}
 @media (max-width:1023px){body.moonstone-menu-active{overflow:hidden}.custom-css header.menu nav#menu{left:0!important;right:0!important;width:100vw!important;max-width:100vw!important;padding:1rem 1rem 3rem!important;opacity:0;transform:translateY(-14px);transition:opacity .3s ease,transform .3s ease}.custom-css header.menu nav#menu.moonstone-mobile-open{opacity:1;transform:none}.custom-css header.menu nav#menu>ul>li{border-bottom:1px solid rgba(255,255,255,.16);padding:.7rem 0}.custom-css header.menu nav#menu>ul>li>a{display:inline-flex;padding:.65rem .75rem}.custom-css header.menu nav#menu>ul>li>span{float:right;margin:.3rem .25rem 0 0;padding:.75rem;transition:transform .3s ease}.custom-css header.menu nav#menu>ul>li.moonstone-submenu-open>span{transform:rotate(180deg)}.custom-css header.menu nav#menu>ul>li>ul{display:none!important;position:static!important;width:100%!important;margin:.35rem 0 .5rem!important;padding:.65rem .75rem!important;box-shadow:none!important;border-radius:.35rem!important}.custom-css header.menu nav#menu>ul>li.moonstone-submenu-open>ul{display:block!important;animation:moonstone-menu-drop .35s ease both}.moonstone-services-menu{width:100%!important}.moonstone-menu-toggle{width:42px;height:42px;display:inline-grid;place-items:center;border-radius:50%;transition:background .25s ease,transform .25s ease}.moonstone-menu-toggle:hover{background:rgba(24,26,52,.08)}.moonstone-menu-toggle span,.moonstone-menu-toggle:before,.moonstone-menu-toggle:after{content:"";display:block;width:20px;height:2px;background:#181a34;transition:transform .3s ease,opacity .3s ease;position:absolute}.moonstone-menu-toggle:before{transform:translateY(-6px)}.moonstone-menu-toggle:after{transform:translateY(6px)}.moonstone-menu-toggle[aria-expanded="true"] span{opacity:0}.moonstone-menu-toggle[aria-expanded="true"]:before{transform:rotate(45deg)}.moonstone-menu-toggle[aria-expanded="true"]:after{transform:rotate(-45deg)}}
 @keyframes moonstone-menu-drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.custom-css section .content a:not(.btn){position:relative;text-decoration-thickness:1px;text-underline-offset:4px;transition:color .25s ease,text-decoration-color .25s ease}
+.custom-css section .content a:not(.btn):hover{color:#6f3e78;text-decoration-color:#eab736}
+.custom-css .btn{position:relative;isolation:isolate;overflow:hidden}
+.custom-css .btn:after{content:"";position:absolute;z-index:-1;inset:-2px;transform:translateX(-115%) skewX(-18deg);background:rgba(255,255,255,.22);transition:transform .55s ease}
+.custom-css .btn:hover:after{transform:translateX(115%) skewX(-18deg)}
+.custom-css section h2:after{content:"";display:block;width:0;height:3px;margin-top:.65rem;background:#eab736;transition:width .8s cubic-bezier(.2,.7,.2,1)}
+.custom-css section h2.is-visible:after,.custom-css .is-visible h2:after{width:min(72px,35%)}
 </style>
 </head>`
     );
@@ -766,7 +781,7 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
     `<h2 style="text-align: center;">Values</h2>\n<p style="text-align: center;">${firmValues.join(' • ')}</p>\n        </div>`
   );
   for (const member of teamMembers) {
-    const memberPath = member.path.replace(/^\//, '');
+    const memberPath = member.sourcePath.replace(/^\//, '');
     if (file.replace(/\\/g, '/').endsWith(memberPath)) {
       html = html.replace(/<p class="px-4 py-2 m-0 absolute bottom-0 left-0 inline-block font-bold bg-base-light font-heading">\s*[\s\S]*?\s*<\/p>/, `<p class="px-4 py-2 m-0 absolute bottom-0 left-0 inline-block font-bold bg-base-light font-heading">\n                    ${member.role}                </p>`);
       html = html.replace(/<h1 class="mt-12 mb-4">[\s\S]*?<\/h1>\s*<p>[\s\S]*?<\/p>\s*<p>[\s\S]*?<\/p>\s*<p>[\s\S]*?<\/p>(?:\s*<p>[\s\S]*?<\/p>)*/m, `<h1 class="mt-12 mb-4">${member.name}</h1>\n                ${profileBody(member)}`);
@@ -774,6 +789,12 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
       html = html.replace(/<p style="text-align: center;"><strong>Contact us now<\/strong><\/p>/g, `<p style="text-align: center;"><strong>Contact ${member.name}</strong></p>`);
       html = html.replace(/<p><strong>[\s\S]*?<\/strong><\/p>\s*<p>law lawyers[\s\S]*?<p>[\s\S]*?<\/p>\s*<p>– [\s\S]*?<\/p>/g, `<p><strong>${member.quote}</strong></p>\n<p>Moonstone Advocates provides practical, partner-led legal support from Kampala, Uganda.</p>\n<p>For assistance, contact info@moonstoneadvocates.com or +256 (0) 778 616565.</p>\n<p>– ${member.name}</p>`);
     }
+  }
+  for (const member of teamMembers) {
+    const oldProfileUrl = member.sourcePath.replace(/index\.html$/, '');
+    const cleanProfileUrl = member.path.replace(/index\.html$/, '');
+    html = html.replaceAll(oldProfileUrl, cleanProfileUrl);
+    html = html.replaceAll(oldProfileUrl.replace(/^\//, ''), cleanProfileUrl);
   }
   html = html.replace(/Office required/g, 'Office');
   html = html.replace(/commercial and private legal law/g, 'commercial and private legal services');
@@ -931,13 +952,18 @@ const helper = `(() => {
     ['article, .content blockquote, form label', 'fade-up'],
     ['section img', 'zoom-in'],
     ['#team .flex.flex-col', 'fade-up'],
-    ['footer .container > *', 'fade-up'],
-    ['.btn', 'zoom-in']
+    ['.moonstone-footer-intro, .moonstone-footer-links > div, .moonstone-footer-bottom > *', 'fade-up']
   ];
+
+  document.querySelectorAll('[data-aos]').forEach((element) => {
+    element.removeAttribute('data-aos');
+    element.removeAttribute('data-aos-delay');
+    element.removeAttribute('data-aos-duration');
+  });
 
   animatedSelectors.forEach(([selector, animation]) => {
     document.querySelectorAll(selector).forEach((element, index) => {
-      if (!element.hasAttribute('data-aos')) element.setAttribute('data-aos', animation);
+      if (element.matches('a, button') || element.closest('header')) return;
       element.classList.add('moonstone-reveal');
       if (animation === 'zoom-in') element.classList.add('moonstone-reveal-scale');
       if (animation === 'fade-left') element.classList.add('moonstone-reveal-left');
@@ -958,31 +984,6 @@ const helper = `(() => {
     reveals.forEach((element) => observer.observe(element));
   } else {
     reveals.forEach((element) => element.classList.add('is-visible'));
-  }
-
-  if (window.AOS && typeof window.AOS.init === 'function') {
-    window.AOS.init({ once: true, duration: 760, offset: 80, easing: 'ease-out-cubic' });
-    document.body.classList.add('moonstone-aos-ready');
-  } else if (window.AOS && typeof window.AOS.refreshHard === 'function') {
-    window.AOS.refreshHard();
-    document.body.classList.add('moonstone-aos-ready');
-  } else if (window.AOS && typeof window.AOS.refresh === 'function') {
-    window.AOS.refresh();
-    document.body.classList.add('moonstone-aos-ready');
-  }
-
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.matchMedia('(pointer: fine)').matches) {
-    document.querySelectorAll('.moonstone-practice-card, #team .flex.flex-col, article').forEach((card) => {
-      card.addEventListener('mousemove', (event) => {
-        const rect = card.getBoundingClientRect();
-        const x = ((event.clientX - rect.left) / rect.width - 0.5) * 5;
-        const y = ((event.clientY - rect.top) / rect.height - 0.5) * -5;
-        card.style.transform = 'translateY(-6px) rotateX(' + y.toFixed(2) + 'deg) rotateY(' + x.toFixed(2) + 'deg)';
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-      });
-    });
   }
 
   document.querySelectorAll('article, .moonstone-practice-card, #team .flex.flex-col, .gmbrr .listing > div').forEach((item) => {
@@ -1132,7 +1133,11 @@ const styledPage = ({ title, intro, items, type }) => {
   const banner = template.banner
     .replace(/<h1[\s\S]*?<\/h1>/, `<h1 class="vc_custom_heading us_custom_6df4bc3a">${escapeHtml(title)}</h1>`)
     .replace(/<p class="vc_custom_heading us_custom_6df4bc3a">[\s\S]*?<\/p>/, `<p class="vc_custom_heading us_custom_6df4bc3a">${escapeHtml(intro)}</p>`);
-  const itemList = items.map((item) => `<li>${typeof item === 'string' ? escapeHtml(item) : item}</li>`).join('\n');
+  const isLandingPage = title === 'Services' || title === 'Sectors';
+  const itemList = items.map((item) => {
+    if (typeof item === 'string') return `<li>${escapeHtml(item)}</li>`;
+    return `<li><a href="${escapeHtml(item.href)}">${escapeHtml(item.label)}</a></li>`;
+  }).join('\n');
   const middle = `
 <section class="relative grid grid-cols-1 overflow-hidden md:grid-cols-2 bg-base-light">
   <div class="lg:flex lg:pr-32 py-28">
@@ -1173,14 +1178,14 @@ const styledPage = ({ title, intro, items, type }) => {
     </div>
   </div>
 </section>
-<section class="py-20 relative overflow-hidden bg-base-light">
+${isLandingPage ? '' : `<section class="py-20 relative overflow-hidden bg-base-light">
   <div class="relative z-[1] px-4 | md:container">
     <div class="mb-8 mx-auto max-w-3xl content" data-aos="fade-up">
       <h2 style="text-align: center;">${type === 'sector' ? 'Other sectors' : 'Similar services'}</h2>
     </div>
     <div class="container flex flex-wrap justify-center">${relatedLinks(relatedAreas, title)}</div>
   </div>
-</section>`;
+</section>`}`;
   const beforeBanner = template.beforeBanner
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(title)} | Moonstone Advocates</title>`)
     .replace(/<meta name="description" content="[^"]*"/, `<meta name="description" content="${escapeHtml(intro)}"`);
@@ -1206,18 +1211,25 @@ mkdirSync(path.join(target, 'services'), { recursive: true });
 writeFileSync(path.join(target, 'services/index.html'), styledPage({
   title: 'Services',
   intro: 'Explore Moonstone Advocates services across corporate advisory, tax, disputes, property, employment, family, finance, public sector, energy and criminal law.',
-  items: serviceAreas.map((area) => `<a href="${cleanUrl(`/${area.path}`)}">${area.title}</a>`),
+  items: serviceAreas.map((area) => ({ href: cleanUrl(`/${area.path}`), label: area.title })),
   type: 'service'
 }));
 mkdirSync(path.join(target, 'sectors'), { recursive: true });
 writeFileSync(path.join(target, 'sectors/index.html'), styledPage({
   title: 'Sectors',
   intro: 'Moonstone Advocates supports clients across commercial, financial, property, energy, public sector, family, employment, tax, disputes and criminal defence sectors.',
-  items: sectorAreas.map((area) => `<a href="${cleanUrl(`/${area.path}`)}">${area.title}</a>`),
+  items: sectorAreas.map((area) => ({ href: cleanUrl(`/${area.path}`), label: area.title })),
   type: 'sector'
 }));
 for (const area of serviceAreas) writeCleanPage(area, 'service');
 for (const area of sectorAreas) writeCleanPage(area, 'sector');
+for (const member of teamMembers) {
+  const sourceProfile = path.join(target, member.sourcePath.replace(/^\//, ''));
+  const cleanProfile = path.join(target, member.path.replace(/^\//, ''));
+  if (!existsSync(sourceProfile)) continue;
+  mkdirSync(path.dirname(cleanProfile), { recursive: true });
+  copyFileSync(sourceProfile, cleanProfile);
+}
 for (const oldGeneratedFolder of [
   'key-practice-area',
   'key-industry-sector',

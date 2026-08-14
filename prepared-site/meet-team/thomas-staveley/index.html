@@ -4563,6 +4563,7 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
 .moonstone-footer{background:#f8f4f7;color:#181a34;border-top:1px solid rgba(24,26,52,.1)}
 .moonstone-footer-main{max-width:1280px;margin:0 auto;padding:4.5rem 2rem 3.5rem;display:grid;grid-template-columns:minmax(240px,.85fr) minmax(0,1.65fr);gap:4rem}
 .moonstone-footer-intro{max-width:360px}.moonstone-footer-intro h2{font-family:Jost,sans-serif;font-size:2rem;line-height:1.1;margin:0 0 1rem}.moonstone-footer-intro p{margin:0 0 1.5rem;line-height:1.7}
+.moonstone-footer-logo{display:inline-block;margin-bottom:1.35rem}.moonstone-footer-logo img{display:block;width:auto;height:auto;max-width:150px;max-height:44px;object-fit:contain;transition:transform .4s ease}.moonstone-footer-logo:hover img{transform:translateY(-3px) scale(1.025)}
 .moonstone-footer-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem}.moonstone-footer-links div{display:flex;flex-direction:column;align-items:flex-start;gap:.65rem}.moonstone-footer-links h3{font-family:Jost,sans-serif;font-size:1.05rem;margin:0 0 .4rem}.moonstone-footer-links a{color:#181a34;text-decoration:none;line-height:1.45;transition:color .25s ease,transform .25s ease}.moonstone-footer-links a:hover{color:#6f3e78;transform:translateX(4px)}
 .moonstone-footer-bottom{background:#181a34;color:#fff;display:flex;justify-content:space-between;gap:1rem;padding:1rem max(2rem,calc((100vw - 1216px)/2));font-size:.9rem}.moonstone-footer-bottom a{color:#fff;text-decoration:none}
 @media (prefers-reduced-motion:reduce){.custom-css *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
@@ -4581,6 +4582,13 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
 @media (min-width:1024px){li.group:hover>.moonstone-services-menu{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}.moonstone-service-menu-item details[open] ul{display:block}}
 @media (max-width:1023px){body.moonstone-menu-active{overflow:hidden}.custom-css header.menu nav#menu{left:0!important;right:0!important;width:100vw!important;max-width:100vw!important;padding:1rem 1rem 3rem!important;opacity:0;transform:translateY(-14px);transition:opacity .3s ease,transform .3s ease}.custom-css header.menu nav#menu.moonstone-mobile-open{opacity:1;transform:none}.custom-css header.menu nav#menu>ul>li{border-bottom:1px solid rgba(255,255,255,.16);padding:.7rem 0}.custom-css header.menu nav#menu>ul>li>a{display:inline-flex;padding:.65rem .75rem}.custom-css header.menu nav#menu>ul>li>span{float:right;margin:.3rem .25rem 0 0;padding:.75rem;transition:transform .3s ease}.custom-css header.menu nav#menu>ul>li.moonstone-submenu-open>span{transform:rotate(180deg)}.custom-css header.menu nav#menu>ul>li>ul{display:none!important;position:static!important;width:100%!important;margin:.35rem 0 .5rem!important;padding:.65rem .75rem!important;box-shadow:none!important;border-radius:.35rem!important}.custom-css header.menu nav#menu>ul>li.moonstone-submenu-open>ul{display:block!important;animation:moonstone-menu-drop .35s ease both}.moonstone-services-menu{width:100%!important}.moonstone-menu-toggle{width:42px;height:42px;display:inline-grid;place-items:center;border-radius:50%;transition:background .25s ease,transform .25s ease}.moonstone-menu-toggle:hover{background:rgba(24,26,52,.08)}.moonstone-menu-toggle span,.moonstone-menu-toggle:before,.moonstone-menu-toggle:after{content:"";display:block;width:20px;height:2px;background:#181a34;transition:transform .3s ease,opacity .3s ease;position:absolute}.moonstone-menu-toggle:before{transform:translateY(-6px)}.moonstone-menu-toggle:after{transform:translateY(6px)}.moonstone-menu-toggle[aria-expanded="true"] span{opacity:0}.moonstone-menu-toggle[aria-expanded="true"]:before{transform:rotate(45deg)}.moonstone-menu-toggle[aria-expanded="true"]:after{transform:rotate(-45deg)}}
 @keyframes moonstone-menu-drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.custom-css section .content a:not(.btn){position:relative;text-decoration-thickness:1px;text-underline-offset:4px;transition:color .25s ease,text-decoration-color .25s ease}
+.custom-css section .content a:not(.btn):hover{color:#6f3e78;text-decoration-color:#eab736}
+.custom-css .btn{position:relative;isolation:isolate;overflow:hidden}
+.custom-css .btn:after{content:"";position:absolute;z-index:-1;inset:-2px;transform:translateX(-115%) skewX(-18deg);background:rgba(255,255,255,.22);transition:transform .55s ease}
+.custom-css .btn:hover:after{transform:translateX(115%) skewX(-18deg)}
+.custom-css section h2:after{content:"";display:block;width:0;height:3px;margin-top:.65rem;background:#eab736;transition:width .8s cubic-bezier(.2,.7,.2,1)}
+.custom-css section h2.is-visible:after,.custom-css .is-visible h2:after{width:min(72px,35%)}
 </style>
 <style id="moonstone-final-header-fix">
 .custom-css header.menu img[src="/images/logo.png"]{max-width:118px!important;max-height:34px!important;width:auto!important;height:auto!important;object-fit:contain!important}
@@ -5381,6 +5389,7 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
 <footer class="moonstone-footer overflow-hidden">
   <div class="moonstone-footer-main">
     <div class="moonstone-footer-intro">
+      <a class="moonstone-footer-logo" href="/" aria-label="Moonstone Advocates home"><img src="/images/logo.png" alt="Moonstone Advocates" /></a>
       <h2>Moonstone Advocates</h2>
       <p>Clear, practical and partner-led legal counsel for businesses, institutions and individuals in Uganda.</p>
       <a class="btn btn-primary_alt" href="/contact/">Start a conversation</a>
