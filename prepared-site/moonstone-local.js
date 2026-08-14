@@ -15,10 +15,15 @@
     });
   });
 
-  if (window.AOS && typeof window.AOS.refreshHard === 'function') {
+  if (window.AOS && typeof window.AOS.init === 'function') {
+    window.AOS.init({ once: true, duration: 650, easing: 'ease-out-cubic' });
+    document.body.classList.add('moonstone-aos-ready');
+  } else if (window.AOS && typeof window.AOS.refreshHard === 'function') {
     window.AOS.refreshHard();
+    document.body.classList.add('moonstone-aos-ready');
   } else if (window.AOS && typeof window.AOS.refresh === 'function') {
     window.AOS.refresh();
+    document.body.classList.add('moonstone-aos-ready');
   }
 
   document.addEventListener('submit', (event) => {

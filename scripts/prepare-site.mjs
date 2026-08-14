@@ -62,11 +62,15 @@ const themeCssPath = path.join(target, 'wp-content/themes/briffa/dist/styles.css
 const themeCss = existsSync(themeCssPath)
   ? readFileSync(themeCssPath, 'utf8').replace(/\.\.\/assets\/fonts\//g, '/wp-content/themes/briffa/assets/fonts/')
   : '';
+const slugify = (value) =>
+  value.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const cleanServicePath = (title) => `services/${slugify(title)}/index.html`;
+const cleanSectorPath = (title) => `sectors/${slugify(title)}/index.html`;
 
 const serviceAreas = [
   {
     title: 'Corporate & Commercial Advisory',
-    path: 'key-practice-area/corporate-law/index.html',
+    path: cleanServicePath('Corporate & Commercial Advisory'),
     items: [
       'Company incorporation and business structuring',
       'Corporate governance and regulatory compliance',
@@ -80,7 +84,7 @@ const serviceAreas = [
   },
   {
     title: 'Tax & Regulatory Advisory',
-    path: 'key-practice-area/data-protection/index.html',
+    path: cleanServicePath('Tax & Regulatory Advisory'),
     items: [
       'Tax advisory',
       'Tax compliance support',
@@ -92,7 +96,7 @@ const serviceAreas = [
   },
   {
     title: 'Dispute Resolution',
-    path: 'key-practice-area/ip-disputes/index.html',
+    path: cleanServicePath('Dispute Resolution'),
     items: [
       'Commercial disputes',
       'Civil disputes',
@@ -106,7 +110,7 @@ const serviceAreas = [
   },
   {
     title: 'Real Estate, Land & Property',
-    path: 'key-practice-area/patents-lawyers/index.html',
+    path: cleanServicePath('Real Estate, Land & Property'),
     items: [
       'Land transactions',
       'Property acquisitions and disposals',
@@ -120,7 +124,7 @@ const serviceAreas = [
   },
   {
     title: 'Employment, Labour & Immigration',
-    path: 'key-practice-area/design-rights/index.html',
+    path: cleanServicePath('Employment, Labour & Immigration'),
     items: [
       'Employment contracts',
       'Human resource policies and manuals',
@@ -133,7 +137,7 @@ const serviceAreas = [
   },
   {
     title: 'Family Law',
-    path: 'key-practice-area/image-rights/index.html',
+    path: cleanServicePath('Family Law'),
     items: [
       'Marriage and matrimonial advisory',
       'Divorce and separation matters',
@@ -147,7 +151,7 @@ const serviceAreas = [
   },
   {
     title: 'Banking, Finance & Securities',
-    path: 'key-practice-area/licensing-agreements/index.html',
+    path: cleanServicePath('Banking, Finance & Securities'),
     items: [
       'Loan and facility documentation',
       'Security creation and perfection',
@@ -161,7 +165,7 @@ const serviceAreas = [
   },
   {
     title: 'Public Sector & Regulatory Advisory',
-    path: 'key-industry-sector/technology/index.html',
+    path: cleanServicePath('Public Sector & Regulatory Advisory'),
     items: [
       'Regulatory advisory',
       'Public procurement support',
@@ -172,7 +176,7 @@ const serviceAreas = [
   },
   {
     title: 'Energy & Infrastructure',
-    path: 'key-industry-sector/product-design/index.html',
+    path: cleanServicePath('Energy & Infrastructure'),
     items: [
       'Oil and gas law',
       'Energy regulatory compliance',
@@ -187,7 +191,7 @@ const serviceAreas = [
   },
   {
     title: 'Criminal Law',
-    path: 'key-practice-area/confidential-information/index.html',
+    path: cleanServicePath('Criminal Law'),
     items: [
       'Criminal defence',
       'Bail and bond applications',
@@ -202,16 +206,16 @@ const serviceAreas = [
 ];
 
 const sectorAreas = [
-  { title: 'Corporate & Commercial Clients', path: 'key-industry-sector/technology/index.html' },
-  { title: 'Financial Institutions', path: 'key-industry-sector/product-design/index.html' },
-  { title: 'Real Estate & Construction', path: 'key-industry-sector/automotive/index.html' },
-  { title: 'Energy & Infrastructure', path: 'key-industry-sector/health-wellbeing/index.html' },
-  { title: 'Public Sector & Government', path: 'key-industry-sector/art/index.html' },
-  { title: 'Family & Private Clients', path: 'key-industry-sector/baby-child/index.html' },
-  { title: 'Employment & Immigration', path: 'key-industry-sector/fashion/index.html' },
-  { title: 'Tax & Regulatory', path: 'key-industry-sector/food-drink/index.html' },
-  { title: 'Disputes & Investigations', path: 'key-industry-sector/graphic-design-branding/index.html' },
-  { title: 'Criminal Defence', path: 'key-industry-sector/video-games/index.html' }
+  { title: 'Corporate & Commercial Clients', path: cleanSectorPath('Corporate & Commercial Clients') },
+  { title: 'Financial Institutions', path: cleanSectorPath('Financial Institutions') },
+  { title: 'Real Estate & Construction', path: cleanSectorPath('Real Estate & Construction') },
+  { title: 'Energy & Infrastructure', path: cleanSectorPath('Energy & Infrastructure') },
+  { title: 'Public Sector & Government', path: cleanSectorPath('Public Sector & Government') },
+  { title: 'Family & Private Clients', path: cleanSectorPath('Family & Private Clients') },
+  { title: 'Employment & Immigration', path: cleanSectorPath('Employment & Immigration') },
+  { title: 'Tax & Regulatory', path: cleanSectorPath('Tax & Regulatory') },
+  { title: 'Disputes & Investigations', path: cleanSectorPath('Disputes & Investigations') },
+  { title: 'Criminal Defence', path: cleanSectorPath('Criminal Defence') }
 ];
 
 const navListItems = (areas) =>
@@ -221,9 +225,6 @@ const navListItems = (areas) =>
                 ${area.title}              </a>
             </li>
             <li style="flex-basis: 100%;" class="h-0"></li>`).join('\n');
-
-const slugify = (value) =>
-  value.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 const skipUrl = /^(?:\/|#|[a-z][a-z0-9+.-]*:|data:|\{\{\{)/i;
 const normalizeInternalUrl = (value, file) => {
@@ -574,6 +575,7 @@ for (const file of htmlFiles) {
 .moonstone-contact-form input,.moonstone-contact-form textarea{width:100%;border:1px solid rgba(24,26,52,.2);border-radius:.25rem;padding:.85rem 1rem;color:#181a34;background:#fff}
 .moonstone-contact-form textarea{resize:vertical}
 .custom-css{overflow-x:hidden}
+body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!important}
 .custom-css img{max-width:100%;height:auto}
 .custom-css header img[src="/images/logo.png"]{max-width:246px;width:min(246px,58vw);height:auto}
 .custom-css footer img[src="/images/logo.png"]{max-width:180px;width:min(180px,48vw);height:auto}
@@ -622,6 +624,8 @@ for (const file of htmlFiles) {
   html = html.replace(/href="author\/[^"]*"/g, 'href="about/index.html"');
   html = html.replace(/href="category\/[^"]*"/g, 'href="key-practice-area/index.html"');
   html = html.replace(/href="briffa-case-study\/[^"]*"/g, 'href="key-practice-area/index.html"');
+  html = html.replace(/href="\/?key-practice-area\/index\.html"/g, 'href="/services/"');
+  html = html.replace(/href="\/?key-industry-sector\/index\.html"/g, 'href="/sectors/"');
   html = html.replace(/href="contact\/london-office\/index.html"/g, 'href="contact/index.html"');
   html = html.replace(/href="contact\/ireland-office\/index.html"/g, 'href="contact/index.html"');
   html = html.replace(/>Blog\s+</g, '>Legal Insights <');
@@ -637,18 +641,18 @@ for (const file of htmlFiles) {
     );
   }
   html = html.replace(
-    /(<a[^>]+href="key-practice-area\/index\.html"[^>]*>\s*Services\s*<\/a>[\s\S]*?<ul[^>]*>)[\s\S]*?(<\/ul>\s*<\/li>\s*<li\s+class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy group[^>]*>\s*<a[^>]+href="key-industry-sector\/index\.html")/,
+    /(<a[^>]+href="(?:\/services\/|key-practice-area\/index\.html)"[^>]*>\s*Services\s*<\/a>[\s\S]*?<ul[^>]*>)[\s\S]*?(<\/ul>\s*<\/li>\s*<li\s+class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy group[^>]*>\s*<a[^>]+href="(?:\/sectors\/|key-industry-sector\/index\.html)")/,
     `$1\n${servicesMenu(serviceAreas)}\n          $2`
   );
   html = html.replace(
     /(<a[^>]+title="Services"[^>]*>\s*Services\s*<\/a>[\s\S]*?<ul[^>]*>)[\s\S]*?(<\/ul>\s*<\/li>\s*<li[\s\S]*?<a[^>]+title="Sectors")/,
     `$1\n${servicesMenu(serviceAreas)}\n          $2`
   );
-  html = html.replace(/(<a[^>]+href="key-practice-area\/index\.html"[^>]*>\s*Services\s*<\/a>[\s\S]*?<ul)([^>]*>)/, '$1 class="moonstone-services-menu"$2');
+  html = html.replace(/(<a[^>]+href="(?:\/services\/|key-practice-area\/index\.html)"[^>]*>\s*Services\s*<\/a>[\s\S]*?<ul)([^>]*>)/, '$1 class="moonstone-services-menu"$2');
   html = html.replace(/<ul class="moonstone-services-menu"\s+class="([^"]*)">/, '<ul class="$1 moonstone-services-menu">');
   html = html.replace(/moonstone-services-menu(?:\s+moonstone-services-menu)+/g, 'moonstone-services-menu');
   html = html.replace(
-    /(<a[^>]+href="key-industry-sector\/index\.html"[^>]*>\s*Sectors\s*<\/a>[\s\S]*?<ul[^>]*>)[\s\S]*?(<\/ul>\s*<\/li>\s*<li\s+class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy group[^>]*>\s*<a[^>]+href="(?:about|meet-team)[^"]*")/,
+    /(<a[^>]+href="(?:\/sectors\/|key-industry-sector\/index\.html)"[^>]*>\s*Sectors\s*<\/a>[\s\S]*?<ul[^>]*>)[\s\S]*?(<\/ul>\s*<\/li>\s*<li\s+class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy group[^>]*>\s*<a[^>]+href="(?:about|meet-team)[^"]*")/,
     `$1\n${navListItems(sectorAreas)}\n          $2`
   );
   html = html.replace(
@@ -810,6 +814,9 @@ for (const file of htmlFiles) {
   });
   html = html.replace(/href="\/industry-insights-legal-videos-library\/index\.html@vp_filter=[^"#]*(#[^"]*)?"/g, 'href="/industry-insights-legal-videos-library/"');
   html = html.replace(/<a class="underline" href="\/key-industry-sector\/music\/"><\/a>/g, '<a class="underline" href="/key-industry-sector/music/">music sector legal support</a>');
+  html = html.replace(/href="\/key-practice-area\/[^"]*"/g, 'href="/services/"');
+  html = html.replace(/href="\/key-industry-sector\/[^"]*"/g, 'href="/sectors/"');
+  html = html.replace(/href="\/contact\/(?:london-office|ireland-office)\/[^"]*"/g, 'href="/contact/"');
 
   if (!html.includes('/moonstone-local.js')) {
     html = html.replace(
@@ -854,10 +861,15 @@ const helper = `(() => {
     });
   });
 
-  if (window.AOS && typeof window.AOS.refreshHard === 'function') {
+  if (window.AOS && typeof window.AOS.init === 'function') {
+    window.AOS.init({ once: true, duration: 650, easing: 'ease-out-cubic' });
+    document.body.classList.add('moonstone-aos-ready');
+  } else if (window.AOS && typeof window.AOS.refreshHard === 'function') {
     window.AOS.refreshHard();
+    document.body.classList.add('moonstone-aos-ready');
   } else if (window.AOS && typeof window.AOS.refresh === 'function') {
     window.AOS.refresh();
+    document.body.classList.add('moonstone-aos-ready');
   }
 
   document.addEventListener('submit', (event) => {
@@ -895,5 +907,112 @@ writeFileSync(
   'User-agent: *\nAllow: /\nSitemap: /sitemap.xml\n'
 );
 
+const cleanUrl = (url) => url.replace(/index\.html(#.*)?$/, (match, hash = '') => hash || '');
+const simpleNav = `<header class="relative z-50 bg-base-light py-5">
+  <div class="container flex items-center justify-between gap-6">
+    <a href="/" aria-label="Moonstone Advocates"><img src="/images/logo.png" alt="Moonstone Advocates" style="max-width:246px;width:min(246px,58vw);height:auto" /></a>
+    <nav class="hidden lg:flex gap-6 font-heading">
+      <a href="/services/">Services</a>
+      <a href="/sectors/">Sectors</a>
+      <a href="/about/">About</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+  </div>
+</header>`;
+const simpleFooter = `<footer class="relative z-0 text-base-light bg-navy overflow-hidden">
+  <div class="container py-12">
+    <img src="/images/logo.png" alt="Moonstone Advocates" style="max-width:180px;width:min(180px,48vw);height:auto" />
+    <p>Plot 134 Semwata Road, Ntinda<br />P.O. Box 189860<br />Kampala, Uganda</p>
+    <p><a href="mailto:info@moonstoneadvocates.com">info@moonstoneadvocates.com</a><br /><a href="tel:+256778616565">+256 (0) 778 616565</a></p>
+  </div>
+</footer>`;
+const cleanPage = ({ title, intro, items, type }) => `<!DOCTYPE html>
+<html lang="en-UG">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${title} | Moonstone Advocates</title>
+  <meta name="description" content="${intro.replace(/"/g, '&quot;')}">
+  <link rel="icon" href="/images/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" href="/images/favicon-192x192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/images/favicon-180x180.png">
+  <style id="moonstone-theme-css">${themeCss}</style>
+  <style>
+    body{margin:0;overflow-x:hidden}.moonstone-clean-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:2rem}.moonstone-clean-list li{background:#fff;border-radius:.5rem;padding:1rem;color:#181a34}.moonstone-clean-link{display:inline-block;margin-top:2rem}@media(max-width:767px){.container{padding-left:1rem!important;padding-right:1rem!important}.moonstone-clean-list{grid-template-columns:1fr}h1{font-size:2.25rem!important;line-height:1.05!important}h2{font-size:1.85rem!important;line-height:1.12!important}p,li,a{overflow-wrap:anywhere}}
+  </style>
+</head>
+<body class="custom-css">
+${simpleNav}
+<main>
+  <section class="banner relative bg-navy z-[1]">
+    <div class="relative pt-32 pb-24 overflow-hidden">
+      <div class="relative container z-[1]">
+        <div class="px-6 mb-12 md:w-8/12 text-base-light">
+          <div class="max-w-3xl">
+            <h1>${title}</h1>
+            <p><strong>${intro}</strong></p>
+          </div>
+        </div>
+        <a class="btn btn-primary lg:mr-4" href="/contact/">Contact us</a>
+      </div>
+      <div class="bg"></div>
+    </div>
+  </section>
+  <section class="py-16 bg-base-light">
+    <div class="relative z-[1] px-4 | md:container">
+      <div class="mx-auto max-w-4xl content">
+        <h2>${type === 'service' ? 'How We Can Help' : 'Sector Support'}</h2>
+        <p>Moonstone Advocates provides clear, practical and partner-led support tailored to the needs of each client matter.</p>
+        <ul class="moonstone-clean-list">${items.map((item) => `<li>${item}</li>`).join('')}</ul>
+        <a class="btn btn-primary moonstone-clean-link" href="/contact/">Make an enquiry</a>
+      </div>
+    </div>
+  </section>
+</main>
+${simpleFooter}
+<script src="/moonstone-local.js"></script>
+</body>
+</html>
+`;
+
+const writeCleanPage = (area, type) => {
+  const dir = path.join(target, area.path.replace(/\/?index\.html$/, ''));
+  mkdirSync(dir, { recursive: true });
+  const intro = type === 'service'
+    ? `${area.title} support for clients seeking reliable, strategic and practical legal solutions in Uganda.`
+    : `Focused legal support for ${area.title.toLowerCase()} in Uganda.`;
+  const items = area.items || serviceAreas.find((service) => service.title.includes(area.title.split(' ')[0]))?.items || [
+    'Legal advisory and documentation',
+    'Regulatory and compliance support',
+    'Dispute prevention and resolution',
+    'Practical client support'
+  ];
+  writeFileSync(path.join(dir, 'index.html'), cleanPage({ title: area.title, intro, items, type }));
+};
+
+mkdirSync(path.join(target, 'services'), { recursive: true });
+writeFileSync(path.join(target, 'services/index.html'), cleanPage({
+  title: 'Services',
+  intro: 'Explore Moonstone Advocates services across corporate advisory, tax, disputes, property, employment, family, finance, public sector, energy and criminal law.',
+  items: serviceAreas.map((area) => `<a href="${cleanUrl(`/${area.path}`)}">${area.title}</a>`),
+  type: 'service'
+}));
+mkdirSync(path.join(target, 'sectors'), { recursive: true });
+writeFileSync(path.join(target, 'sectors/index.html'), cleanPage({
+  title: 'Sectors',
+  intro: 'Moonstone Advocates supports clients across commercial, financial, property, energy, public sector, family, employment, tax, disputes and criminal defence sectors.',
+  items: sectorAreas.map((area) => `<a href="${cleanUrl(`/${area.path}`)}">${area.title}</a>`),
+  type: 'sector'
+}));
+for (const area of serviceAreas) writeCleanPage(area, 'service');
+for (const area of sectorAreas) writeCleanPage(area, 'sector');
+for (const oldGeneratedFolder of [
+  'key-practice-area',
+  'key-industry-sector',
+  'contact/london-office',
+  'contact/ireland-office'
+]) {
+  rmSync(path.join(target, oldGeneratedFolder), { recursive: true, force: true });
+}
 
 console.log(`Prepared ${htmlFiles.length} HTML files in ${path.relative(root, target)}`);
