@@ -1,9 +1,13 @@
 (() => {
   const animatedSelectors = [
     ['section:not(.banner)', 'fade-up'],
-    ['.content h1, .content h2, .content h3', 'fade-up'],
+    ['.banner h1, .banner p', 'fade-up'],
+    ['.content h1, .content h2, .content h3, .content p', 'fade-up'],
+    ['.content li', 'fade-up'],
     ['.moonstone-practice-card', 'zoom-in'],
+    ['.grid > div, .grid > article', 'fade-up'],
     ['#team .flex.flex-col', 'fade-up'],
+    ['footer .container > *', 'fade-up'],
     ['.btn', 'zoom-in']
   ];
 
@@ -11,12 +15,12 @@
     document.querySelectorAll(selector).forEach((element, index) => {
       if (element.hasAttribute('data-aos')) return;
       element.setAttribute('data-aos', animation);
-      element.setAttribute('data-aos-delay', String(Math.min((index % 6) * 70, 350)));
+      element.setAttribute('data-aos-delay', String(Math.min((index % 8) * 55, 385)));
     });
   });
 
   if (window.AOS && typeof window.AOS.init === 'function') {
-    window.AOS.init({ once: true, duration: 650, easing: 'ease-out-cubic' });
+    window.AOS.init({ once: true, duration: 760, offset: 80, easing: 'ease-out-cubic' });
     document.body.classList.add('moonstone-aos-ready');
   } else if (window.AOS && typeof window.AOS.refreshHard === 'function') {
     window.AOS.refreshHard();
