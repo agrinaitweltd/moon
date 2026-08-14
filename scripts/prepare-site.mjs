@@ -251,6 +251,13 @@ const overviewCards = (areas) =>
   <ul>${area.items.map((item) => `<li>${item}</li>`).join('')}</ul>
 </article>`).join('\n');
 
+const moonstoneEnquiryForm = `<form class="moonstone-contact-form" action="/contact/index.html" method="post">
+  <label>Name <input required name="name" type="text" /></label>
+  <label>Email <input required name="email" type="email" /></label>
+  <label>How can we help? <textarea required name="message" rows="5"></textarea></label>
+  <button class="btn btn-primary" type="submit">Send enquiry</button>
+</form>`;
+
 const replacements = [
   [/Briffa Legal Limited/g, 'Moonstone Advocates'],
   [/Briffa Legal Ltd/g, 'Moonstone Advocates'],
@@ -469,12 +476,11 @@ for (const file of htmlFiles) {
   html = html.replace(/Business Design Centre<br \/>\s*52 Upper Street<br \/>\s*Islington<br \/>\s*Kampala\s*/g, 'P.O. Box 189860<br />Kampala<br />Uganda');
   html = html.replace(/The Academy<br \/>\s*42 Pearse Street<br \/>\s*Dublin, D02 HV59<br \/>\s*Uganda/g, 'Kampala<br />Uganda');
   html = html.replace(/<p><a href="ireland-office\/index\.html"><em>More information about our Irish office<\/em><\/a><\/p>/g, '<p><a href="/contact/index.html"><em>Contact the Moonstone Advocates team</em></a></p>');
-  html = html.replace(/<noscript class="ninja-forms-noscript-message">[\s\S]*?<div id="nf-form-1-cont"[\s\S]*?<\/div>/g, `<form class="moonstone-contact-form" action="/contact/index.html" method="post">
-  <label>Name <input required name="name" type="text" /></label>
-  <label>Email <input required name="email" type="email" /></label>
-  <label>How can we help? <textarea required name="message" rows="5"></textarea></label>
-  <button class="btn btn-primary" type="submit">Send enquiry</button>
-</form>`);
+  html = html.replace(/<noscript class="ninja-forms-noscript-message">[\s\S]*?<\/noscript>\s*<div id="nf-form-[^"]+" class="nf-form-cont"[\s\S]*?<\/div>\s*<\/div>/g, moonstoneEnquiryForm);
+  html = html.replace(/<noscript class="ninja-forms-noscript-message">[\s\S]*?<\/noscript>\s*<div id="nf-form-[^"]+" class="nf-form-cont"[\s\S]*?<\/div>/g, moonstoneEnquiryForm);
+  html = html.replace(/<div id="nf-form-[^"]+" class="nf-form-cont"[\s\S]*?<\/div>/g, moonstoneEnquiryForm);
+  html = html.replace(/<a href="tel:441212453050" rel="noopener noreferrer"><\/a>/g, '<a href="tel:441212453050" rel="noopener noreferrer">+44 121 245 3050</a>');
+  html = html.replace(/<a class="underline" href="\/key-industry-sector\/music\/index\.html"><\/a>/g, '<a class="underline" href="/about/index.html">Moonstone Advocates</a>');
   html = html.replace(/"adminAjax":"[^"]*"/g, '"adminAjax":""');
   html = html.replace(/"requireBaseUrl":"[^"]*"/g, '"requireBaseUrl":""');
   html = html.replace(/"value":"https:\\\/\\\/www\.[^"]*"/g, '"value":""');
