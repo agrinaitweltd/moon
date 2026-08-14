@@ -534,9 +534,6 @@ header.menu nav>ul{list-style:none;margin:0;padding:0}
 header.menu nav li{list-style:none}
 header.menu nav a{text-decoration:none}
 header.menu nav>ul>li>a{display:inline-block;padding:.5rem 1rem;font-family:Jost,Arial,sans-serif;font-weight:700}
-header.menu nav>ul>li>ul{display:none}
-header.menu nav>ul>li:hover>ul{display:flex}
-header.menu nav>ul>li>ul{position:absolute;z-index:60;margin-top:.75rem;padding:1rem;flex-wrap:wrap;background:#4b1f66;color:#fcf7fb;border-radius:0 .375rem .375rem .375rem;box-shadow:0 16px 30px rgba(24,26,52,.18)}
 header.menu button{background:transparent;border:0;color:#181a34}
 .bg-purple{background:#4b1f66}.bg-base-light{background:#fcf7fb}.bg-navy{background:#181a34}
 .text-base-light{color:#fcf7fb}.text-navy{color:#181a34}.text-yellow{color:#f5bb20}
@@ -547,7 +544,7 @@ header.menu button{background:transparent;border:0;color:#181a34}
 .content h2{font-size:2rem;line-height:1.15;margin:0 0 1rem}
 .content p{font-size:1rem;line-height:1.7}
 @media (min-width:1024px){header.menu nav{display:block!important}header.menu nav>ul{display:flex;align-items:center;justify-content:center}.lg\\:hidden{display:none!important}.lg\\:block{display:block!important}.lg\\:flex{display:flex!important}}
-@media (max-width:1023px){header.menu nav:not(.hidden){display:block;position:fixed;left:0;right:0;top:80px;bottom:0;overflow:auto;background:#4b1f66;color:#fcf7fb;padding:1rem}header.menu nav:not(.hidden)>ul>li>a{color:#fcf7fb}header.menu nav:not(.hidden)>ul>li>ul{position:static;box-shadow:none;margin:.5rem 0 1rem;display:none}.lg\\:absolute{position:static!important}}
+@media (max-width:1023px){header.menu nav:not(.hidden){display:block;position:fixed;left:0;right:0;top:80px;bottom:0;overflow:auto;background:#4b1f66;color:#fcf7fb;padding:1rem}header.menu nav:not(.hidden)>ul>li>a{color:#fcf7fb}.lg\\:absolute{position:static!important}}
 .moonstone-practice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;margin:2rem auto;max-width:1100px;padding:0 1rem}
 .moonstone-practice-card{background:#fff;border-radius:.5rem;padding:1.25rem;color:#181a34}
 .moonstone-practice-card h3{font-family:Jost,sans-serif;font-size:1.2rem;margin:0 0 .75rem}
