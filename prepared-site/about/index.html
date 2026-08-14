@@ -123,29 +123,6 @@ a.block.transition-all.hover\:text-navy-light {
 .moonstone-wordmark i:before{width:9px;height:9px;left:2px;top:3px;box-shadow:12px 0 0 #f5bb20}
 .moonstone-wordmark i:after{width:6px;height:6px;left:13px;top:16px}
 @media (max-width:480px){.moonstone-wordmark{font-size:16px;grid-template-columns:auto}.moonstone-wordmark i{display:none}}
-body{margin:0;background:#fcf7fb;color:#181a34;font-family:Mulish,Arial,sans-serif}
-a{color:inherit}
-.container{width:100%;max-width:1200px;margin-left:auto;margin-right:auto}
-header.menu{position:sticky;top:0;z-index:50;background:#fcf7fb;box-shadow:0 1px 0 rgba(24,26,52,.08)}
-header.menu>.container{display:flex;align-items:center;justify-content:space-between;padding:1rem}
-header.menu aside{display:flex;align-items:center}
-header.menu nav{display:none;flex:1}
-header.menu nav.hidden{display:none}
-header.menu nav>ul{list-style:none;margin:0;padding:0}
-header.menu nav li{list-style:none}
-header.menu nav a{text-decoration:none}
-header.menu nav>ul>li>a{display:inline-block;padding:.5rem 1rem;font-family:Jost,Arial,sans-serif;font-weight:700}
-header.menu button{background:transparent;border:0;color:#181a34}
-.bg-purple{background:#4b1f66}.bg-base-light{background:#fcf7fb}.bg-navy{background:#181a34}
-.text-base-light{color:#fcf7fb}.text-navy{color:#181a34}.text-yellow{color:#f5bb20}
-.font-heading{font-family:Jost,Arial,sans-serif}.font-bold{font-weight:700}
-.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:.25rem;padding:.85rem 1.25rem;font-family:Jost,Arial,sans-serif;font-weight:700;text-decoration:none}
-.btn-primary{background:#f5bb20;color:#181a34}
-.content h1,.content h2,.content h3{font-family:Jost,Arial,sans-serif;color:#181a34}
-.content h2{font-size:2rem;line-height:1.15;margin:0 0 1rem}
-.content p{font-size:1rem;line-height:1.7}
-@media (min-width:1024px){header.menu nav{display:block!important}header.menu nav>ul{display:flex;align-items:center;justify-content:center}.lg\:hidden{display:none!important}.lg\:block{display:block!important}.lg\:flex{display:flex!important}}
-@media (max-width:1023px){header.menu nav:not(.hidden){display:block;position:fixed;left:0;right:0;top:80px;bottom:0;overflow:auto;background:#4b1f66;color:#fcf7fb;padding:1rem}header.menu nav:not(.hidden)>ul>li>a{color:#fcf7fb}.lg\:absolute{position:static!important}}
 .moonstone-practice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;margin:2rem auto;max-width:1100px;padding:0 1rem}
 .moonstone-practice-card{background:#fff;border-radius:.5rem;padding:1.25rem;color:#181a34}
 .moonstone-practice-card h3{font-family:Jost,sans-serif;font-size:1.2rem;margin:0 0 .75rem}
@@ -158,16 +135,12 @@ header.menu button{background:transparent;border:0;color:#181a34}
 .moonstone-contact-form textarea{resize:vertical}
 .moonstone-page-hero{position:relative;overflow:hidden}
 .moonstone-page-hero:after{content:"";position:absolute;right:8%;bottom:-72px;width:180px;height:180px;border-radius:999px;background:#f5bb20;opacity:.9}
-.moonstone-section-pad{padding:4.5rem 1rem}
-.moonstone-two-col{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:3rem;align-items:start}
-.moonstone-footer-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem;padding:3rem 1rem}
-.moonstone-footer-grid a{color:#fcf7fb;text-decoration:none}.moonstone-footer-grid a:hover{text-decoration:underline}
 .moonstone-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1.5rem}
 .moonstone-detail-grid article,.moonstone-side-panel{background:#fff;border-radius:.5rem;padding:1.25rem;box-shadow:0 12px 30px rgba(24,26,52,.08)}
 .moonstone-detail-grid h3,.moonstone-side-panel h2{font-family:Jost,sans-serif;font-size:1.15rem;margin:0 0 .5rem;color:#181a34}
 .moonstone-detail-grid p,.moonstone-side-panel p{margin:.5rem 0;color:#181a34}
 .moonstone-side-panel{align-self:start}
-@media (max-width:767px){.moonstone-detail-grid,.moonstone-two-col,.moonstone-footer-grid{grid-template-columns:1fr}.moonstone-section-pad{padding:3rem 1rem}.moonstone-page-hero:after{width:120px;height:120px;right:-32px}}
+@media (max-width:767px){.moonstone-detail-grid{grid-template-columns:1fr}.moonstone-page-hero:after{width:120px;height:120px;right:-32px}}
 .moonstone-services-menu{width:min(92vw,760px)!important;gap:1rem}
 .moonstone-services-menu .moonstone-service-menu-item{flex:1 1 320px}
 .moonstone-service-menu-item details{border-bottom:1px solid rgba(255,255,255,.18);padding:.15rem 0 .5rem}
@@ -646,14 +619,14 @@ header.menu button{background:transparent;border:0;color:#181a34}
   </div>
 </header>
 <section class="moonstone-page-hero bg-purple text-base-light">
-  <div class="container moonstone-section-pad">
+  <div class="container max-w-screen-xl mx-auto px-4 py-20">
     <p class="font-heading text-yellow font-bold mb-4">Moonstone Advocates</p>
     <h1 class="font-heading text-4xl md:text-6xl font-bold">About Moonstone Advocates</h1>
     <p class="max-w-3xl mt-6 text-lg">A Kampala-based law firm providing practical legal solutions for businesses, organisations and individuals.</p>
   </div>
 </section>
 <section class="bg-base-light">
-  <div class="container moonstone-section-pad">
+  <div class="container max-w-screen-xl mx-auto px-4 py-16">
     <div class="content max-w-4xl">
       <h2>About Moonstone Advocates</h2>
       <p>Moonstone Advocates provides practical legal services from Kampala, Uganda. Our team works with businesses, institutions, families and individuals across advisory, transactional, regulatory and dispute matters.</p>
@@ -663,7 +636,7 @@ header.menu button{background:transparent;border:0;color:#181a34}
   </div>
 </section>
 <footer class="overflow-hidden bg-navy text-base-light">
-  <div class="container moonstone-footer-grid">
+  <div class="container max-w-screen-xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8">
     <div>
       <p class="font-heading text-2xl font-bold">Moonstone Advocates</p>
       <p class="mt-4">Practical legal solutions for businesses, organisations and individuals in Uganda.</p>
