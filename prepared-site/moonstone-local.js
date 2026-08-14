@@ -1,14 +1,59 @@
 (() => {
+  let firstSessionVisit = false;
+  try {
+    firstSessionVisit = !sessionStorage.getItem('moonstone_session_seen');
+    sessionStorage.setItem('moonstone_session_seen', '1');
+  } catch {}
+  const loaderDelay = firstSessionVisit ? 2000 : 160;
   const hideLoader = () => {
     document.body.classList.add('moonstone-page-ready');
     document.querySelector('.moonstone-page-loader')?.classList.add('is-hidden');
   };
-  if (document.readyState === 'complete') {
-    window.setTimeout(hideLoader, 120);
+  window.setTimeout(hideLoader, loaderDelay);
+
+  const cookieLayer = document.querySelector('.moonstone-cookie-layer');
+  const cookieTab = document.querySelector('.moonstone-cookie-tab');
+  const cookieOptions = document.querySelector('.moonstone-cookie-options');
+  const cookieSave = document.querySelector('.moonstone-cookie-save');
+  const cookieManage = document.querySelector('.moonstone-cookie-manage');
+  const openCookies = () => {
+    if (!cookieLayer) return;
+    cookieLayer.hidden = false;
+    cookieTab && (cookieTab.hidden = true);
+    document.body.classList.add('moonstone-cookie-open');
+  };
+  const closeCookies = () => {
+    if (!cookieLayer) return;
+    cookieLayer.hidden = true;
+    cookieTab && (cookieTab.hidden = false);
+    document.body.classList.remove('moonstone-cookie-open');
+  };
+  const saveCookies = (settings) => {
+    try { localStorage.setItem('moonstone_cookie_preferences', JSON.stringify(settings)); } catch {}
+    closeCookies();
+  };
+  let storedCookies = null;
+  try { storedCookies = JSON.parse(localStorage.getItem('moonstone_cookie_preferences')); } catch {}
+  if (storedCookies) {
+    cookieOptions?.querySelectorAll('input[name]').forEach((input) => { input.checked = Boolean(storedCookies[input.name]); });
+    cookieTab && (cookieTab.hidden = false);
   } else {
-    window.addEventListener('load', () => window.setTimeout(hideLoader, 180), { once: true });
-    window.setTimeout(hideLoader, 1400);
+    window.setTimeout(openCookies, loaderDelay + 280);
   }
+  cookieTab?.addEventListener('click', openCookies);
+  document.querySelector('.moonstone-cookie-close')?.addEventListener('click', closeCookies);
+  document.querySelector('.moonstone-cookie-accept')?.addEventListener('click', () => saveCookies({ preferences: true, analytics: true, marketing: true }));
+  document.querySelector('.moonstone-cookie-reject')?.addEventListener('click', () => saveCookies({ preferences: false, analytics: false, marketing: false }));
+  cookieManage?.addEventListener('click', () => {
+    if (cookieOptions) cookieOptions.hidden = false;
+    cookieManage.hidden = true;
+    if (cookieSave) cookieSave.hidden = false;
+  });
+  cookieSave?.addEventListener('click', () => {
+    const settings = {};
+    cookieOptions?.querySelectorAll('input[name]').forEach((input) => { settings[input.name] = input.checked; });
+    saveCookies(settings);
+  });
 
   const animatedSelectors = [
     ['section:not(.banner)', 'fade-up'],
@@ -36,6 +81,8 @@
       if (animation === 'zoom-in') element.classList.add('moonstone-reveal-scale');
       if (animation === 'fade-left') element.classList.add('moonstone-reveal-left');
       if (animation === 'fade-right') element.classList.add('moonstone-reveal-right');
+      if (animation === 'fade-up' && index % 5 === 1) element.classList.add('moonstone-reveal-left');
+      if (animation === 'fade-up' && index % 5 === 3) element.classList.add('moonstone-reveal-right');
       element.style.setProperty('--moonstone-delay', Math.min((index % 7) * 55, 330) + 'ms');
     });
   });
@@ -126,18 +173,12 @@
 
   document.addEventListener('submit', (event) => {
     const form = event.target;
-    if (!(form instanceof HTMLFormElement)) return;
+    if (!(form instanceof HTMLFormElement) || !form.classList.contains('moonstone-contact-form')) return;
     event.preventDefault();
     if (!form.reportValidity()) return;
-    let message = form.parentElement?.querySelector('.moonstone-form-message');
-    if (!message) {
-      message = document.createElement('p');
-      message.className = 'moonstone-form-message';
-      message.style.marginTop = '1rem';
-      message.style.fontWeight = '700';
-      form.parentElement?.appendChild(message);
-    }
-    message.textContent = 'Thank you. Your enquiry has been received.';
-    form.reset();
+    const values = new FormData(form);
+    const subject = 'Website enquiry: ' + (values.get('matter') || 'Legal assistance');
+    const body = ['Name: ' + values.get('name'), 'Email: ' + values.get('email'), 'Telephone: ' + (values.get('phone') || 'Not provided'), 'Organisation: ' + (values.get('organisation') || 'Not provided'), 'Preferred response: ' + values.get('contact_method'), '', 'Enquiry:', values.get('message')].join('\n');
+    window.location.href = 'mailto:info@moonstoneadvocates.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   }, true);
 })();

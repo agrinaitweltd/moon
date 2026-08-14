@@ -7,6 +7,10 @@
     { "source": "/index.html", "destination": "/", "permanent": true },
     { "source": "/key-practice-area/:path*", "destination": "/services/", "permanent": true },
     { "source": "/key-industry-sector/:path*", "destination": "/sectors/", "permanent": true },
+    { "source": "/case-studies/:path*", "destination": "/content-hub/", "permanent": true },
+    { "source": "/industry-insights-legal-videos-library/:path*", "destination": "/content-hub/", "permanent": true },
+    { "source": "/portfolio/:path*", "destination": "/content-hub/", "permanent": true },
+    { "source": "/meet-team/:path*", "destination": "/#team", "permanent": true },
     { "source": "/contact/london-office/:path*", "destination": "/contact/", "permanent": true },
     { "source": "/contact/ireland-office/:path*", "destination": "/contact/", "permanent": true }
   ]
