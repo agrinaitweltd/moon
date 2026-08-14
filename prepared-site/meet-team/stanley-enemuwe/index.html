@@ -140,7 +140,8 @@ a.block.transition-all.hover\:text-navy-light {
 .moonstone-service-menu-item details li{font-size:.875rem;line-height:1.35;margin:.35rem 0;color:#fff}
 .moonstone-service-menu-item details li a{color:#fff;text-decoration:none;opacity:.9}
 .moonstone-service-menu-item details li a:hover{text-decoration:underline;opacity:1}
-@media (min-width:1024px){.moonstone-services-menu{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}.moonstone-service-menu-item details[open] ul{display:block}}
+@media (min-width:1024px){li.group:hover>.moonstone-services-menu{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}.moonstone-service-menu-item details[open] ul{display:block}}
+@media (max-width:1023px){nav:not(.hidden) .moonstone-services-menu{display:block!important}.moonstone-services-menu{width:100%!important}}
 </style>
 </head>
 

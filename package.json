@@ -7,7 +7,7 @@
     "predev": "node scripts/prepare-site.mjs public",
     "dev": "vite public --host 0.0.0.0",
     "prebuild": "node scripts/prepare-site.mjs public",
-    "build": "vite build public --outDir ../dist --emptyOutDir",
+    "build": "node scripts/prepare-site.mjs dist",
     "preview": "vite preview dist --host 0.0.0.0"
   },
   "devDependencies": {
