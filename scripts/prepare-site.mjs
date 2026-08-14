@@ -307,7 +307,7 @@ const teamMembers = [
     name: 'SANDE HAPPY',
     role: 'Senior Associate',
     path: '/meet-team/daniel-crate/index.html',
-    image: '/wp-content/uploads/2019/11/Daniel5.png',
+    image: '/wp-content/uploads/2025/01/Jamal-e1735906159316-600x600.jpg',
     profile: [
       'Sande Happy is a Senior Associate in Dispute Resolution and Corporate & Commercial practice. He is an Advocate of the High Court and subordinate courts of Uganda with over six years of experience.',
       'Happy handles commercial disputes before the Commercial Court, arbitration and alternative dispute resolution, land, employment and domestic disputes, labour matters and debt collection. His corporate work includes company registration, trademarks, patents, due diligence and mergers and acquisitions.'
@@ -320,7 +320,7 @@ const teamMembers = [
     name: 'AKELLO SHIRLEY MARYLIN',
     role: 'Associate',
     path: '/meet-team/charlotte-owens/index.html',
-    image: '/wp-content/uploads/2019/11/Charlotte2.png',
+    image: '/wp-content/uploads/2022/10/Cassine-600x600.jpg',
     profile: [
       'Akello Shirley Marylin is an Associate in the Litigation Department. She first joined the firm as an intern and was retained after completing her Postgraduate Diploma in Legal Practice.',
       'Shirley supports corporate clients on contract review and drafting, loan documentation, perfection of securities, employment advisory, governance, compliance, quality assurance, banking, finance and employment matters. She has a strong interest in litigation, artificial intelligence and technology governance.'
@@ -333,7 +333,7 @@ const teamMembers = [
     name: 'MWAKA JAMES TOLIT',
     role: 'Associate',
     path: '/meet-team/mark-eiffe/index.html',
-    image: '/wp-content/uploads/2019/11/Mark5-600x600.png',
+    image: '/wp-content/uploads/2024/12/Joe2-600x600.png',
     profile: [
       'Mwaka James Tolit is an Associate in Litigation and Commercial practice. He advises on corporate and commercial matters, governance, compliance, disputes and litigation.',
       'James has advised clients in banking, insurance, communications, e-commerce, oil and gas, agribusiness, hospitality, energy and transport. His work includes mergers and acquisitions, employment, new ventures, market entry, contracts, immigration, licensing and alternative dispute resolution.'
@@ -346,7 +346,7 @@ const teamMembers = [
     name: 'ECHIBA EDWIN MICHEAL',
     role: 'Consultant',
     path: '/meet-team/mohammad-khan/index.html',
-    image: '/wp-content/uploads/2019/11/Mohammad-Khan-scaled-e1574675804904-600x600.jpg',
+    image: '/wp-content/uploads/2026/04/Raf-600x600.png',
     profile: [
       'Echiba Edwin Micheal is a Consultant and external tax consultant to Moonstone Advocates. He provides strategic tax advisory, tax dispute support and regulatory compliance guidance.',
       'Edwin is an Advocate of the High Court of Uganda, a tax consultant and governance professional with nine years of experience. He is a licensed tax agent with experience in tax advisory, compliance, disputes, transfer pricing and international tax, including prior work with KPMG Uganda and leading Ugandan tax lawyers and accountants.'
@@ -696,8 +696,22 @@ for (const file of htmlFiles) {
   html = html.replace(/"adminAjax":"[^"]*"/g, '"adminAjax":""');
   html = html.replace(/"requireBaseUrl":"[^"]*"/g, '"requireBaseUrl":""');
   html = html.replace(/"value":"https:\\\/\\\/www\.[^"]*"/g, '"value":""');
+  html = html.replace(/<span class="review-more-placeholder">… More<\/span><span class="review-full-text">\s*<\/span>/g, '');
+  html = html.replace(/<span class="review-more-placeholder">\.\.\. More<\/span><span class="review-full-text">\s*<\/span>/g, '');
+  html = html.replace(/<span class="review-full-text">\s*<\/span>/g, '');
+  html = html.replace(/<p>\s*<iframe[\s\S]*?Briffa[\s\S]*?<\/iframe>\s*<\/p>/g, '<p>Visit Moonstone Advocates at Plot 134 Semwata Road, Ntinda, Kampala. Meetings are available by appointment.</p>');
   html = html.replace(/wp-admin/g, '');
   html = html.replace(/\b(href|src)="([^"]+)"/g, (match, attr, value) => `${attr}="${normalizeInternalUrl(value, file)}"`);
+  html = html.replace(/\b(src|href)="([^"]*\/wp-content\/uploads\/[^"]*)"/g, (match, attr, value) => {
+    const asset = value
+      .replace(/Dispute Resolution/g, 'Copyright')
+      .replace(/dispute resolution/g, 'copyright')
+      .replace(/The-Uganda-Trade-Mark/g, 'The-UK-Trade-Mark')
+      .replace(/AGA-Uganda-Innovations/g, 'AGA-UK-Innovations')
+      .replace(/Oatlyv-Dairy-Uganda/g, 'Oatlyv-Dairy-UK')
+      .replace(/\/wp-content\/uploads\/2019\/10\/Music-–-What-Is-A-Distribution-Deal-And-Do-I-Need-One\.svg/g, '/wp-content/uploads/2023/07/moonstone-advocates-hero.svg');
+    return `${attr}="${asset}"`;
+  });
 
   if (!html.includes('/moonstone-local.js')) {
     html = html.replace(
