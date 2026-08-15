@@ -1423,6 +1423,7 @@ const insightArticles = [
   {
     slug: 'copyright-data-protection-and-online-publishing',
     date: '29 July 2026',
+    isoDate: '2026-07-29',
     category: 'Technology & Media',
     title: 'Copyright, Data Protection and Online Publishing in Uganda',
     summary: 'A recent Commercial Court decision highlights the legal risk of republishing social-media content without accurate attribution, verification or a proper basis for processing personal data.',
@@ -1432,6 +1433,7 @@ const insightArticles = [
   {
     slug: 'when-can-a-director-be-personally-liable-for-company-debt',
     date: '25 July 2026',
+    isoDate: '2026-07-25',
     category: 'Corporate & Commercial',
     title: 'When Can a Director Be Personally Liable for Company Debt?',
     summary: 'The Commercial Court has reaffirmed that a company\'s separate legal personality is not displaced without clear evidence that it was used as a facade to evade obligations or commit fraud.',
@@ -1441,6 +1443,7 @@ const insightArticles = [
   {
     slug: 'loan-repayment-and-the-limits-of-frustration',
     date: '10 July 2026',
+    isoDate: '2026-07-10',
     category: 'Banking & Finance',
     title: 'Loan Repayment and the Limits of Frustration',
     summary: 'A July Commercial Court ruling reinforces that a borrower seeking leave to defend must identify a genuine triable issue, and that frustration does not ordinarily erase an obligation to repay money already received.',
@@ -1450,6 +1453,7 @@ const insightArticles = [
   {
     slug: 'withholding-tax-exemptions-july-to-december-2026',
     date: '18 July 2026',
+    isoDate: '2026-07-18',
     category: 'Tax & Regulatory',
     title: 'Withholding Tax Exemptions for July to December 2026',
     summary: 'URA\'s current exemption period runs from 1 July to 31 December 2026. Exemption status remains linked to tax compliance and may be revoked where a taxpayer or associate becomes non-compliant.',
@@ -1555,4 +1559,192 @@ for (const oldGeneratedFolder of [
 }
 rmSync(templateCacheDir, { recursive: true, force: true });
 
-console.log(`Prepared ${htmlFiles.length} HTML files in ${path.relative(root, target)}`);
+const productionOrigin = 'https://moonug.vercel.app';
+const seoLastModified = '2026-08-15';
+const staticSeo = {
+  '/': ['Moonstone Advocates | Lawyers in Kampala, Uganda', 'Practical, partner-led legal counsel for businesses, institutions and individuals in Kampala and across Uganda.'],
+  '/about/': ['About Moonstone Advocates | Kampala Law Firm', 'Learn about Moonstone Advocates, our approach to legal service and our team of advocates and consultants in Kampala, Uganda.'],
+  '/contact/': ['Contact Moonstone Advocates | Kampala, Uganda', 'Contact Moonstone Advocates for practical legal advice and representation from our office in Ntinda, Kampala.'],
+  '/services/': ['Legal Services | Moonstone Advocates Uganda', 'Explore Moonstone Advocates services across corporate, tax, disputes, property, employment, family, banking, public sector, energy and criminal law.'],
+  '/sectors/': ['Sectors | Moonstone Advocates Uganda', 'Explore the sectors supported by Moonstone Advocates through practical legal advice, documentation, compliance and representation in Uganda.'],
+  '/content-hub/': ['Uganda Legal Insights | Moonstone Advocates', 'Read recent Moonstone Advocates briefings on Ugandan court decisions, regulation, tax and legal developments.'],
+  '/reviews/': ['Client Care | Moonstone Advocates', 'Read about Moonstone Advocates standards for communication, confidentiality, partner involvement and client service.'],
+  '/careers/': ['Careers | Moonstone Advocates Uganda', 'Explore career and professional opportunities with Moonstone Advocates in Kampala, Uganda.'],
+  '/events/': ['Legal Events and Briefings | Moonstone Advocates', 'Find legal briefings, training sessions and events from Moonstone Advocates in Kampala, Uganda.'],
+  '/international/': ['International Legal Support in Uganda | Moonstone Advocates', 'Uganda-focused advice for cross-border transactions, investments, disputes and regulatory matters.'],
+  '/partners/': ['Professional Relationships | Moonstone Advocates', 'Learn how Moonstone Advocates coordinates transparently with professional advisers and foreign counsel where a matter requires it.'],
+  '/privacy-cookie-policy/': ['Privacy and Cookie Policy | Moonstone Advocates', 'Read the Moonstone Advocates privacy and cookie policy, including how website and enquiry information is handled.'],
+  '/complaints-procedure/': ['Client Care and Complaints | Moonstone Advocates', 'Information about the Moonstone Advocates client-care and complaints process.'],
+  '/how-we-work-uk-office/': ['How We Work | Moonstone Advocates Uganda', 'How Moonstone Advocates scopes matters, communicates with clients and delivers partner-led legal support in Uganda.'],
+  '/how-we-work-ireland-office/': ['Our Legal Service Approach | Moonstone Advocates', 'Our approach to clear, practical and accountable legal service from Kampala, Uganda.']
+};
+const decodeHtmlText = (value) => value
+  .replace(/<[^>]*>/g, ' ')
+  .replace(/&amp;/g, '&')
+  .replace(/&quot;/g, '"')
+  .replace(/&#0?39;|&apos;/g, "'")
+  .replace(/&lt;/g, '<')
+  .replace(/&gt;/g, '>')
+  .replace(/\s+/g, ' ')
+  .trim();
+const finalHtmlFiles = walk(target).filter((file) => file.toLowerCase().endsWith('.html'));
+const indexedPages = [];
+for (const file of finalHtmlFiles) {
+  const relativePath = path.relative(target, file).replace(/\\/g, '/');
+  const route = relativePath === 'index.html' ? '/' : `/${relativePath.replace(/index\.html$/, '')}`;
+  const canonical = `${productionOrigin}${route}`;
+  let html = readFileSync(file, 'utf8');
+  const h1 = decodeHtmlText(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || 'Moonstone Advocates');
+  const currentDescription = decodeHtmlText(html.match(/<meta\s+name="description"\s+content="([^"]*)"/i)?.[1] || moonstoneDescription);
+  const member = teamMembers.find((item) => cleanUrl(item.path) === route);
+  const article = insightArticles.find((item) => `/insights/${item.slug}/` === route);
+  const service = serviceAreas.find((item) => `/${cleanUrl(item.path)}` === route);
+  const staticValues = staticSeo[route];
+  const title = staticValues?.[0] || (member ? `${member.name} | ${member.role} | Moonstone Advocates` : `${h1} | Moonstone Advocates`);
+  const description = staticValues?.[1] || (member ? `${member.name} is ${member.role} at Moonstone Advocates, providing practical legal support from Kampala, Uganda.` : article?.summary || currentDescription);
+  const pageType = member ? 'profile' : article ? 'article' : 'website';
+  const socialImage = `${productionOrigin}${member?.image || '/images/logo.png'}`;
+  const organization = {
+    '@type': 'LegalService',
+    '@id': `${productionOrigin}/#organization`,
+    name: 'Moonstone Advocates',
+    url: `${productionOrigin}/`,
+    logo: { '@type': 'ImageObject', url: `${productionOrigin}/images/logo.png` },
+    image: `${productionOrigin}/images/logo.png`,
+    telephone: '+256778616565',
+    email: 'info@moonstoneadvocates.com',
+    foundingDate: '2026-06',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Plot 134 Semwata Road, Ntinda',
+      postOfficeBoxNumber: '189860',
+      addressLocality: 'Kampala',
+      addressCountry: 'UG'
+    },
+    areaServed: { '@type': 'Country', name: 'Uganda' },
+    openingHoursSpecification: [{
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+      opens: '08:30',
+      closes: '17:30'
+    }],
+    sameAs: ['https://www.instagram.com/moonstoneadvocates/']
+  };
+  const website = {
+    '@type': 'WebSite',
+    '@id': `${productionOrigin}/#website`,
+    url: `${productionOrigin}/`,
+    name: 'Moonstone Advocates',
+    publisher: { '@id': `${productionOrigin}/#organization` },
+    inLanguage: 'en-UG'
+  };
+  const pageEntity = {
+    '@type': member ? 'ProfilePage' : 'WebPage',
+    '@id': `${canonical}#webpage`,
+    url: canonical,
+    name: title,
+    description,
+    isPartOf: { '@id': `${productionOrigin}/#website` },
+    about: { '@id': `${productionOrigin}/#organization` },
+    inLanguage: 'en-UG'
+  };
+  const graph = [organization, website, pageEntity];
+  let categoryName = '';
+  let categoryUrl = '';
+  if (member) {
+    categoryName = 'Our Team';
+    categoryUrl = `${productionOrigin}/about/#team`;
+    const personId = `${canonical}#person`;
+    pageEntity.mainEntity = { '@id': personId };
+    graph.push({
+      '@type': 'Person',
+      '@id': personId,
+      name: member.name,
+      jobTitle: member.role,
+      image: `${productionOrigin}${member.image}`,
+      url: canonical,
+      worksFor: { '@id': `${productionOrigin}/#organization` },
+      knowsAbout: member.practice
+    });
+  } else if (article) {
+    categoryName = 'Uganda Legal Insights';
+    categoryUrl = `${productionOrigin}/content-hub/`;
+    const articleId = `${canonical}#article`;
+    pageEntity.mainEntity = { '@id': articleId };
+    graph.push({
+      '@type': 'Article',
+      '@id': articleId,
+      headline: article.title,
+      description: article.summary,
+      datePublished: article.isoDate,
+      dateModified: seoLastModified,
+      mainEntityOfPage: { '@id': `${canonical}#webpage` },
+      author: { '@id': `${productionOrigin}/#organization` },
+      publisher: { '@id': `${productionOrigin}/#organization` },
+      image: socialImage,
+      inLanguage: 'en-UG'
+    });
+  } else if (service) {
+    categoryName = 'Legal Services';
+    categoryUrl = `${productionOrigin}/services/`;
+    const serviceId = `${canonical}#service`;
+    pageEntity.mainEntity = { '@id': serviceId };
+    graph.push({
+      '@type': 'Service',
+      '@id': serviceId,
+      name: service.title,
+      description,
+      provider: { '@id': `${productionOrigin}/#organization` },
+      areaServed: { '@type': 'Country', name: 'Uganda' },
+      url: canonical
+    });
+  } else if (route.startsWith('/sectors/') && route !== '/sectors/') {
+    categoryName = 'Sectors';
+    categoryUrl = `${productionOrigin}/sectors/`;
+  }
+  const breadcrumbItems = [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${productionOrigin}/` }];
+  if (route !== '/') {
+    if (categoryName) breadcrumbItems.push({ '@type': 'ListItem', position: 2, name: categoryName, item: categoryUrl });
+    breadcrumbItems.push({ '@type': 'ListItem', position: breadcrumbItems.length + 1, name: h1, item: canonical });
+    graph.push({ '@type': 'BreadcrumbList', '@id': `${canonical}#breadcrumb`, itemListElement: breadcrumbItems });
+    pageEntity.breadcrumb = { '@id': `${canonical}#breadcrumb` };
+  }
+  const verification = process.env.GOOGLE_SITE_VERIFICATION
+    ? `<meta name="google-site-verification" content="${escapeHtml(process.env.GOOGLE_SITE_VERIFICATION)}" />\n`
+    : '';
+  const metadata = `<title>${escapeHtml(title)}</title>
+<meta name="description" content="${escapeHtml(description)}" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+${verification}<link rel="canonical" href="${canonical}" />
+<meta property="og:locale" content="en_UG" />
+<meta property="og:type" content="${pageType}" />
+<meta property="og:site_name" content="Moonstone Advocates" />
+<meta property="og:title" content="${escapeHtml(title)}" />
+<meta property="og:description" content="${escapeHtml(description)}" />
+<meta property="og:url" content="${canonical}" />
+<meta property="og:image" content="${socialImage}" />
+<meta property="og:image:alt" content="${escapeHtml(member ? `${member.name}, ${member.role}` : 'Moonstone Advocates')}" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="${escapeHtml(title)}" />
+<meta name="twitter:description" content="${escapeHtml(description)}" />
+<meta name="twitter:image" content="${socialImage}" />
+<meta name="theme-color" content="#181a34" />
+<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c')}</script>`;
+  html = html
+    .replace(/<title>[\s\S]*?<\/title>\s*/gi, '')
+    .replace(/<meta\s+name="description"[^>]*>\s*/gi, '')
+    .replace(/<meta[^>]+(?:property|name)="(?:og:[^"]+|twitter:[^"]+|robots|googlebot|google-site-verification|theme-color)"[^>]*>\s*/gi, '')
+    .replace(/<link\s+rel="canonical"[^>]*>\s*/gi, '')
+    .replace(/<script\s+type="application\/ld\+json">[\s\S]*?<\/script>\s*/gi, '')
+    .replace('</head>', `${metadata}\n</head>`);
+  writeFileSync(file, html);
+  indexedPages.push({ route, canonical, image: member ? `${productionOrigin}${member.image}` : '', lastmod: article?.isoDate || seoLastModified });
+}
+indexedPages.sort((a, b) => a.route === '/' ? -1 : b.route === '/' ? 1 : a.route.localeCompare(b.route));
+const sitemapEntries = indexedPages.map((page) => `  <url>\n    <loc>${page.canonical.replace(/&/g, '&amp;')}</loc>\n    <lastmod>${page.lastmod}</lastmod>${page.image ? `\n    <image:image><image:loc>${page.image}</image:loc></image:image>` : ''}\n  </url>`).join('\n');
+writeFileSync(path.join(target, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${sitemapEntries}\n</urlset>\n`);
+writeFileSync(path.join(target, 'google-indexing-urls.txt'), `${indexedPages.map((page) => page.canonical).join('\n')}\n`);
+writeFileSync(path.join(target, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${productionOrigin}/sitemap.xml\n`);
+
+console.log(`Prepared ${finalHtmlFiles.length} HTML files in ${path.relative(root, target)}`);
