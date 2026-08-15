@@ -10,6 +10,22 @@
     document.querySelector('.moonstone-page-loader')?.classList.add('is-hidden');
   };
   window.setTimeout(hideLoader, loaderDelay);
+  const scrollProgress = document.createElement('div');
+  scrollProgress.className = 'moonstone-scroll-progress';
+  scrollProgress.setAttribute('aria-hidden', 'true');
+  document.body.appendChild(scrollProgress);
+  const pageHeader = document.querySelector('header.menu');
+  let scrollFrame = 0;
+  const updateScrollEffects = () => {
+    scrollFrame = 0;
+    const available = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
+    scrollProgress.style.transform = 'scaleX(' + Math.min(window.scrollY / available, 1) + ')';
+    pageHeader?.classList.toggle('moonstone-scrolled', window.scrollY > 18);
+  };
+  window.addEventListener('scroll', () => {
+    if (!scrollFrame) scrollFrame = window.requestAnimationFrame(updateScrollEffects);
+  }, { passive: true });
+  updateScrollEffects();
 
   const cookieLayer = document.querySelector('.moonstone-cookie-layer');
   const cookieTab = document.querySelector('.moonstone-cookie-tab');
@@ -171,14 +187,48 @@
     });
   }
 
+  const enquiryOptions = {"Corporate & Commercial Advisory":["Company incorporation and business structuring","Corporate governance and regulatory compliance","Shareholder agreements and corporate documentation","Commercial agreements and contract drafting","Legal due diligence","Business restructuring and reorganisations","Mergers, acquisitions and investment transactions","Corporate advisory and general business support"],"Tax & Regulatory Advisory":["Tax advisory","Tax compliance support","Regulatory compliance reviews","Business licensing and approvals","Advisory on statutory obligations","Tax dispute support"],"Dispute Resolution":["Commercial disputes","Civil disputes","Debt recovery","Contractual disputes","Employment disputes","Land and property disputes","Arbitration and alternative dispute resolution","Enforcement of judgments and court orders"],"Real Estate, Land & Property":["Land transactions","Property acquisitions and disposals","Conveyancing","Lease agreements","Real estate due diligence","Property development advisory","Land dispute resolution","Security documentation involving property"],"Employment, Labour & Immigration":["Employment contracts","Human resource policies and manuals","Labour law compliance","Disciplinary and termination processes","Workplace disputes","Employee benefits advisory","Immigration and work permit support"],"Family Law":["Marriage and matrimonial advisory","Divorce and separation matters","Child custody and maintenance disputes","Family mediation","Succession and inheritance planning","Wills and estate planning","Probate and administration of estates","Family property arrangements"],"Banking, Finance & Securities":["Loan and facility documentation","Security creation and perfection","Mortgages, charges and guarantees","Banking regulatory advisory","Debt recovery and enforcement","Financial services agreements","Lending and financing transactions","Restructuring and insolvency advisory"],"Public Sector & Regulatory Advisory":["Regulatory advisory","Public procurement support","Government contracting","Policy and compliance advisory","Administrative law matters"],"Energy & Infrastructure":["Oil and gas law","Energy regulatory compliance","Infrastructure development and financing","Project development agreements","Power Purchase Agreements (PPAs)","Environmental and social impact advisory","Construction and engineering contracts","Public-private partnerships (PPPs)","Renewable energy and sustainability advisory"],"Criminal Law":["Criminal defence","Bail and bond applications","Police station representation","Criminal appeals","Legal representation during investigations","Extradition matters","Regulatory and compliance offences","Human rights and constitutional petitions in criminal matters"]};
+  const matterPrompts = {
+    'Corporate & Commercial Advisory': ['Company, transaction or document details', 'For example: company name, transaction type or document involved'],
+    'Tax & Regulatory Advisory': ['Tax period, licence or authority reference', 'For example: tax type, filing period, URA reference or licence'],
+    'Dispute Resolution': ['Parties, court or case reference', 'For example: other party, court, claim number or hearing date'],
+    'Real Estate, Land & Property': ['Property or title details', 'For example: location, block and plot, title number or landlord'],
+    'Employment, Labour & Immigration': ['Employment or immigration details', 'For example: employer, role, permit type or disciplinary stage'],
+    'Family Law': ['Family or estate details', 'For example: relationship, children, estate or probate reference'],
+    'Banking, Finance & Securities': ['Facility or security details', 'For example: lender, borrower, facility, mortgage or guarantee'],
+    'Public Sector & Regulatory Advisory': ['Authority, tender or decision details', 'For example: public body, procurement reference or decision date'],
+    'Energy & Infrastructure': ['Project, site or regulator details', 'For example: project name, location, licence or contracting authority'],
+    'Criminal Law': ['Police, court or case details', 'For example: police station, file number, court, charge or next appearance']
+  };
+  const matterSelect = document.querySelector('[data-matter-select]');
+  const subserviceSelect = document.querySelector('[data-subservice-select]');
+  const detailField = document.querySelector('[data-detail-field]');
+  const contextField = document.querySelector('[data-context-field]');
+  const contextLabel = document.querySelector('[data-context-label]');
+  const contextInput = document.querySelector('[data-context-input]');
+  matterSelect?.addEventListener('change', () => {
+    const matter = matterSelect.value;
+    const options = enquiryOptions[matter] || [];
+    if (subserviceSelect) {
+      subserviceSelect.innerHTML = '<option value="">Select the specific issue</option>' + options.map((option) => '<option value="' + option.replace(/&/g, '&amp;').replace(/"/g, '&quot;') + '">' + option + '</option>').join('');
+      subserviceSelect.disabled = options.length === 0;
+      subserviceSelect.required = options.length > 0;
+    }
+    if (detailField) detailField.hidden = options.length === 0;
+    const prompt = matterPrompts[matter];
+    if (contextLabel) contextLabel.textContent = prompt?.[0] || 'Relevant details';
+    if (contextInput) contextInput.placeholder = prompt?.[1] || '';
+    if (contextField) contextField.hidden = !prompt;
+  });
+
   document.addEventListener('submit', (event) => {
     const form = event.target;
     if (!(form instanceof HTMLFormElement) || !form.classList.contains('moonstone-contact-form')) return;
     event.preventDefault();
     if (!form.reportValidity()) return;
     const values = new FormData(form);
-    const subject = 'Website enquiry: ' + (values.get('matter') || 'Legal assistance');
-    const body = ['Name: ' + values.get('name'), 'Email: ' + values.get('email'), 'Telephone: ' + (values.get('phone') || 'Not provided'), 'Organisation: ' + (values.get('organisation') || 'Not provided'), 'Preferred response: ' + values.get('contact_method'), '', 'Enquiry:', values.get('message')].join('\n');
+    const subject = 'Website enquiry: ' + (values.get('matter') || 'Legal assistance') + (values.get('subservice') ? ' - ' + values.get('subservice') : '');
+    const body = ['Legal service: ' + values.get('matter'), 'Specific assistance: ' + (values.get('subservice') || 'Not selected'), 'Current stage: ' + (values.get('matter_stage') || 'Not provided'), 'Relevant details: ' + (values.get('matter_reference') || 'Not provided'), 'Important deadline: ' + (values.get('deadline') || 'Not provided'), 'Formal documents received: ' + values.get('documents'), '', 'Name: ' + values.get('name'), 'Email: ' + values.get('email'), 'Telephone: ' + (values.get('phone') || 'Not provided'), 'Organisation: ' + (values.get('organisation') || 'Not provided'), 'Preferred response: ' + values.get('contact_method'), '', 'Enquiry:', values.get('message')].join('\n');
     window.location.href = 'mailto:info@moonstoneadvocates.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
   }, true);
 })();
