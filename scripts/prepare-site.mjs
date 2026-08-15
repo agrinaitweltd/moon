@@ -1559,7 +1559,7 @@ for (const oldGeneratedFolder of [
 }
 rmSync(templateCacheDir, { recursive: true, force: true });
 
-const productionOrigin = 'https://moonug.vercel.app';
+const productionOrigin = 'https://www.moonstoneadvocates.com';
 const seoLastModified = '2026-08-15';
 const staticSeo = {
   '/': ['Moonstone Advocates | Lawyers in Kampala, Uganda', 'Practical, partner-led legal counsel for businesses, institutions and individuals in Kampala and across Uganda.'],
