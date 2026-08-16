@@ -61,22 +61,17 @@ const htmlFiles = allFiles.filter((file) => file.toLowerCase().endsWith('.html')
 const moonstoneSeoTitle = 'Moonstone Advocates | Lawyers in Kampala, Uganda';
 const moonstoneDescription =
   'Moonstone Advocates is a Kampala-based law firm providing practical legal solutions to businesses, organisations and individuals in Uganda.';
+const recaptchaSiteKey = '6LcE_IgtAAAAAFpWrmD-qPwrgHIC1yEliw0qagxs';
 const themeCssPath = path.join(target, 'wp-content/themes/briffa/dist/styles.css');
 const brandColourReplacements = [
-  [/#8793ff/gi, '#6481b9'],
-  [/#6a7fb8/gi, '#6481b9'],
-  [/#1c2785/gi, '#6f3e78'],
+  [/#8793ff|#6a7fb8|#1c2785|#6f3e78|#6481b9|#eab736/gi, '#181a34'],
   [/#0d0e5d|#15045c|#181a33|#191933|#1a1833/gi, '#181a34'],
-  [/#fafa7d|#d3e253|#eab737|#e4b83f|#f5bb20/gi, '#eab736'],
-  [/#ebebeb|#ededed|#f5f5f5/gi, '#eef0ff'],
-  [/#a1a1aa/gi, '#6f3e78'],
-  [/#f8f4f7/gi, '#fcf7fb'],
-  [/rgba\(135,\s*147,\s*255,\s*var\(--tw-bg-opacity\)\)/gi, 'rgba(100, 129, 185, var(--tw-bg-opacity))'],
-  [/rgba\(215,\s*239,\s*88,\s*var\(--tw-bg-opacity\)\)/gi, 'rgba(234, 183, 54, var(--tw-bg-opacity))'],
-  [/rgba\(255,\s*237,\s*75,\s*var\(--tw-bg-opacity\)\)/gi, 'rgba(234, 183, 54, var(--tw-bg-opacity))'],
-  [/rgba\(234,\s*248,\s*121,\s*var\(--tw-bg-opacity\)\)/gi, 'rgba(234, 183, 54, var(--tw-bg-opacity))'],
-  [/rgba\(234,\s*183,\s*55,\s*var\(--tw-bg-opacity\)\)/gi, 'rgba(234, 183, 54, var(--tw-bg-opacity))'],
-  [/rgba\(62,\s*83,\s*153,\s*var\(--tw-text-opacity\)\)/gi, 'rgba(100, 129, 185, var(--tw-text-opacity))'],
+  [/#fafa7d|#d3e253|#eab737|#e4b83f|#f5bb20|#a1a1aa/gi, '#181a34'],
+  [/#ebebeb|#ededed|#f5f5f5|#eef0ff/gi, 'rgba(24, 26, 52, .06)'],
+  [/#f8f4f7|#fcf7fb/gi, '#fff'],
+  [/rgba\(135,\s*147,\s*255,\s*var\(--tw-bg-opacity\)\)/gi, 'rgba(24, 26, 52, var(--tw-bg-opacity))'],
+  [/rgba\((?:215,\s*239,\s*88|255,\s*237,\s*75|234,\s*248,\s*121|234,\s*183,\s*55),\s*var\(--tw-bg-opacity\)\)/gi, 'rgba(24, 26, 52, var(--tw-bg-opacity))'],
+  [/rgba\(62,\s*83,\s*153,\s*var\(--tw-text-opacity\)\)/gi, 'rgba(24, 26, 52, var(--tw-text-opacity))'],
   [/rgba\(24,\s*26,\s*51,/gi, 'rgba(24, 26, 52,'],
   [/#ffffff/gi, '#fff']
 ];
@@ -84,6 +79,32 @@ const normalizeBrandColours = (value) => brandColourReplacements.reduce(
   (result, [pattern, replacement]) => result.replace(pattern, replacement),
   value
 );
+const normalizeCssColours = (value) => normalizeBrandColours(value)
+  .replace(/(?<!&)#([\da-f]{3,4}|[\da-f]{6}|[\da-f]{8})\b/gi, (match, raw) => {
+    const expanded = raw.length <= 4 ? [...raw].map((character) => character + character).join('') : raw;
+    const rgb = expanded.slice(0, 6).toLowerCase();
+    const alpha = expanded.slice(6);
+    if (alpha === '00') return 'transparent';
+    const channels = rgb === 'ffffff' ? '255, 255, 255' : '24, 26, 52';
+    if (alpha) return `rgba(${channels}, ${(parseInt(alpha, 16) / 255).toFixed(3)})`;
+    return rgb === 'ffffff' ? '#fff' : '#181a34';
+  })
+  .replace(/rgba\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*var\((--tw-(?:bg|text|border)-opacity)\)\s*\)/gi, (match, red, green, blue, opacityVariable) => {
+    const isLight = Number(red) >= 240 && Number(green) >= 240 && Number(blue) >= 240;
+    return `rgba(${isLight ? '255, 255, 255' : '24, 26, 52'}, var(${opacityVariable}))`;
+  })
+  .replace(/rgba?\(\s*(\d{1,3})\s*[, ]\s*(\d{1,3})\s*[, ]\s*(\d{1,3})(?:\s*[,/]\s*([\d.]+))?\s*\)/gi, (match, red, green, blue, alpha) => {
+    const isWhite = Number(red) === 255 && Number(green) === 255 && Number(blue) === 255;
+    const isNeutralShadow = Number(red) === 0 && Number(green) === 0 && Number(blue) === 0 && alpha !== undefined;
+    if (isNeutralShadow) return `rgba(0, 0, 0, ${alpha})`;
+    const channels = isWhite ? '255, 255, 255' : '24, 26, 52';
+    return alpha === undefined ? `rgb(${channels})` : `rgba(${channels}, ${alpha})`;
+  })
+  .replace(/(:\s*)(?:yellow|purple|orange|violet)(?=\s*(?:!important)?\s*[;}])/gi, '$1#181a34');
+const normalizeDocumentColours = (value) => normalizeBrandColours(value)
+  .replace(/(<style\b[^>]*>)([\s\S]*?)(<\/style>)/gi, (match, open, css, close) => `${open}${normalizeCssColours(css)}${close}`)
+  .replace(/\bstyle="([^"]*)"/gi, (match, css) => `style="${normalizeCssColours(css)}"`)
+  .replace(/\b(fill|stroke)="([^"]+)"/gi, (match, attribute, colour) => `${attribute}="${normalizeCssColours(colour)}"`);
 const normalizeLogoReferences = (value) => value
   .replace(/<link\b(?=[^>]*\brel="(?:icon|shortcut icon|apple-touch-icon)")[^>]*>/gi, (tag) =>
     tag.replace(/\bhref="[^"]*"/i, 'href="/images/logo.png"'))
@@ -91,7 +112,7 @@ const normalizeLogoReferences = (value) => value
   .replace(/(<img\b[^>]*\bsrc=")[^"]*(?:logo|wordmark)[^"]*("[^>]*>)/gi, '$1/images/logo.png$2')
   .replace(/"image":\s*"\/wp-content\/themes\/briffa\/assets\/images\/briffa-logo\.svg"/g, '"image": "/images/logo.png"');
 const themeCss = existsSync(themeCssPath)
-  ? normalizeBrandColours(readFileSync(themeCssPath, 'utf8').replace(/\.\.\/assets\/fonts\//g, '/wp-content/themes/briffa/assets/fonts/'))
+  ? normalizeCssColours(readFileSync(themeCssPath, 'utf8').replace(/\.\.\/assets\/fonts\//g, '/wp-content/themes/briffa/assets/fonts/'))
   : '';
 const slugify = (value) =>
   value.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -349,6 +370,7 @@ const moonstoneEnquiryForm = `<form class="moonstone-contact-form" action="/cont
   <fieldset class="moonstone-contact-method"><legend>Preferred response</legend><label><input checked name="contact_method" value="Email" type="radio" /> Email</label><label><input name="contact_method" value="Telephone" type="radio" /> Telephone</label></fieldset>
   <label class="moonstone-form-consent"><input required name="consent" type="checkbox" /> I agree that Moonstone Advocates may use these details to respond to my enquiry.</label>
   <button class="btn btn-primary" type="submit">Prepare email enquiry</button>
+  <p class="moonstone-form-status" data-form-status role="status" aria-live="polite"></p>
   <p class="moonstone-form-note">Submitting opens your email application with these details. Sending an enquiry does not create an advocate-client relationship.</p>
 </form>`;
 
@@ -437,7 +459,7 @@ const contactPageMain = `<section class="banner relative bg-navy z-[1] moonstone
       <div class="content moonstone-contact-details" data-aos="fade-up">${moonstoneContactBlock}
         <div class="moonstone-contact-cards"><a href="tel:+256778616565"><strong>Call our office</strong><span>+256 778 616 565</span></a><a href="mailto:info@moonstoneadvocates.com"><strong>Email the team</strong><span>info@moonstoneadvocates.com</span></a><a href="#visit"><strong>Visit in Kampala</strong><span>Plot 134 Semwata Road, Ntinda</span></a></div>
       </div>
-      <div class="moonstone-contact-form-panel"><h2>Send an enquiry</h2><p>Complete the form and your email application will prepare a message for our team.</p>${moonstoneEnquiryForm}</div>
+      <div class="moonstone-contact-form-panel"><h2>Send an enquiry</h2><p>Complete the form and we will securely verify your enquiry before preparing a message for our team.</p>${moonstoneEnquiryForm}</div>
     </div>
   </div>
 </section>
@@ -731,7 +753,7 @@ for (const file of htmlFiles) {
     html = html.replace(
       '</head>',
       `<style>
-:root{--moonstone-navy:#181a34;--moonstone-purple:#6f3e78;--moonstone-blue:#6481b9;--moonstone-yellow:#eab736;--moonstone-light:#fcf7fb;--moonstone-tint:#eef0ff}.moonstone-brand-system{color:var(--moonstone-navy)}
+:root{--moonstone-blue:#181a34;--moonstone-white:#fff;--moonstone-blue-tint:rgba(24,26,52,.06)}.moonstone-brand-system{color:var(--moonstone-blue)}
 .moonstone-practice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;margin:2rem auto;max-width:1100px;padding:0 1rem}
 .moonstone-practice-card{background:#fff;border-radius:.5rem;padding:1.25rem;color:#181a34}
 .moonstone-practice-card h3{font-family:Jost,sans-serif;font-size:1.2rem;margin:0 0 .75rem}
@@ -739,8 +761,8 @@ for (const file of htmlFiles) {
 .moonstone-practice-card li{margin:.25rem 0}
 .moonstone-practice-card a{color:inherit;text-decoration:none}
 .moonstone-practice-card li a:hover{text-decoration:underline}
-.moonstone-services-layout{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:260px minmax(0,1fr);gap:4rem;align-items:start}.moonstone-services-index{position:sticky;top:8.5rem;padding:1.25rem 0;border-top:3px solid #eab736}.moonstone-services-index strong{display:block;font-family:Jost,sans-serif;margin-bottom:.8rem}.moonstone-services-index a{display:block;padding:.45rem 0;color:#181a34;text-decoration:none;border-bottom:1px solid rgba(24,26,52,.1);transition:color .2s ease}.moonstone-services-index a:hover{color:#6f3e78}.moonstone-service-section{scroll-margin-top:8rem;padding:0 0 3.5rem;margin:0 0 3.5rem;border-bottom:1px solid rgba(24,26,52,.16)}.moonstone-service-section:last-child{margin-bottom:0;border-bottom:0}.moonstone-service-number{display:block;color:#6f3e78;font-family:Jost,sans-serif;font-size:.8rem;margin-bottom:.5rem}.moonstone-service-section h2{margin:.1rem 0 1rem}.moonstone-service-section>p{max-width:760px}.moonstone-service-section ul{columns:2;column-gap:2.5rem;margin:1.5rem 0;padding-left:1.2rem}.moonstone-service-section li{break-inside:avoid;margin:0 0 .6rem}.moonstone-service-context{padding:1rem 1.15rem;border-left:3px solid #6481b9;background:#eef0ff}.moonstone-sector-summary{max-width:1180px;margin:0 auto;padding:3.5rem 2rem;background:#181a34;color:#fff}.moonstone-sector-summary h2{color:#fff}.moonstone-sector-summary p{max-width:850px;color:rgba(255,255,255,.84)}
-.moonstone-team-directory{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem}.moonstone-team-card{display:grid;grid-template-columns:190px minmax(0,1fr);background:#fff;border-top:3px solid #eab736;box-shadow:0 10px 30px rgba(24,26,52,.08);overflow:hidden;transition:box-shadow .25s ease}.moonstone-team-card:hover{box-shadow:0 15px 36px rgba(24,26,52,.12)}.moonstone-team-card-image{display:block;background:#181a34;min-height:280px}.moonstone-team-card-image img{display:block;width:100%;height:100%;min-height:280px;object-fit:contain;object-position:center bottom}.moonstone-team-card-content{padding:1.5rem}.moonstone-team-card-content h2{font-size:1.35rem!important;line-height:1.2!important;margin:.2rem 0}.moonstone-team-role{display:block;color:#6f3e78;font-family:Jost,sans-serif;margin-bottom:.2rem}.moonstone-team-qualifications{display:block;color:#181a34;font-family:Jost,sans-serif;font-size:.82rem;line-height:1.4;opacity:.72;margin-bottom:1rem}.moonstone-team-expertise{font-size:.88rem;line-height:1.5}.moonstone-team-card-content>a{font-family:Jost,sans-serif;font-weight:700;color:#181a34;text-underline-offset:4px}
+.moonstone-services-layout{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:260px minmax(0,1fr);gap:3rem;align-items:start}.moonstone-services-index{position:sticky;top:7rem;padding:1.4rem;background:#fff;border:1px solid rgba(24,26,52,.14);border-top:4px solid #181a34;box-shadow:0 12px 30px rgba(24,26,52,.07)}.moonstone-services-index strong{display:block;font-family:Jost,sans-serif;margin-bottom:.8rem}.moonstone-services-index a{display:block;padding:.58rem 0;color:#181a34;text-decoration:none;border-bottom:1px solid rgba(24,26,52,.1);transition:padding-left .2s ease,opacity .2s ease}.moonstone-services-index a:last-child{border-bottom:0}.moonstone-services-index a:hover{padding-left:.3rem;opacity:.72}.moonstone-service-section{scroll-margin-top:7rem;position:relative;padding:2.25rem;margin:0 0 1.5rem;background:#fff;border:1px solid rgba(24,26,52,.13);border-top:4px solid #181a34;box-shadow:0 12px 34px rgba(24,26,52,.07);transition:transform .2s ease,box-shadow .2s ease}.moonstone-service-section:hover{transform:translateY(-2px);box-shadow:0 18px 40px rgba(24,26,52,.11)}.moonstone-service-section:last-child{margin-bottom:0}.moonstone-service-number{display:block;color:#181a34;font-family:Jost,sans-serif;font-size:.78rem;font-weight:700;margin-bottom:.55rem;opacity:.62}.moonstone-service-section h2{margin:.1rem 0 1rem}.moonstone-service-section>p{max-width:760px}.moonstone-service-section ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem 2rem;margin:1.5rem 0;padding:1.25rem 0;border-top:1px solid rgba(24,26,52,.12);border-bottom:1px solid rgba(24,26,52,.12);list-style-position:inside}.moonstone-service-section li{margin:0;line-height:1.5}.moonstone-service-context{padding:1rem 1.15rem;border-left:3px solid #181a34;background:rgba(24,26,52,.06)}.moonstone-sector-summary{max-width:1180px;margin:0 auto;padding:3.5rem 2rem;background:#181a34;color:#fff}.moonstone-sector-summary h2{color:#fff}.moonstone-sector-summary p{max-width:850px;color:rgba(255,255,255,.84)}
+.moonstone-team-directory{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem}.moonstone-team-card{display:grid;grid-template-columns:190px minmax(0,1fr);background:#fff;border-top:3px solid #181a34;box-shadow:0 10px 30px rgba(24,26,52,.08);overflow:hidden;transition:box-shadow .25s ease}.moonstone-team-card:hover{box-shadow:0 15px 36px rgba(24,26,52,.12)}.moonstone-team-card-image{display:block;background:#181a34;min-height:280px;overflow:hidden}.moonstone-team-card-image img{display:block;width:100%;height:100%;min-height:280px;object-fit:contain;object-position:center bottom}.moonstone-team-card-image img[src="/images/team-akello.png"]{object-fit:cover;object-position:65% 22%}.moonstone-team-card-content{padding:1.5rem}.moonstone-team-card-content h2{font-size:1.35rem!important;line-height:1.2!important;margin:.2rem 0}.moonstone-team-role{display:block;color:#181a34;font-family:Jost,sans-serif;margin-bottom:.2rem}.moonstone-team-qualifications{display:block;color:#181a34;font-family:Jost,sans-serif;font-size:.82rem;line-height:1.4;opacity:.72;margin-bottom:1rem}.moonstone-team-expertise{font-size:.88rem;line-height:1.5}.moonstone-team-card-content>a{font-family:Jost,sans-serif;font-weight:700;color:#181a34;text-underline-offset:4px}
 @media (max-width:767px){.moonstone-practice-grid{grid-template-columns:1fr}}
 .moonstone-contact-form{display:grid;gap:1rem;max-width:560px;margin:1.5rem auto 0;text-align:left}
 .moonstone-contact-form label{display:grid;gap:.35rem;font-weight:700}
@@ -750,7 +772,8 @@ for (const file of htmlFiles) {
 .moonstone-form-stage{display:flex;justify-content:space-between;align-items:end;gap:1rem;margin-top:.65rem;padding:1rem 0 .75rem;border-bottom:2px solid #eab736}.moonstone-form-stage span{color:#6f3e78;font-size:.78rem;text-transform:uppercase}.moonstone-form-stage strong{font-family:Jost,sans-serif;font-size:1.05rem;text-align:right}.moonstone-detail-field{padding:.9rem 1rem;background:#eef0ff;border-left:3px solid #6481b9}.moonstone-detail-field[hidden]{display:none}.moonstone-contact-form label:focus-within{color:#6f3e78}.moonstone-contact-form-panel{transition:box-shadow .25s ease}.moonstone-contact-form-panel:hover{box-shadow:0 24px 60px rgba(24,26,52,.13)}
 .moonstone-contact-layout{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:4rem;align-items:start}.moonstone-contact-details{padding-top:1rem}.moonstone-contact-form-panel{background:#fff;padding:2rem;border-top:4px solid #eab736;box-shadow:0 22px 60px rgba(24,26,52,.1)}.moonstone-contact-form-panel h2{margin-top:0}.moonstone-contact-cards{display:grid;gap:.75rem;margin-top:2rem}.moonstone-contact-cards a{display:flex;flex-direction:column;gap:.2rem;padding:1rem 1.1rem;background:#fff;border-left:3px solid #6481b9;color:#181a34;text-decoration:none;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}.moonstone-contact-cards a:hover{transform:translateX(8px);border-color:#eab736;box-shadow:0 12px 28px rgba(24,26,52,.1)}.moonstone-contact-cards span{font-size:.92rem}.moonstone-visit-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem}.moonstone-visit-grid ol{padding-left:1.25rem}.moonstone-visit-grid li{margin:.75rem 0}
 html,.custom-css{overflow-x:hidden}
-.moonstone-scroll-progress{position:fixed;z-index:10000;left:0;top:0;width:100%;height:3px;background:#eab736;transform:scaleX(0);transform-origin:left center;pointer-events:none;transition:transform .08s linear}.custom-css header.menu{transition:box-shadow .35s ease,background-color .35s ease}.custom-css header.menu.moonstone-scrolled{box-shadow:0 12px 32px rgba(24,26,52,.12)}
+.custom-css{padding-top:var(--moonstone-header-height,116px)}.moonstone-scroll-progress{position:fixed;z-index:10005;left:0;top:0;width:100%;height:3px;background:#181a34;transform:scaleX(0);transform-origin:left center;pointer-events:none;transition:transform .08s linear}.custom-css header.menu{position:fixed!important;left:0!important;right:0!important;top:0!important;width:100%!important;z-index:10000!important;background:#fff!important;transition:box-shadow .35s ease,background-color .35s ease}.custom-css header.menu.moonstone-scrolled{box-shadow:0 12px 32px rgba(24,26,52,.12)}
+.custom-css .bg-purple,.custom-css .bg-yellow{background:#181a34!important;color:#fff!important}.custom-css .bg-purple h1,.custom-css .bg-purple h2,.custom-css .bg-purple h3,.custom-css .bg-purple p,.custom-css .bg-yellow h1,.custom-css .bg-yellow h2,.custom-css .bg-yellow h3,.custom-css .bg-yellow p{color:#fff!important}.custom-css .bg-purple .btn,.custom-css .bg-yellow .btn{background:#fff!important;border-color:#fff!important;color:#181a34!important}.custom-css .bg-base-light{background:#fff!important}.custom-css .text-purple,.custom-css .text-yellow{color:#181a34!important}
 body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!important}
 .custom-css img{max-width:100%;height:auto}
 .custom-css header img[src="/images/logo.png"]{max-width:118px;max-height:34px;width:auto;height:auto;object-fit:contain;transition:transform .35s ease,opacity .35s ease}
@@ -760,6 +783,7 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
 .custom-css .btn:hover{transform:translateY(-1px);box-shadow:0 9px 22px rgba(24,26,51,.14)}
 .custom-css .moonstone-practice-card:hover,.custom-css #team .flex.flex-col:hover,.custom-css article:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(24,26,51,.1)}
 .custom-css form input:focus,.custom-css form textarea:focus{outline:none;border-color:#6481b9;box-shadow:0 0 0 4px rgba(100,129,185,.16)}
+.moonstone-form-status{min-height:1.5rem;margin:0;font-size:.9rem;font-weight:700;color:#181a34}.moonstone-form-status[data-state="error"]{padding:.8rem 1rem;border-left:3px solid #181a34;background:rgba(24,26,52,.06)}.moonstone-contact-form button[disabled]{cursor:wait;opacity:.68}
 .custom-css nav a{transition:opacity .25s ease,color .25s ease,transform .25s ease}
 .custom-css nav a:hover{opacity:.82}
 .moonstone-clickable{cursor:pointer;position:relative}
@@ -810,8 +834,8 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
 .custom-css .btn{position:relative}
 .custom-css #team .flex.flex-col img{transition:filter .2s ease}.custom-css #team .flex.flex-col:hover img{filter:saturate(1.04)}
 @media (max-width:767px){.moonstone-insight-grid,.moonstone-standard-grid,.moonstone-profile-layout{grid-template-columns:1fr}.moonstone-insight-card time{float:none;display:block;margin-top:.25rem}.moonstone-article-meta{flex-direction:column}.moonstone-profile-layout{padding:0 1rem;gap:2rem}.moonstone-profile-image{position:relative;top:auto;min-height:380px}.moonstone-profile-image img{min-height:380px}.moonstone-profile article ul{columns:1}}
-@media (max-width:900px){.moonstone-services-layout{grid-template-columns:1fr;gap:2.5rem}.moonstone-services-index{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 1rem}.moonstone-services-index strong{grid-column:1/-1}.moonstone-service-section ul{columns:1}.moonstone-team-directory{grid-template-columns:1fr}}
-@media (max-width:560px){.moonstone-services-index{grid-template-columns:1fr}.moonstone-team-card{grid-template-columns:1fr}.moonstone-team-card-image,.moonstone-team-card-image img{min-height:340px}.moonstone-team-card-content{padding:1.25rem}.moonstone-sector-summary{padding:2.5rem 1.25rem}}
+@media (max-width:900px){.moonstone-services-layout{grid-template-columns:1fr;gap:2.5rem}.moonstone-services-index{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 1rem}.moonstone-services-index strong{grid-column:1/-1}.moonstone-service-section ul{grid-template-columns:1fr}.moonstone-team-directory{grid-template-columns:1fr}}
+@media (max-width:560px){.moonstone-services-index{grid-template-columns:1fr}.moonstone-service-section{padding:1.4rem}.moonstone-team-card{grid-template-columns:1fr}.moonstone-team-card-image,.moonstone-team-card-image img{min-height:340px}.moonstone-team-card-content{padding:1.25rem}.moonstone-sector-summary{padding:2.5rem 1.25rem}}
 </style>
 </head>`
     );
@@ -1117,7 +1141,7 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
 
   html = html.replace(/[ \t]+$/gm, '');
 
-  writeFileSync(file, normalizeLogoReferences(normalizeBrandColours(html)));
+  writeFileSync(file, normalizeLogoReferences(normalizeDocumentColours(html)));
 }
 
 for (const file of allFiles) {
@@ -1131,7 +1155,13 @@ for (const file of allFiles) {
   }
   let next = text;
   for (const [pattern, value] of replacements) next = next.replace(pattern, value);
-  if (ext === '.css') next = normalizeBrandColours(next);
+  if (ext === '.css') next = normalizeCssColours(next);
+  if (ext === '.svg' && path.basename(file) === 'moonstone-advocates-hero.svg') {
+    next = next
+      .replace(/\b(fill|stroke|stop-color)="([^"]+)"/gi, (match, attribute, colour) => `${attribute}="${normalizeCssColours(colour)}"`)
+      .replace(/\bstyle="([^"]*)"/gi, (match, css) => `style="${normalizeCssColours(css)}"`)
+      .replace(/[ \t]+$/gm, '');
+  }
   next = next.replace(/wp-admin/g, '');
   next = next.replace(/admin-ajax/g, '');
   if (next !== text) writeFileSync(file, next);
@@ -1155,6 +1185,13 @@ const helper = `(() => {
   scrollProgress.setAttribute('aria-hidden', 'true');
   document.body.appendChild(scrollProgress);
   const pageHeader = document.querySelector('header.menu');
+  const syncHeaderOffset = () => {
+    if (!pageHeader) return;
+    document.documentElement.style.setProperty('--moonstone-header-height', pageHeader.offsetHeight + 'px');
+  };
+  syncHeaderOffset();
+  if ('ResizeObserver' in window && pageHeader) new ResizeObserver(syncHeaderOffset).observe(pageHeader);
+  else window.addEventListener('resize', syncHeaderOffset);
   let scrollFrame = 0;
   const updateScrollEffects = () => {
     scrollFrame = 0;
@@ -1362,15 +1399,61 @@ const helper = `(() => {
     if (contextField) contextField.hidden = !prompt;
   });
 
-  document.addEventListener('submit', (event) => {
+  const recaptchaSiteKey = '${recaptchaSiteKey}';
+  const requestRecaptchaToken = () => new Promise((resolve, reject) => {
+    if (!window.grecaptcha?.ready) return reject(new Error('Security verification is still loading.'));
+    window.grecaptcha.ready(() => {
+      window.grecaptcha.execute(recaptchaSiteKey, { action: 'contact_enquiry' }).then(resolve).catch(reject);
+    });
+  });
+
+  document.addEventListener('submit', async (event) => {
     const form = event.target;
     if (!(form instanceof HTMLFormElement) || !form.classList.contains('moonstone-contact-form')) return;
     event.preventDefault();
     if (!form.reportValidity()) return;
+    const status = form.querySelector('[data-form-status]');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton?.textContent || 'Prepare email enquiry';
+    if (submitButton?.disabled) return;
+    if (status) {
+      status.textContent = 'Verifying your enquiry securely...';
+      status.dataset.state = 'pending';
+    }
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Verifying enquiry...';
+    }
     const values = new FormData(form);
-    const subject = 'Website enquiry: ' + (values.get('matter') || 'Legal assistance') + (values.get('subservice') ? ' - ' + values.get('subservice') : '');
-    const body = ['Legal service: ' + values.get('matter'), 'Specific assistance: ' + (values.get('subservice') || 'Not selected'), 'Current stage: ' + (values.get('matter_stage') || 'Not provided'), 'Relevant details: ' + (values.get('matter_reference') || 'Not provided'), 'Important deadline: ' + (values.get('deadline') || 'Not provided'), 'Formal documents received: ' + values.get('documents'), '', 'Name: ' + values.get('name'), 'Email: ' + values.get('email'), 'Telephone: ' + (values.get('phone') || 'Not provided'), 'Organisation: ' + (values.get('organisation') || 'Not provided'), 'Preferred response: ' + values.get('contact_method'), '', 'Enquiry:', values.get('message')].join('\\n');
-    window.location.href = 'mailto:info@moonstoneadvocates.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    try {
+      const recaptchaToken = await requestRecaptchaToken();
+      const payload = Object.fromEntries(values.entries());
+      payload.recaptchaToken = recaptchaToken;
+      const verificationResponse = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const result = await verificationResponse.json().catch(() => ({}));
+      if (!verificationResponse.ok || !result.ok || !result.mailtoUrl) {
+        throw new Error(result.message || 'We could not verify this enquiry. Please try again.');
+      }
+      if (status) {
+        status.textContent = 'Verification complete. Opening your email application...';
+        status.dataset.state = 'success';
+      }
+      window.location.href = result.mailtoUrl;
+    } catch (error) {
+      if (status) {
+        status.textContent = error instanceof Error ? error.message : 'We could not verify this enquiry. Please try again.';
+        status.dataset.state = 'error';
+      }
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
+    }
   }, true);
 })();`;
 
@@ -1843,15 +1926,18 @@ ${verification}<link rel="canonical" href="${canonical}" />
 <meta name="twitter:description" content="${escapeHtml(description)}" />
 <meta name="twitter:image" content="${socialImage}" />
 <meta name="theme-color" content="#181a34" />
+<script src="https://www.google.com/recaptcha/api.js?render=${recaptchaSiteKey}" async defer></script>
 <script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c')}</script>`;
   html = html
     .replace(/<title>[\s\S]*?<\/title>\s*/gi, '')
     .replace(/<meta\s+name="description"[^>]*>\s*/gi, '')
     .replace(/<meta[^>]+(?:property|name)="(?:og:[^"]+|twitter:[^"]+|robots|googlebot|google-site-verification|theme-color)"[^>]*>\s*/gi, '')
     .replace(/<link\s+rel="canonical"[^>]*>\s*/gi, '')
+    .replace(/<script\b[^>]*src="https:\/\/www\.google\.com\/recaptcha\/api\.js[^>]*><\/script>\s*/gi, '')
+    .replace(/<script\b[^>]*src="[^"]*\/ninja-forms\/[^"]*"[^>]*><\/script>\s*/gi, '')
     .replace(/<script\s+type="application\/ld\+json">[\s\S]*?<\/script>\s*/gi, '')
     .replace('</head>', `${metadata}\n</head>`);
-  html = normalizeLogoReferences(normalizeBrandColours(html));
+  html = normalizeLogoReferences(normalizeDocumentColours(html));
   writeFileSync(file, html);
   indexedPages.push({ route, canonical, image: member ? `${productionOrigin}${member.image}` : '', lastmod: article?.isoDate || seoLastModified });
 }

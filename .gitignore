@@ -9,3 +9,7 @@ screenshots/
 www.briffa.com/
 .DS_Store
 *.log
+.env*
+!.env.example
+
+.vercel

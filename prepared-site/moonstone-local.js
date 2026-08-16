@@ -15,6 +15,13 @@
   scrollProgress.setAttribute('aria-hidden', 'true');
   document.body.appendChild(scrollProgress);
   const pageHeader = document.querySelector('header.menu');
+  const syncHeaderOffset = () => {
+    if (!pageHeader) return;
+    document.documentElement.style.setProperty('--moonstone-header-height', pageHeader.offsetHeight + 'px');
+  };
+  syncHeaderOffset();
+  if ('ResizeObserver' in window && pageHeader) new ResizeObserver(syncHeaderOffset).observe(pageHeader);
+  else window.addEventListener('resize', syncHeaderOffset);
   let scrollFrame = 0;
   const updateScrollEffects = () => {
     scrollFrame = 0;
@@ -222,14 +229,60 @@
     if (contextField) contextField.hidden = !prompt;
   });
 
-  document.addEventListener('submit', (event) => {
+  const recaptchaSiteKey = '6LcE_IgtAAAAAFpWrmD-qPwrgHIC1yEliw0qagxs';
+  const requestRecaptchaToken = () => new Promise((resolve, reject) => {
+    if (!window.grecaptcha?.ready) return reject(new Error('Security verification is still loading.'));
+    window.grecaptcha.ready(() => {
+      window.grecaptcha.execute(recaptchaSiteKey, { action: 'contact_enquiry' }).then(resolve).catch(reject);
+    });
+  });
+
+  document.addEventListener('submit', async (event) => {
     const form = event.target;
     if (!(form instanceof HTMLFormElement) || !form.classList.contains('moonstone-contact-form')) return;
     event.preventDefault();
     if (!form.reportValidity()) return;
+    const status = form.querySelector('[data-form-status]');
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton?.textContent || 'Prepare email enquiry';
+    if (submitButton?.disabled) return;
+    if (status) {
+      status.textContent = 'Verifying your enquiry securely...';
+      status.dataset.state = 'pending';
+    }
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Verifying enquiry...';
+    }
     const values = new FormData(form);
-    const subject = 'Website enquiry: ' + (values.get('matter') || 'Legal assistance') + (values.get('subservice') ? ' - ' + values.get('subservice') : '');
-    const body = ['Legal service: ' + values.get('matter'), 'Specific assistance: ' + (values.get('subservice') || 'Not selected'), 'Current stage: ' + (values.get('matter_stage') || 'Not provided'), 'Relevant details: ' + (values.get('matter_reference') || 'Not provided'), 'Important deadline: ' + (values.get('deadline') || 'Not provided'), 'Formal documents received: ' + values.get('documents'), '', 'Name: ' + values.get('name'), 'Email: ' + values.get('email'), 'Telephone: ' + (values.get('phone') || 'Not provided'), 'Organisation: ' + (values.get('organisation') || 'Not provided'), 'Preferred response: ' + values.get('contact_method'), '', 'Enquiry:', values.get('message')].join('\n');
-    window.location.href = 'mailto:info@moonstoneadvocates.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+    try {
+      const recaptchaToken = await requestRecaptchaToken();
+      const payload = Object.fromEntries(values.entries());
+      payload.recaptchaToken = recaptchaToken;
+      const verificationResponse = await fetch('/api/enquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const result = await verificationResponse.json().catch(() => ({}));
+      if (!verificationResponse.ok || !result.ok || !result.mailtoUrl) {
+        throw new Error(result.message || 'We could not verify this enquiry. Please try again.');
+      }
+      if (status) {
+        status.textContent = 'Verification complete. Opening your email application...';
+        status.dataset.state = 'success';
+      }
+      window.location.href = result.mailtoUrl;
+    } catch (error) {
+      if (status) {
+        status.textContent = error instanceof Error ? error.message : 'We could not verify this enquiry. Please try again.';
+        status.dataset.state = 'error';
+      }
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalButtonText;
+      }
+    }
   }, true);
 })();
