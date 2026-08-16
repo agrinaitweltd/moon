@@ -62,8 +62,36 @@ const moonstoneSeoTitle = 'Moonstone Advocates | Lawyers in Kampala, Uganda';
 const moonstoneDescription =
   'Moonstone Advocates is a Kampala-based law firm providing practical legal solutions to businesses, organisations and individuals in Uganda.';
 const themeCssPath = path.join(target, 'wp-content/themes/briffa/dist/styles.css');
+const brandColourReplacements = [
+  [/#8793ff/gi, '#6481b9'],
+  [/#6a7fb8/gi, '#6481b9'],
+  [/#1c2785/gi, '#6f3e78'],
+  [/#0d0e5d|#15045c|#181a33|#191933|#1a1833/gi, '#181a34'],
+  [/#fafa7d|#d3e253|#eab737|#e4b83f|#f5bb20/gi, '#eab736'],
+  [/#ebebeb|#ededed|#f5f5f5/gi, '#eef0ff'],
+  [/#a1a1aa/gi, '#6f3e78'],
+  [/#f8f4f7/gi, '#fcf7fb'],
+  [/rgba\(135,\s*147,\s*255,\s*var\(--tw-bg-opacity\)\)/gi, 'rgba(100, 129, 185, var(--tw-bg-opacity))'],
+  [/rgba\(215,\s*239,\s*88,\s*var\(--tw-bg-opacity\)\)/gi, 'rgba(234, 183, 54, var(--tw-bg-opacity))'],
+  [/rgba\(255,\s*237,\s*75,\s*var\(--tw-bg-opacity\)\)/gi, 'rgba(234, 183, 54, var(--tw-bg-opacity))'],
+  [/rgba\(234,\s*248,\s*121,\s*var\(--tw-bg-opacity\)\)/gi, 'rgba(234, 183, 54, var(--tw-bg-opacity))'],
+  [/rgba\(234,\s*183,\s*55,\s*var\(--tw-bg-opacity\)\)/gi, 'rgba(234, 183, 54, var(--tw-bg-opacity))'],
+  [/rgba\(62,\s*83,\s*153,\s*var\(--tw-text-opacity\)\)/gi, 'rgba(100, 129, 185, var(--tw-text-opacity))'],
+  [/rgba\(24,\s*26,\s*51,/gi, 'rgba(24, 26, 52,'],
+  [/#ffffff/gi, '#fff']
+];
+const normalizeBrandColours = (value) => brandColourReplacements.reduce(
+  (result, [pattern, replacement]) => result.replace(pattern, replacement),
+  value
+);
+const normalizeLogoReferences = (value) => value
+  .replace(/<link\b(?=[^>]*\brel="(?:icon|shortcut icon|apple-touch-icon)")[^>]*>/gi, (tag) =>
+    tag.replace(/\bhref="[^"]*"/i, 'href="/images/logo.png"'))
+  .replace(/(<meta\b[^>]*\bname="msapplication-TileImage"[^>]*\bcontent=")[^"]*/gi, '$1/images/logo.png')
+  .replace(/(<img\b[^>]*\bsrc=")[^"]*(?:logo|wordmark)[^"]*("[^>]*>)/gi, '$1/images/logo.png$2')
+  .replace(/"image":\s*"\/wp-content\/themes\/briffa\/assets\/images\/briffa-logo\.svg"/g, '"image": "/images/logo.png"');
 const themeCss = existsSync(themeCssPath)
-  ? readFileSync(themeCssPath, 'utf8').replace(/\.\.\/assets\/fonts\//g, '/wp-content/themes/briffa/assets/fonts/')
+  ? normalizeBrandColours(readFileSync(themeCssPath, 'utf8').replace(/\.\.\/assets\/fonts\//g, '/wp-content/themes/briffa/assets/fonts/'))
   : '';
 const slugify = (value) =>
   value.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -358,7 +386,7 @@ const moonstoneFooter = `<footer class="moonstone-footer overflow-hidden">
     </div>
     <nav class="moonstone-footer-links" aria-label="Footer navigation">
       <div><h3>Explore</h3><a href="/services/">Services</a><a href="/meet-the-team/">Meet the Team</a><a href="/about/">About us</a><a href="/contact/">Contact</a></div>
-      <div><h3>Information</h3><a href="/content-hub/">Legal insights</a><a href="/how-we-work-uk-office/">How we work</a><a href="/complaints-procedure/">Client care</a><a href="/privacy-cookie-policy/">Privacy policy</a></div>
+      <div><h3>Information</h3><a href="/how-we-work-uk-office/">How we work</a><a href="/complaints-procedure/">Client care</a><a href="/privacy-cookie-policy/">Privacy policy</a></div>
       <div><h3>Contact</h3><a href="tel:+256778616565">+256 778 616 565</a><a href="mailto:info@moonstoneadvocates.com">info@moonstoneadvocates.com</a><a href="/contact/">Plot 134 Semwata Road, Ntinda, Kampala</a><a href="https://www.instagram.com/moonstoneadvocates/" target="_blank" rel="noopener">Instagram</a></div>
     </nav>
   </div>
@@ -368,7 +396,7 @@ const moonstoneFooter = `<footer class="moonstone-footer overflow-hidden">
 const moonstoneSharedSections = `<section class="moonstone-support-band">
   <div class="moonstone-support-inner content">
     <span class="moonstone-eyebrow">How we work</span>
-    <h2>A clear path from question to action</h2>
+    <h2>What Can You Expect When You Work With Us?</h2>
     <div class="moonstone-support-steps">
       <div><strong>01</strong><h3>Understand</h3><p>We listen carefully, identify the legal issues and confirm the outcome you need.</p></div>
       <div><strong>02</strong><h3>Advise</h3><p>We explain the options, practical risks, likely timing and the recommended way forward.</p></div>
@@ -378,11 +406,10 @@ const moonstoneSharedSections = `<section class="moonstone-support-band">
 </section>
 <section class="moonstone-explore-band">
   <div class="moonstone-explore-inner">
-    <div class="content"><span class="moonstone-eyebrow">Continue exploring</span><h2>Find the right next step</h2><p>Meet our people, review our legal services or speak directly with the Kampala team.</p></div>
+    <div class="content"><span class="moonstone-eyebrow">Continue exploring</span><h2>What Legal Support Do You Need?</h2><p>Meet our people, review our legal services or speak directly with the Kampala team.</p></div>
     <nav aria-label="Useful links">
       <a href="/services/"><span>Legal support</span><strong>Explore services</strong></a>
       <a href="/meet-the-team/"><span>Our people</span><strong>Meet the team</strong></a>
-      <a href="/content-hub/"><span>Current updates</span><strong>Uganda legal insights</strong></a>
       <a href="/contact/"><span>Start here</span><strong>Contact us</strong></a>
     </nav>
   </div>
@@ -455,6 +482,7 @@ const teamMembers = [
       "Before founding Moonstone Advocates, he developed his legal career at Ochora Barristers & Co. Advocates, where he joined as an intern in 2014 and progressed to Senior Associate within the firm's Litigation Department.",
       'His litigation experience includes contractual disputes, debt recovery, enforcement proceedings, employment-related matters, commercial disputes, real estate and property disputes, and family and succession matters.'
     ],
+    qualifications: 'LL.B (Hons), Dip. LP',
     practice: ['Commercial & Corporate Law', 'Energy, Water & Infrastructure Law', 'Real Estate & Property Law', 'Employment & Labour Law', 'Litigation & Alternative Dispute Resolution', 'Family & Succession Law'],
     credentials: ['Bachelor of Laws (LL.B Hons), Uganda Christian University', 'Postgraduate Diploma in Legal Practice (Dip. LP), Law Development Centre', 'Member, East African Law Society'],
     quote: 'Clients deserve more than legal opinions; they deserve committed legal partners.'
@@ -472,6 +500,7 @@ const teamMembers = [
       'Before that, she served as Senior Associate at Cristal Advocates and ABMAK Associates. Her experience includes oil and gas, energy law, immigration law, family law, estate management, corporate governance, banking and finance, and land conveyance.',
       'She is also a published author on corporate governance and dispute resolution in the oil and gas sector.'
     ],
+    qualifications: 'LL.B (Hons), Dip. LP, LL.M (Oil & Gas), PODITRA',
     practice: ['Commercial Law', 'Oil and Gas Law', 'Immigration Law', 'Family Law and Estate Management', 'Corporate Structuring and Governance', 'Infrastructure and Project Financing', 'Banking Law', 'Land Conveyance'],
     credentials: ['Postgraduate Diploma in Tax and Revenue Administration (PODITRA), Kampala', 'Master of Laws (LLM) in Oil and Gas Law, University of Aberdeen', 'Postgraduate Diploma in Legal Practice, Law Development Centre', 'Bachelor of Laws (LLB Hons), Uganda Christian University', 'Member, Uganda Law Society', 'Member, East African Law Society', 'Member, Association of International Energy Negotiators', 'Member, Institute for African Women in Law'],
     quote: 'Clear legal advice should protect the client today and position them well for tomorrow.'
@@ -489,6 +518,7 @@ const teamMembers = [
       'He has represented clients in land disputes, employment disputes and domestic disputes. He has also handled labour disputes for financial institutions, local companies and international companies, as well as debt collection for financial institutions.',
       'His corporate and transactional work includes company registration, trademarks, patents, legal due diligence, acquisitions and mergers.'
     ],
+    qualifications: 'LL.B, Dip. LP',
     practice: ['Litigation', 'Banking and Finance', 'Energy and Infrastructure', 'Debt Recovery', 'Intellectual Property', 'Employment and Labour'],
     credentials: ['Diploma in Legal Practice (Dip. Law), Law Development Centre', 'Bachelor of Laws (LLB), Uganda Christian University', 'Member, Uganda Law Society', 'Member, East African Law Society'],
     quote: 'Disputes are best handled with preparation, clarity and a steady focus on results.'
@@ -506,6 +536,7 @@ const teamMembers = [
       'Her practice also extends to corporate governance, compliance, quality assurance, banking and finance, and employment law advisory. She maintains a keen interest in litigation, artificial intelligence and technology governance within the corporate space.',
       'She is known for a resilient, results-oriented approach and is committed to delivering a high standard of client service.'
     ],
+    qualifications: 'LL.B, Dip. LP',
     practice: ['Litigation', 'Debt Recovery', 'Intellectual Property', 'Employment and Labour'],
     credentials: ['Diploma in Legal Practice (Dip. Law), Law Development Centre', 'Bachelor of Laws (LLB), Cavendish University', 'Member, Uganda Law Society', 'Member, East African Law Society'],
     quote: 'Resilient legal support means staying precise, responsive and client-focused.'
@@ -523,6 +554,7 @@ const teamMembers = [
       'His work also includes mergers and acquisitions, employment matters, new business ventures, market entry, commercial contracts, immigration, licensing and alternative dispute resolution.',
       'James also acts as a Company Secretary to corporates, multinationals and NGOs, supporting corporate governance frameworks, board operations and statutory compliance. He represents clients before courts, tribunals and other forums.'
     ],
+    qualifications: 'LL.B, Dip. LP',
     practice: ['Litigation', 'Banking and Finance', 'Debt Recovery', 'Intellectual Property', 'Real Estate', 'Employment and Labour'],
     credentials: ['Diploma in Legal Practice (Dip. Law), Institute of Legal Practice and Development, Kigali', 'Bachelor of Laws (LLB), Uganda Christian University', 'Member, East African Law Society'],
     quote: 'Strong advisory work connects commercial reality with dependable legal structure.'
@@ -540,6 +572,7 @@ const teamMembers = [
       'His tax experience covers tax advisory, tax compliance, tax dispute resolution, transfer pricing and international tax.',
       'He has worked with KPMG Uganda and with leading Ugandan tax lawyers and accountants.'
     ],
+    qualifications: 'LL.B, Dip. LP, LL.M (Oil & Gas), PODITRA',
     practice: ['Taxation', 'Litigation', 'Banking and Finance', 'Debt Recovery', 'Employment and Labour'],
     credentials: ['Advanced Diploma in International Taxation (ADIT), ongoing', 'Chartered Institute of Taxation, UK', 'Chartered Secretary and Chartered Governance Course (ICSA), ongoing', 'Postgraduate Diploma in Tax and Revenue Administration (PODITRA)', 'Master of Laws in Oil and Gas Law', 'Postgraduate Diploma in Legal Practice, Law Development Centre', 'Bachelor of Laws (LLB), Uganda Christian University', 'Member, Uganda Law Society', 'Member, East African Law Society', 'Member, Uganda Tax Agents Association', 'Member, Uganda Christian Lawyers Fraternity'],
     quote: 'Tax and regulatory advice should be technically sound, practical and timely.'
@@ -567,22 +600,24 @@ const fullTeamSection = `<section class="py-16 relative overflow-hidden bg-base-
   <div class="relative z-[1] px-4 | md:container | lg:py-20 p-limit">
     <div class="mx-auto max-w-3xl text-center content">
       <span class="moonstone-eyebrow">Our people</span>
-      <h2>Experienced lawyers. Direct support.</h2>
+      <h2>Looking for Trusted Legal Advice in Uganda?</h2>
       <p>Meet the advocates and consultants who provide Moonstone Advocates' partner-led legal service.</p>
       <a class="btn btn-primary_alt" href="/meet-the-team/">Meet the Team</a>
     </div>
   </div>
 </section>`;
 
-const mainNavigation = `<nav class="hidden flex-1 fixed bg-purple w-full left-0 top-0 bottom-0 overflow-y-auto lg:overflow-y-visible mt-24 lg:mt-0 lg:bg-inherit z-20 lg:block lg:relative lg:min-w-[650px]" id="menu" aria-label="Primary navigation">
+const mainNavigation = `<div class="moonstone-menu-backdrop" aria-hidden="true"></div>
+<nav class="flex-1 lg:block lg:relative lg:min-w-[650px]" id="menu" aria-label="Primary navigation" aria-hidden="true">
+  <div class="moonstone-drawer-header"><a href="/" aria-label="Moonstone Advocates home"><img src="/images/logo.png" alt="Moonstone Advocates" /></a><button class="moonstone-drawer-close" type="button" aria-label="Close menu">&times;</button></div>
   <ul class="lg:flex justify-center items-center py-3">
     ${[
       ['/', 'Home'],
       ['/about/', 'About'],
       ['/services/', 'Services'],
-      ['/meet-the-team/', 'Meet the Team'],
-      ['/content-hub/', 'Legal Insights']
+      ['/meet-the-team/', 'Meet the Team']
     ].map(([href, label]) => `<li class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy hover:bg-purple hover:text-base-light hover:rounded-md"><a class="py-2 px-4 font-heading text-base xl:text-lg" href="${href}">${label}</a></li>`).join('\n    ')}
+    <li class="moonstone-mobile-contact py-2 relative px-1 text-base-light"><a class="py-2 px-4 font-heading text-base" href="/contact/">Contact</a></li>
   </ul>
 </nav>`;
 
@@ -692,17 +727,11 @@ for (const file of htmlFiles) {
   if (!/<title>[\s\S]*?<\/title>/.test(html)) {
     html = html.replace('</head>', `  <title>${moonstoneSeoTitle}</title>\n</head>`);
   }
-  if (!html.includes('.moonstone-wordmark{')) {
+  if (!html.includes('.moonstone-brand-system{')) {
     html = html.replace(
       '</head>',
       `<style>
-.moonstone-wordmark{display:inline-grid;grid-template-columns:auto 24px;grid-template-rows:1fr 1fr;column-gap:14px;align-items:center;color:#181a34;font-family:Mulish,Arial,sans-serif;font-weight:800;line-height:1.05;font-size:22px;letter-spacing:0}
-.moonstone-wordmark span{display:block}
-.moonstone-wordmark i{grid-column:2;grid-row:1 / span 2;position:relative;width:24px;height:28px;display:block}
-.moonstone-wordmark i:before,.moonstone-wordmark i:after{content:"";position:absolute;border-radius:999px;background:#f5bb20}
-.moonstone-wordmark i:before{width:9px;height:9px;left:2px;top:3px;box-shadow:12px 0 0 #f5bb20}
-.moonstone-wordmark i:after{width:6px;height:6px;left:13px;top:16px}
-@media (max-width:480px){.moonstone-wordmark{font-size:16px;grid-template-columns:auto}.moonstone-wordmark i{display:none}}
+:root{--moonstone-navy:#181a34;--moonstone-purple:#6f3e78;--moonstone-blue:#6481b9;--moonstone-yellow:#eab736;--moonstone-light:#fcf7fb;--moonstone-tint:#eef0ff}.moonstone-brand-system{color:var(--moonstone-navy)}
 .moonstone-practice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem;margin:2rem auto;max-width:1100px;padding:0 1rem}
 .moonstone-practice-card{background:#fff;border-radius:.5rem;padding:1.25rem;color:#181a34}
 .moonstone-practice-card h3{font-family:Jost,sans-serif;font-size:1.2rem;margin:0 0 .75rem}
@@ -711,7 +740,7 @@ for (const file of htmlFiles) {
 .moonstone-practice-card a{color:inherit;text-decoration:none}
 .moonstone-practice-card li a:hover{text-decoration:underline}
 .moonstone-services-layout{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:260px minmax(0,1fr);gap:4rem;align-items:start}.moonstone-services-index{position:sticky;top:8.5rem;padding:1.25rem 0;border-top:3px solid #eab736}.moonstone-services-index strong{display:block;font-family:Jost,sans-serif;margin-bottom:.8rem}.moonstone-services-index a{display:block;padding:.45rem 0;color:#181a34;text-decoration:none;border-bottom:1px solid rgba(24,26,52,.1);transition:color .2s ease}.moonstone-services-index a:hover{color:#6f3e78}.moonstone-service-section{scroll-margin-top:8rem;padding:0 0 3.5rem;margin:0 0 3.5rem;border-bottom:1px solid rgba(24,26,52,.16)}.moonstone-service-section:last-child{margin-bottom:0;border-bottom:0}.moonstone-service-number{display:block;color:#6f3e78;font-family:Jost,sans-serif;font-size:.8rem;margin-bottom:.5rem}.moonstone-service-section h2{margin:.1rem 0 1rem}.moonstone-service-section>p{max-width:760px}.moonstone-service-section ul{columns:2;column-gap:2.5rem;margin:1.5rem 0;padding-left:1.2rem}.moonstone-service-section li{break-inside:avoid;margin:0 0 .6rem}.moonstone-service-context{padding:1rem 1.15rem;border-left:3px solid #6481b9;background:#eef0ff}.moonstone-sector-summary{max-width:1180px;margin:0 auto;padding:3.5rem 2rem;background:#181a34;color:#fff}.moonstone-sector-summary h2{color:#fff}.moonstone-sector-summary p{max-width:850px;color:rgba(255,255,255,.84)}
-.moonstone-team-directory{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem}.moonstone-team-card{display:grid;grid-template-columns:190px minmax(0,1fr);background:#fff;border-top:3px solid #eab736;box-shadow:0 10px 30px rgba(24,26,52,.08);overflow:hidden;transition:box-shadow .25s ease}.moonstone-team-card:hover{box-shadow:0 15px 36px rgba(24,26,52,.12)}.moonstone-team-card-image{display:block;background:#181a34;min-height:280px}.moonstone-team-card-image img{display:block;width:100%;height:100%;min-height:280px;object-fit:contain;object-position:center bottom}.moonstone-team-card-content{padding:1.5rem}.moonstone-team-card-content h2{font-size:1.35rem!important;line-height:1.2!important;margin:.2rem 0}.moonstone-team-role{display:block;color:#6f3e78;font-family:Jost,sans-serif;margin-bottom:1rem}.moonstone-team-expertise{font-size:.9rem;line-height:1.55}.moonstone-team-card-content>a{font-family:Jost,sans-serif;font-weight:700;color:#181a34;text-underline-offset:4px}
+.moonstone-team-directory{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem}.moonstone-team-card{display:grid;grid-template-columns:190px minmax(0,1fr);background:#fff;border-top:3px solid #eab736;box-shadow:0 10px 30px rgba(24,26,52,.08);overflow:hidden;transition:box-shadow .25s ease}.moonstone-team-card:hover{box-shadow:0 15px 36px rgba(24,26,52,.12)}.moonstone-team-card-image{display:block;background:#181a34;min-height:280px}.moonstone-team-card-image img{display:block;width:100%;height:100%;min-height:280px;object-fit:contain;object-position:center bottom}.moonstone-team-card-content{padding:1.5rem}.moonstone-team-card-content h2{font-size:1.35rem!important;line-height:1.2!important;margin:.2rem 0}.moonstone-team-role{display:block;color:#6f3e78;font-family:Jost,sans-serif;margin-bottom:.2rem}.moonstone-team-qualifications{display:block;color:#181a34;font-family:Jost,sans-serif;font-size:.82rem;line-height:1.4;opacity:.72;margin-bottom:1rem}.moonstone-team-expertise{font-size:.88rem;line-height:1.5}.moonstone-team-card-content>a{font-family:Jost,sans-serif;font-weight:700;color:#181a34;text-underline-offset:4px}
 @media (max-width:767px){.moonstone-practice-grid{grid-template-columns:1fr}}
 .moonstone-contact-form{display:grid;gap:1rem;max-width:560px;margin:1.5rem auto 0;text-align:left}
 .moonstone-contact-form label{display:grid;gap:.35rem;font-weight:700}
@@ -771,6 +800,10 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
 .moonstone-service-menu-item details li a:hover{text-decoration:underline;opacity:1}
 @media (min-width:1024px){li.group:hover>.moonstone-services-menu{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}.moonstone-service-menu-item details[open] ul{display:block}}
 @media (max-width:1023px){body.moonstone-menu-active{overflow:hidden}.custom-css header.menu>.container{min-height:80px;padding:1rem!important;align-items:center!important;flex-wrap:nowrap}.custom-css header.menu>.container>aside:first-child{height:48px!important;display:flex;align-items:center}.custom-css header.menu>.container>aside:last-child{height:48px;min-width:0!important;display:flex;align-items:center;justify-content:flex-end;gap:.5rem}.custom-css header.menu>.container>aside:last-child>.btn{display:inline-flex;align-items:center;justify-content:center;height:48px;margin:0;padding:.65rem 1rem;line-height:1}.custom-css header.menu nav#menu{left:0!important;right:0!important;width:100vw!important;max-width:100vw!important;padding:1rem 1rem 3rem!important;opacity:0;transform:translateY(-14px);transition:opacity .3s ease,transform .3s ease}.custom-css header.menu nav#menu.moonstone-mobile-open{opacity:1;transform:none}.custom-css header.menu nav#menu>ul>li{border-bottom:1px solid rgba(255,255,255,.16);padding:.7rem 0}.custom-css header.menu nav#menu>ul>li>a{display:inline-flex;padding:.65rem .75rem}.custom-css header.menu nav#menu>ul>li>span{float:right;margin:.3rem .25rem 0 0;padding:.75rem;transition:transform .3s ease}.custom-css header.menu nav#menu>ul>li.moonstone-submenu-open>span{transform:rotate(180deg)}.custom-css header.menu nav#menu>ul>li>ul{display:none!important;position:static!important;width:100%!important;margin:.35rem 0 .5rem!important;padding:.8rem .75rem!important;background:rgba(24,26,52,.3)!important;border-left:3px solid #eab736;box-shadow:none!important;border-radius:0 .25rem .25rem 0!important}.custom-css header.menu nav#menu>ul>li>ul a{color:#fff!important;opacity:1!important}.custom-css header.menu nav#menu>ul>li.moonstone-submenu-open>ul{display:block!important;animation:moonstone-menu-drop .35s ease both}.moonstone-services-menu{width:100%!important}.moonstone-menu-toggle{position:relative;width:42px;height:42px;margin-left:0!important;display:inline-grid;place-items:center;border-radius:50%;transition:background .25s ease,transform .25s ease}.moonstone-menu-toggle:hover{background:rgba(24,26,52,.08)}.moonstone-menu-toggle span,.moonstone-menu-toggle:before,.moonstone-menu-toggle:after{content:"";display:block;width:20px;height:2px;background:#181a34;transition:transform .3s ease,opacity .3s ease;position:absolute}.moonstone-menu-toggle:before{transform:translateY(-6px)}.moonstone-menu-toggle:after{transform:translateY(6px)}.moonstone-menu-toggle[aria-expanded="true"] span{opacity:0}.moonstone-menu-toggle[aria-expanded="true"]:before{transform:rotate(45deg)}.moonstone-menu-toggle[aria-expanded="true"]:after{transform:rotate(-45deg)}}
+.moonstone-menu-backdrop,.moonstone-drawer-header,.moonstone-mobile-contact{display:none}
+@media (max-width:1023px){.custom-css header.menu{z-index:10000!important}}
+@media (max-width:1023px){.custom-css header.menu>.container>aside:last-child>.btn{display:none!important}.moonstone-menu-backdrop{display:block;position:fixed;inset:0;z-index:10001;background:rgba(0,0,0,.45);opacity:0;visibility:hidden;pointer-events:none;transition:opacity 300ms ease,visibility 300ms ease}.moonstone-menu-backdrop.is-visible{opacity:1;visibility:visible;pointer-events:auto}.custom-css header.menu nav#menu{display:block!important;position:fixed!important;z-index:10002!important;left:0!important;right:auto!important;top:0!important;bottom:auto!important;width:16rem!important;max-width:16rem!important;height:100vh!important;height:100dvh!important;margin:0!important;padding:0 1rem 2rem!important;overflow-y:auto!important;background:#181a34!important;opacity:1!important;transform:translateX(-100%)!important;transition:transform 300ms ease!important;box-shadow:4px 0 20px rgba(0,0,0,.15)}.custom-css header.menu nav#menu.moonstone-mobile-open{transform:translateX(0)!important}.moonstone-drawer-header{display:flex;align-items:center;justify-content:space-between;gap:1rem;min-height:80px;border-bottom:1px solid rgba(255,255,255,.16)}.custom-css .moonstone-drawer-header img[src="/images/logo.png"]{max-width:108px!important;max-height:34px!important}.moonstone-drawer-close{display:grid;place-items:center;width:42px;height:42px;border:0;background:transparent;color:#fff;font-size:2rem;line-height:1;cursor:pointer}.custom-css header.menu nav#menu>ul{display:block!important;padding:1rem 0!important}.custom-css header.menu nav#menu>ul>li{display:block!important;border-bottom:1px solid rgba(255,255,255,.16);padding:.35rem 0!important;color:#fff!important;background:transparent!important}.custom-css header.menu nav#menu>ul>li>a{display:block!important;padding:.8rem .5rem!important;color:#fff!important}.custom-css header.menu nav#menu>ul>li>a:hover{color:#eab736!important;opacity:1}.moonstone-mobile-contact{display:block!important}.moonstone-menu-toggle{z-index:10003}.moonstone-menu-toggle:focus-visible,.moonstone-drawer-close:focus-visible,.custom-css header.menu nav#menu a:focus-visible{outline:3px solid #eab736;outline-offset:3px}}
+@media (prefers-reduced-motion:reduce){.custom-css header.menu nav#menu,.moonstone-menu-backdrop{transition:none!important}}
 @keyframes moonstone-menu-drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 .custom-css section .content a:not(.btn){position:relative;text-decoration-thickness:1px;text-underline-offset:4px;transition:color .25s ease,text-decoration-color .25s ease}
 .custom-css section .content a:not(.btn):hover{color:#6f3e78;text-decoration-color:#eab736}
@@ -801,16 +834,15 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
   html = html.replace(/<meta name="twitter:site" content="[^"]*" \/>/g, '');
   html = html.replace(/<link rel="canonical" href="[^"]*" \/>/g, '<link rel="canonical" href="/" />');
   html = html.replace(/"image":\s*"\/wp-content\/themes\/briffa\/assets\/images\/briffa-logo\.svg"/g, '"image": "/images/logo.png"');
-  html = html.replace(/<link rel="icon" href="[^"]*cropped-[^"]*-32x32\.png" sizes="32x32" \/>/g, '<link rel="icon" href="/images/favicon-32x32.png" sizes="32x32" />');
-  html = html.replace(/<link rel="icon" href="[^"]*cropped-[^"]*-192x192\.png" sizes="192x192" \/>/g, '<link rel="icon" href="/images/favicon-192x192.png" sizes="192x192" />');
-  html = html.replace(/<link rel="apple-touch-icon" href="[^"]*cropped-[^"]*-180x180\.png" \/>/g, '<link rel="apple-touch-icon" href="/images/favicon-180x180.png" />');
-  html = html.replace(/<meta name="msapplication-TileImage" content="[^"]*cropped-[^"]*-270x270\.png" \/>/g, '<meta name="msapplication-TileImage" content="/images/favicon-270x270.png" />');
+  html = html.replace(/(<link\b[^>]*rel="(?:icon|apple-touch-icon)"[^>]*href=")[^"]*/gi, '$1/images/logo.png');
+  html = html.replace(/(<meta\b[^>]*name="msapplication-TileImage"[^>]*content=")[^"]*/gi, '$1/images/logo.png');
   html = html.replace(/alt="logo"/g, 'alt="Moonstone Advocates"');
   html = html.replace(
     /<img src="\/wp-content\/themes\/briffa\/assets\/images\/briffa-logo\.svg" alt="Moonstone Advocates" \/>/g,
     '<img src="/images/logo.png" alt="Moonstone Advocates" />'
   );
   html = html.replace(/<img src="\/wp-content\/themes\/briffa\/assets\/images\/b-logo\.svg">/g, '<img src="/images/logo.png" alt="Moonstone Advocates">');
+  html = html.replace(/(<img\b[^>]*\bsrc=")[^"]*(?:logo|wordmark)[^"]*("[^>]*>)/gi, '$1/images/logo.png$2');
   html = html.replace(
     /<img loading="lazy" width="1400" height="950" src="\/wp-content\/uploads\/2023\/07\/Briffa-Vector-1-1\.svg"/g,
     '<img loading="eager" width="1400" height="950" src="/wp-content/uploads/2023/07/moonstone-advocates-hero.svg"'
@@ -900,16 +932,21 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
   );
   html = html.replace(/<section id="team" class="py-16 relative overflow-hidden bg-base-light">[\s\S]*?<\/section>/g, fullTeamSection);
   const normalizedFile = file.replace(/\\/g, '/');
+  const isHomePage = normalizedFile === path.join(target, 'index.html').replace(/\\/g, '/');
+  if (isHomePage) {
+    html = html.replace(/<section\b(?:(?!<section\b)[\s\S])*?href="\/?content-hub\/(?:(?!<section\b)[\s\S])*?<\/section>/gi, '');
+    html = html.replace(/Protect Your commercial and private legal/gi, 'How Can We Help Protect Your Business and Personal Interests?');
+  }
   if (/\/contact\/(?:index\.html|london-office\/index\.html|ireland-office\/index\.html)$/.test(normalizedFile)) {
     html = html.replace(/<\/header>[\s\S]*?(?=<footer\b)/, `</header>${contactPageMain}`);
   }
   html = html.replace(
     /<h2 style="text-align: center;">Expertise<\/h2>\s*<\/div>/g,
-    `<h2 style="text-align: center;">Expertise</h2>\n<p style="text-align: center;">${firmExpertise.join(' • ')}</p>\n        </div>`
+    `<h2 style="text-align: center;">Why Choose Moonstone Advocates?</h2>\n<p style="text-align: center;">${firmExpertise.join(' • ')}</p>\n        </div>`
   );
   html = html.replace(
     /<h2 style="text-align: center;">Values<\/h2>\s*<\/div>/g,
-    `<h2 style="text-align: center;">Values</h2>\n<p style="text-align: center;">${firmValues.join(' • ')}</p>\n        </div>`
+    `<h2 style="text-align: center;">What Guides Our Work?</h2>\n<p style="text-align: center;">${firmValues.join(' • ')}</p>\n        </div>`
   );
   for (const member of teamMembers) {
     const memberPath = member.sourcePath.replace(/^\//, '');
@@ -1080,7 +1117,7 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
 
   html = html.replace(/[ \t]+$/gm, '');
 
-  writeFileSync(file, html);
+  writeFileSync(file, normalizeLogoReferences(normalizeBrandColours(html)));
 }
 
 for (const file of allFiles) {
@@ -1094,6 +1131,7 @@ for (const file of allFiles) {
   }
   let next = text;
   for (const [pattern, value] of replacements) next = next.replace(pattern, value);
+  if (ext === '.css') next = normalizeBrandColours(next);
   next = next.replace(/wp-admin/g, '');
   next = next.replace(/admin-ajax/g, '');
   if (next !== text) writeFileSync(file, next);
@@ -1216,55 +1254,78 @@ const helper = `(() => {
   const menu = document.getElementById('menu');
   const menuToggle = document.querySelector('.moonstone-menu-toggle');
   if (menu && menuToggle) {
-    const closeMenu = () => {
+    const menuBackdrop = document.querySelector('.moonstone-menu-backdrop');
+    const drawerClose = menu.querySelector('.moonstone-drawer-close');
+    let returnFocus = null;
+    const isMobileMenu = () => window.innerWidth < 1024;
+    const closeMenu = ({ restoreFocus = true } = {}) => {
       menu.classList.remove('moonstone-mobile-open');
+      menuBackdrop?.classList.remove('is-visible');
       menuToggle.setAttribute('aria-expanded', 'false');
       menuToggle.setAttribute('aria-label', 'Open menu');
       document.body.classList.remove('moonstone-menu-active', 'noscroll');
-      window.setTimeout(() => {
-        if (menuToggle.getAttribute('aria-expanded') === 'false') menu.classList.add('hidden');
-      }, 300);
+      if (isMobileMenu()) {
+        menu.setAttribute('aria-hidden', 'true');
+        menu.inert = true;
+      }
+      if (restoreFocus && returnFocus instanceof HTMLElement) returnFocus.focus();
+    };
+    const openMenu = () => {
+      if (!isMobileMenu()) return;
+      returnFocus = document.activeElement;
+      menu.inert = false;
+      menu.setAttribute('aria-hidden', 'false');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      menuToggle.setAttribute('aria-label', 'Close menu');
+      document.body.classList.add('moonstone-menu-active', 'noscroll');
+      menuBackdrop?.classList.add('is-visible');
+      requestAnimationFrame(() => {
+        menu.classList.add('moonstone-mobile-open');
+        drawerClose?.focus();
+      });
+    };
+    const syncMenuMode = () => {
+      if (isMobileMenu()) {
+        if (menuToggle.getAttribute('aria-expanded') !== 'true') closeMenu({ restoreFocus: false });
+        return;
+      }
+      menu.classList.remove('moonstone-mobile-open');
+      menuBackdrop?.classList.remove('is-visible');
+      menu.inert = false;
+      menu.setAttribute('aria-hidden', 'false');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('moonstone-menu-active', 'noscroll');
     };
     menuToggle.removeAttribute('onclick');
     menuToggle.addEventListener('click', () => {
-      const opening = menuToggle.getAttribute('aria-expanded') !== 'true';
-      if (!opening) return closeMenu();
-      menu.classList.remove('hidden');
-      menuToggle.setAttribute('aria-expanded', 'true');
-      menuToggle.setAttribute('aria-label', 'Close menu');
-      document.body.classList.add('moonstone-menu-active');
-      requestAnimationFrame(() => menu.classList.add('moonstone-mobile-open'));
+      if (menuToggle.getAttribute('aria-expanded') === 'true') closeMenu();
+      else openMenu();
     });
-    menu.querySelectorAll(':scope > ul > li > span').forEach((toggle) => {
-      const parent = toggle.parentElement;
-      const submenu = parent?.querySelector(':scope > ul');
-      if (!parent || !submenu) return;
-      toggle.setAttribute('role', 'button');
-      toggle.setAttribute('tabindex', '0');
-      toggle.setAttribute('aria-expanded', 'false');
-      const expand = (event) => {
-        if (window.innerWidth >= 1024) return;
-        if (event.type === 'keydown' && event.key !== 'Enter' && event.key !== ' ') return;
-        event.preventDefault();
-        const open = !parent.classList.contains('moonstone-submenu-open');
-        parent.classList.toggle('moonstone-submenu-open', open);
-        toggle.setAttribute('aria-expanded', String(open));
-      };
-      toggle.addEventListener('click', expand);
-      toggle.addEventListener('keydown', expand);
-    });
+    drawerClose?.addEventListener('click', () => closeMenu());
+    menuBackdrop?.addEventListener('click', () => closeMenu());
     menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
-      if (window.innerWidth < 1024) closeMenu();
+      if (isMobileMenu()) closeMenu({ restoreFocus: false });
     }));
-    window.addEventListener('resize', () => {
-      if (window.innerWidth >= 1024) {
-        menu.classList.remove('hidden', 'moonstone-mobile-open');
-        document.body.classList.remove('moonstone-menu-active', 'noscroll');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      } else if (menuToggle.getAttribute('aria-expanded') !== 'true') {
-        menu.classList.add('hidden');
+    document.addEventListener('keydown', (event) => {
+      if (!isMobileMenu() || menuToggle.getAttribute('aria-expanded') !== 'true') return;
+      if (event.key === 'Escape') return closeMenu();
+      if (event.key !== 'Tab') return;
+      const focusable = [...menu.querySelectorAll('a[href], button:not([disabled])')];
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
       }
     });
+    window.addEventListener('resize', syncMenuMode);
+    window.addEventListener('popstate', () => closeMenu({ restoreFocus: false }));
+    window.addEventListener('hashchange', () => closeMenu({ restoreFocus: false }));
+    syncMenuMode();
   }
 
   const enquiryOptions = ${enquiryOptions};
@@ -1314,17 +1375,7 @@ const helper = `(() => {
 })();`;
 
 writeFileSync(path.join(target, 'moonstone-local.js'), helper);
-writeFileSync(
-  path.join(target, 'wp-content/themes/briffa/assets/images/briffa-logo.svg'),
-  `<svg xmlns="http://www.w3.org/2000/svg" width="246.371" height="47.074" viewBox="0 0 246.371 47.074" role="img" aria-label="Moonstone Advocates">
-  <text x="0" y="20" fill="#181a34" font-family="Mulish, Arial, sans-serif" font-size="20" font-weight="800">MOONSTONE</text>
-  <text x="0" y="43" fill="#181a34" font-family="Mulish, Arial, sans-serif" font-size="18" font-weight="800">ADVOCATES</text>
-  <circle cx="230" cy="12" r="5" fill="#f5bb20"/>
-  <circle cx="242" cy="12" r="3.5" fill="#f5bb20"/>
-  <circle cx="236" cy="25" r="3.5" fill="#f5bb20"/>
-</svg>
-`
-);
+rmSync(path.join(target, 'wp-content/themes/briffa/assets/images/briffa-logo.svg'), { force: true });
 writeFileSync(
   path.join(target, 'robots.txt'),
   'User-agent: *\nAllow: /\nSitemap: /sitemap.xml\n'
@@ -1503,17 +1554,17 @@ const serviceSections = serviceAreas.map((area, index) => `<article class="moons
 const servicesLanding = editorialPage({
   title: 'Services',
   intro: 'One clear overview of Moonstone Advocates legal services and the clients and sectors we support.',
-  content: `<section class="py-20 bg-base-light" id="services-overview"><div class="px-4 md:container"><div class="moonstone-services-layout"><aside class="moonstone-services-index" aria-label="Services on this page"><strong>Services on this page</strong>${servicesIndexLinks}</aside><div>${serviceSections}</div></div></div></section><section class="py-16 bg-base-light" id="client-sectors"><div class="moonstone-sector-summary content"><span class="moonstone-eyebrow">Who we support</span><h2>Sector knowledge within every service</h2><p>Our advice is informed by the commercial and personal setting of each matter. We support corporate and commercial clients, financial institutions, property and construction participants, energy and infrastructure projects, public bodies and government contractors, employers and international workers, families and private clients, and parties involved in disputes, investigations or criminal proceedings.</p></div></section><section class="py-16 bg-yellow"><div class="mx-auto max-w-3xl px-4 content"><h2>Not sure where your matter fits?</h2><p>Tell us what has happened and the outcome you need. Our Kampala team will identify the relevant service and next step.</p><a class="btn btn-primary" href="/contact/">Send an enquiry</a></div></section>`
+  content: `<section class="py-20 bg-base-light" id="services-overview"><div class="px-4 md:container"><div class="moonstone-section-heading content"><span>Legal support</span><h2>How Can We Help Protect Your Business and Personal Interests?</h2><p>Explore our full range of legal services and select any area below to review the matters our Kampala team can assist with.</p></div><div class="moonstone-services-layout"><aside class="moonstone-services-index" aria-label="Services on this page"><strong>Services on this page</strong>${servicesIndexLinks}</aside><div>${serviceSections}</div></div></div></section><section class="py-16 bg-base-light" id="client-sectors"><div class="moonstone-sector-summary content"><span class="moonstone-eyebrow">Who we support</span><h2>Which Sectors Do We Support?</h2><p>Our advice is informed by the commercial and personal setting of each matter. We support corporate and commercial clients, financial institutions, property and construction participants, energy and infrastructure projects, public bodies and government contractors, employers and international workers, families and private clients, and parties involved in disputes, investigations or criminal proceedings.</p></div></section><section class="py-16 bg-yellow"><div class="mx-auto max-w-3xl px-4 content"><h2>Not Sure Where Your Matter Fits?</h2><p>Tell us what has happened and the outcome you need. Our Kampala team will identify the relevant service and next step.</p><a class="btn btn-primary" href="/contact/">Send an enquiry</a></div></section>`
 });
 
 const teamDirectoryCards = teamMembers.map((member) => `<article class="moonstone-team-card">
   <a class="moonstone-team-card-image" href="${cleanUrl(member.path)}" aria-label="View ${member.name}'s profile"><img src="${member.image}" alt="${member.name}, ${member.role}" /></a>
-  <div class="moonstone-team-card-content"><h2>${member.name}</h2><span class="moonstone-team-role">${member.role}</span><p>${member.profile.slice(0, 2).join(' ')}</p><p class="moonstone-team-expertise"><strong>Areas of expertise:</strong> ${member.practice.join(', ')}</p><a href="${cleanUrl(member.path)}">View full profile</a></div>
+  <div class="moonstone-team-card-content"><h2>${member.name}</h2><span class="moonstone-team-role">${member.role}</span><span class="moonstone-team-qualifications">${member.qualifications}</span><p>${member.profile[0]}</p><p class="moonstone-team-expertise"><strong>Areas of expertise:</strong> ${member.practice.slice(0, 4).join(', ')}</p><a href="${cleanUrl(member.path)}">View full profile</a></div>
 </article>`).join('\n');
 const meetTheTeamPage = editorialPage({
   title: 'Meet the Team',
   intro: 'Meet the advocates and consultants providing practical, partner-led legal support at Moonstone Advocates.',
-  content: `<section class="py-20 bg-base-light"><div class="px-4 md:container"><div class="moonstone-section-heading content"><span>Our people</span><h2>Experience across business and private-client law</h2><p>Our team combines legal analysis, commercial awareness and direct client attention. Select a profile to learn more about each lawyer's experience, qualifications and areas of practice.</p></div><div class="moonstone-team-directory">${teamDirectoryCards}</div></div></section><section class="py-16 bg-purple text-base-light"><div class="mx-auto max-w-3xl px-4 content"><h2>Speak with our team</h2><p>Contact Moonstone Advocates to discuss your matter and identify the right lawyer for your needs.</p><a class="btn btn-primary" href="/contact/">Contact the firm</a></div></section>`
+  content: `<section class="py-20 bg-base-light"><div class="px-4 md:container"><div class="moonstone-section-heading content"><span>Our people</span><h2>Who Will Be Supporting You?</h2><p>Our team combines legal analysis, commercial awareness and direct client attention. Select a profile to learn more about each lawyer's experience, qualifications and areas of practice.</p></div><div class="moonstone-team-directory">${teamDirectoryCards}</div></div></section><section class="py-16 bg-purple text-base-light"><div class="mx-auto max-w-3xl px-4 content"><h2>Would You Like to Speak With Our Team?</h2><p>Contact Moonstone Advocates to discuss your matter and identify the right lawyer for your needs.</p><a class="btn btn-primary" href="/contact/">Contact the firm</a></div></section>`
 });
 
 const insightCards = insightArticles.map((article) => `<article class="moonstone-insight-card"><span>${article.category}</span><time datetime="2026-07">${article.date}</time><h2><a href="/insights/${article.slug}/">${article.title}</a></h2><p>${article.summary}</p><a class="moonstone-text-link" href="/insights/${article.slug}/">Read briefing</a></article>`).join('\n');
@@ -1800,6 +1851,7 @@ ${verification}<link rel="canonical" href="${canonical}" />
     .replace(/<link\s+rel="canonical"[^>]*>\s*/gi, '')
     .replace(/<script\s+type="application\/ld\+json">[\s\S]*?<\/script>\s*/gi, '')
     .replace('</head>', `${metadata}\n</head>`);
+  html = normalizeLogoReferences(normalizeBrandColours(html));
   writeFileSync(file, html);
   indexedPages.push({ route, canonical, image: member ? `${productionOrigin}${member.image}` : '', lastmod: article?.isoDate || seoLastModified });
 }

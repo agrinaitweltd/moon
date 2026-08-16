@@ -114,55 +114,78 @@
   const menu = document.getElementById('menu');
   const menuToggle = document.querySelector('.moonstone-menu-toggle');
   if (menu && menuToggle) {
-    const closeMenu = () => {
+    const menuBackdrop = document.querySelector('.moonstone-menu-backdrop');
+    const drawerClose = menu.querySelector('.moonstone-drawer-close');
+    let returnFocus = null;
+    const isMobileMenu = () => window.innerWidth < 1024;
+    const closeMenu = ({ restoreFocus = true } = {}) => {
       menu.classList.remove('moonstone-mobile-open');
+      menuBackdrop?.classList.remove('is-visible');
       menuToggle.setAttribute('aria-expanded', 'false');
       menuToggle.setAttribute('aria-label', 'Open menu');
       document.body.classList.remove('moonstone-menu-active', 'noscroll');
-      window.setTimeout(() => {
-        if (menuToggle.getAttribute('aria-expanded') === 'false') menu.classList.add('hidden');
-      }, 300);
+      if (isMobileMenu()) {
+        menu.setAttribute('aria-hidden', 'true');
+        menu.inert = true;
+      }
+      if (restoreFocus && returnFocus instanceof HTMLElement) returnFocus.focus();
+    };
+    const openMenu = () => {
+      if (!isMobileMenu()) return;
+      returnFocus = document.activeElement;
+      menu.inert = false;
+      menu.setAttribute('aria-hidden', 'false');
+      menuToggle.setAttribute('aria-expanded', 'true');
+      menuToggle.setAttribute('aria-label', 'Close menu');
+      document.body.classList.add('moonstone-menu-active', 'noscroll');
+      menuBackdrop?.classList.add('is-visible');
+      requestAnimationFrame(() => {
+        menu.classList.add('moonstone-mobile-open');
+        drawerClose?.focus();
+      });
+    };
+    const syncMenuMode = () => {
+      if (isMobileMenu()) {
+        if (menuToggle.getAttribute('aria-expanded') !== 'true') closeMenu({ restoreFocus: false });
+        return;
+      }
+      menu.classList.remove('moonstone-mobile-open');
+      menuBackdrop?.classList.remove('is-visible');
+      menu.inert = false;
+      menu.setAttribute('aria-hidden', 'false');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('moonstone-menu-active', 'noscroll');
     };
     menuToggle.removeAttribute('onclick');
     menuToggle.addEventListener('click', () => {
-      const opening = menuToggle.getAttribute('aria-expanded') !== 'true';
-      if (!opening) return closeMenu();
-      menu.classList.remove('hidden');
-      menuToggle.setAttribute('aria-expanded', 'true');
-      menuToggle.setAttribute('aria-label', 'Close menu');
-      document.body.classList.add('moonstone-menu-active');
-      requestAnimationFrame(() => menu.classList.add('moonstone-mobile-open'));
+      if (menuToggle.getAttribute('aria-expanded') === 'true') closeMenu();
+      else openMenu();
     });
-    menu.querySelectorAll(':scope > ul > li > span').forEach((toggle) => {
-      const parent = toggle.parentElement;
-      const submenu = parent?.querySelector(':scope > ul');
-      if (!parent || !submenu) return;
-      toggle.setAttribute('role', 'button');
-      toggle.setAttribute('tabindex', '0');
-      toggle.setAttribute('aria-expanded', 'false');
-      const expand = (event) => {
-        if (window.innerWidth >= 1024) return;
-        if (event.type === 'keydown' && event.key !== 'Enter' && event.key !== ' ') return;
-        event.preventDefault();
-        const open = !parent.classList.contains('moonstone-submenu-open');
-        parent.classList.toggle('moonstone-submenu-open', open);
-        toggle.setAttribute('aria-expanded', String(open));
-      };
-      toggle.addEventListener('click', expand);
-      toggle.addEventListener('keydown', expand);
-    });
+    drawerClose?.addEventListener('click', () => closeMenu());
+    menuBackdrop?.addEventListener('click', () => closeMenu());
     menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
-      if (window.innerWidth < 1024) closeMenu();
+      if (isMobileMenu()) closeMenu({ restoreFocus: false });
     }));
-    window.addEventListener('resize', () => {
-      if (window.innerWidth >= 1024) {
-        menu.classList.remove('hidden', 'moonstone-mobile-open');
-        document.body.classList.remove('moonstone-menu-active', 'noscroll');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      } else if (menuToggle.getAttribute('aria-expanded') !== 'true') {
-        menu.classList.add('hidden');
+    document.addEventListener('keydown', (event) => {
+      if (!isMobileMenu() || menuToggle.getAttribute('aria-expanded') !== 'true') return;
+      if (event.key === 'Escape') return closeMenu();
+      if (event.key !== 'Tab') return;
+      const focusable = [...menu.querySelectorAll('a[href], button:not([disabled])')];
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
       }
     });
+    window.addEventListener('resize', syncMenuMode);
+    window.addEventListener('popstate', () => closeMenu({ restoreFocus: false }));
+    window.addEventListener('hashchange', () => closeMenu({ restoreFocus: false }));
+    syncMenuMode();
   }
 
   const enquiryOptions = {"Corporate & Commercial Advisory":["Company incorporation and business structuring","Corporate governance and regulatory compliance","Shareholder agreements and corporate documentation","Commercial agreements and contract drafting","Legal due diligence","Business restructuring and reorganisations","Mergers, acquisitions and investment transactions","Corporate advisory and general business support"],"Tax & Regulatory Advisory":["Tax advisory","Tax compliance support","Regulatory compliance reviews","Business licensing and approvals","Advisory on statutory obligations","Tax dispute support"],"Dispute Resolution":["Commercial disputes","Civil disputes","Debt recovery","Contractual disputes","Employment disputes","Land and property disputes","Arbitration and alternative dispute resolution","Enforcement of judgments and court orders"],"Real Estate, Land & Property":["Land transactions","Property acquisitions and disposals","Conveyancing","Lease agreements","Real estate due diligence","Property development advisory","Land dispute resolution","Security documentation involving property"],"Employment, Labour & Immigration":["Employment contracts","Human resource policies and manuals","Labour law compliance","Disciplinary and termination processes","Workplace disputes","Employee benefits advisory","Immigration and work permit support"],"Family Law":["Marriage and matrimonial advisory","Divorce and separation matters","Child custody and maintenance disputes","Family mediation","Succession and inheritance planning","Wills and estate planning","Probate and administration of estates","Family property arrangements"],"Banking, Finance & Securities":["Loan and facility documentation","Security creation and perfection","Mortgages, charges and guarantees","Banking regulatory advisory","Debt recovery and enforcement","Financial services agreements","Lending and financing transactions","Restructuring and insolvency advisory"],"Public Sector & Regulatory Advisory":["Regulatory advisory","Public procurement support","Government contracting","Policy and compliance advisory","Administrative law matters"],"Energy & Infrastructure":["Oil and gas law","Energy regulatory compliance","Infrastructure development and financing","Project development agreements","Power Purchase Agreements (PPAs)","Environmental and social impact advisory","Construction and engineering contracts","Public-private partnerships (PPPs)","Renewable energy and sustainability advisory"],"Criminal Law":["Criminal defence","Bail and bond applications","Police station representation","Criminal appeals","Legal representation during investigations","Extradition matters","Regulatory and compliance offences","Human rights and constitutional petitions in criminal matters"],"Intellectual Property":["Trade mark registration and portfolio support","Copyright and digital content advisory","Patent and design rights advisory","Intellectual property licensing and commercialisation","Brand protection and enforcement","Intellectual property due diligence","Technology, confidentiality and data-related agreements"]};
