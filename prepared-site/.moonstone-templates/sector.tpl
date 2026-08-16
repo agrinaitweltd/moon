@@ -11,7 +11,36 @@
 
 
 
-<link rel="icon" href="/images/favicon-32x32.png" sizes="32x32" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  "name": "Moonstone Advocates",
+  "image": "/images/logo.png",
+  "@id": "",
+  "url": "/",
+  "telephone": "",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "P.O. Box 189860",
+    "addressLocality": "Kampala",
+    "postalCode": "",
+    "addressCountry": "GB"
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday"
+    ],
+    "opens": "09:00",
+    "closes": "17:30"
+  }
+}
+</script><link rel="icon" href="/images/favicon-32x32.png" sizes="32x32" />
 <link rel="icon" href="/images/favicon-192x192.png" sizes="192x192" />
 <link rel="apple-touch-icon" href="/images/favicon-180x180.png" />
 <meta name="msapplication-TileImage" content="/images/favicon-270x270.png" />
@@ -4481,7 +4510,8 @@ body[data-aos-easing="ease-in-out-quart"] [data-aos] {
       "html:not(.no-js) [data-aos^=fade][data-aos^=fade],html:not(.no-js) [data-aos^=zoom][data-aos^=zoom] {opacity: 0;}";
   });
   </script>
-  <style>
+  <title>Moonstone Advocates | Lawyers in Kampala, Uganda</title>
+<style>
 .moonstone-wordmark{display:inline-grid;grid-template-columns:auto 24px;grid-template-rows:1fr 1fr;column-gap:14px;align-items:center;color:#181a34;font-family:Mulish,Arial,sans-serif;font-weight:800;line-height:1.05;font-size:22px;letter-spacing:0}
 .moonstone-wordmark span{display:block}
 .moonstone-wordmark i{grid-column:2;grid-row:1 / span 2;position:relative;width:24px;height:28px;display:block}
@@ -4496,13 +4526,15 @@ body[data-aos-easing="ease-in-out-quart"] [data-aos] {
 .moonstone-practice-card li{margin:.25rem 0}
 .moonstone-practice-card a{color:inherit;text-decoration:none}
 .moonstone-practice-card li a:hover{text-decoration:underline}
+.moonstone-services-layout{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:260px minmax(0,1fr);gap:4rem;align-items:start}.moonstone-services-index{position:sticky;top:8.5rem;padding:1.25rem 0;border-top:3px solid #eab736}.moonstone-services-index strong{display:block;font-family:Jost,sans-serif;margin-bottom:.8rem}.moonstone-services-index a{display:block;padding:.45rem 0;color:#181a34;text-decoration:none;border-bottom:1px solid rgba(24,26,52,.1);transition:color .2s ease}.moonstone-services-index a:hover{color:#6f3e78}.moonstone-service-section{scroll-margin-top:8rem;padding:0 0 3.5rem;margin:0 0 3.5rem;border-bottom:1px solid rgba(24,26,52,.16)}.moonstone-service-section:last-child{margin-bottom:0;border-bottom:0}.moonstone-service-number{display:block;color:#6f3e78;font-family:Jost,sans-serif;font-size:.8rem;margin-bottom:.5rem}.moonstone-service-section h2{margin:.1rem 0 1rem}.moonstone-service-section>p{max-width:760px}.moonstone-service-section ul{columns:2;column-gap:2.5rem;margin:1.5rem 0;padding-left:1.2rem}.moonstone-service-section li{break-inside:avoid;margin:0 0 .6rem}.moonstone-service-context{padding:1rem 1.15rem;border-left:3px solid #6481b9;background:#eef0ff}.moonstone-sector-summary{max-width:1180px;margin:0 auto;padding:3.5rem 2rem;background:#181a34;color:#fff}.moonstone-sector-summary h2{color:#fff}.moonstone-sector-summary p{max-width:850px;color:rgba(255,255,255,.84)}
+.moonstone-team-directory{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem}.moonstone-team-card{display:grid;grid-template-columns:190px minmax(0,1fr);background:#fff;border-top:3px solid #eab736;box-shadow:0 10px 30px rgba(24,26,52,.08);overflow:hidden;transition:box-shadow .25s ease}.moonstone-team-card:hover{box-shadow:0 15px 36px rgba(24,26,52,.12)}.moonstone-team-card-image{display:block;background:#181a34;min-height:280px}.moonstone-team-card-image img{display:block;width:100%;height:100%;min-height:280px;object-fit:contain;object-position:center bottom}.moonstone-team-card-content{padding:1.5rem}.moonstone-team-card-content h2{font-size:1.35rem!important;line-height:1.2!important;margin:.2rem 0}.moonstone-team-role{display:block;color:#6f3e78;font-family:Jost,sans-serif;margin-bottom:1rem}.moonstone-team-expertise{font-size:.9rem;line-height:1.55}.moonstone-team-card-content>a{font-family:Jost,sans-serif;font-weight:700;color:#181a34;text-underline-offset:4px}
 @media (max-width:767px){.moonstone-practice-grid{grid-template-columns:1fr}}
 .moonstone-contact-form{display:grid;gap:1rem;max-width:560px;margin:1.5rem auto 0;text-align:left}
 .moonstone-contact-form label{display:grid;gap:.35rem;font-weight:700}
 .moonstone-contact-form input,.moonstone-contact-form textarea,.moonstone-contact-form select{width:100%;border:1px solid rgba(24,26,52,.2);border-radius:.25rem;padding:.85rem 1rem;color:#181a34;background:#fff}
 .moonstone-contact-form textarea{resize:vertical}
 .moonstone-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.moonstone-contact-method{border:0;padding:0;margin:0;display:flex;align-items:center;flex-wrap:wrap;gap:.75rem 1.5rem}.moonstone-contact-method legend{font-weight:700;margin-bottom:.5rem;width:100%}.moonstone-contact-method label,.moonstone-form-consent{display:flex!important;grid-template-columns:none!important;align-items:flex-start;gap:.55rem;font-weight:400!important}.moonstone-contact-method input,.moonstone-form-consent input{width:auto;margin-top:.22rem}.moonstone-form-note{font-size:.85rem;line-height:1.5;opacity:.75;margin:0}
-.moonstone-form-stage{display:flex;justify-content:space-between;align-items:end;gap:1rem;margin-top:.65rem;padding:1rem 0 .75rem;border-bottom:2px solid #eab736}.moonstone-form-stage span{color:#6f3e78;font-size:.78rem;text-transform:uppercase}.moonstone-form-stage strong{font-family:Jost,sans-serif;font-size:1.05rem;text-align:right}.moonstone-detail-field{padding:.9rem 1rem;background:#eef0ff;border-left:3px solid #6481b9;animation:moonstone-field-in .42s cubic-bezier(.2,.8,.2,1) both}.moonstone-detail-field[hidden]{display:none}.moonstone-contact-form label:focus-within{color:#6f3e78;transform:translateY(-2px)}.moonstone-contact-form-panel{transition:transform .4s ease,box-shadow .4s ease}.moonstone-contact-form-panel:hover{transform:translateY(-4px);box-shadow:0 28px 70px rgba(24,26,52,.14)}
+.moonstone-form-stage{display:flex;justify-content:space-between;align-items:end;gap:1rem;margin-top:.65rem;padding:1rem 0 .75rem;border-bottom:2px solid #eab736}.moonstone-form-stage span{color:#6f3e78;font-size:.78rem;text-transform:uppercase}.moonstone-form-stage strong{font-family:Jost,sans-serif;font-size:1.05rem;text-align:right}.moonstone-detail-field{padding:.9rem 1rem;background:#eef0ff;border-left:3px solid #6481b9}.moonstone-detail-field[hidden]{display:none}.moonstone-contact-form label:focus-within{color:#6f3e78}.moonstone-contact-form-panel{transition:box-shadow .25s ease}.moonstone-contact-form-panel:hover{box-shadow:0 24px 60px rgba(24,26,52,.13)}
 .moonstone-contact-layout{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:4rem;align-items:start}.moonstone-contact-details{padding-top:1rem}.moonstone-contact-form-panel{background:#fff;padding:2rem;border-top:4px solid #eab736;box-shadow:0 22px 60px rgba(24,26,52,.1)}.moonstone-contact-form-panel h2{margin-top:0}.moonstone-contact-cards{display:grid;gap:.75rem;margin-top:2rem}.moonstone-contact-cards a{display:flex;flex-direction:column;gap:.2rem;padding:1rem 1.1rem;background:#fff;border-left:3px solid #6481b9;color:#181a34;text-decoration:none;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}.moonstone-contact-cards a:hover{transform:translateX(8px);border-color:#eab736;box-shadow:0 12px 28px rgba(24,26,52,.1)}.moonstone-contact-cards span{font-size:.92rem}.moonstone-visit-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem}.moonstone-visit-grid ol{padding-left:1.25rem}.moonstone-visit-grid li{margin:.75rem 0}
 html,.custom-css{overflow-x:hidden}
 .moonstone-scroll-progress{position:fixed;z-index:10000;left:0;top:0;width:100%;height:3px;background:#eab736;transform:scaleX(0);transform-origin:left center;pointer-events:none;transition:transform .08s linear}.custom-css header.menu{transition:box-shadow .35s ease,background-color .35s ease}.custom-css header.menu.moonstone-scrolled{box-shadow:0 12px 32px rgba(24,26,52,.12)}
@@ -4512,34 +4544,22 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
 .custom-css header a:hover img[src="/images/logo.png"]{transform:translateY(-1px) scale(1.02)}
 .custom-css section>.relative,.custom-css section>.container,.custom-css .content,.custom-css footer .container{box-sizing:border-box}
 .custom-css .btn,.custom-css .moonstone-practice-card,.custom-css #team .flex.flex-col,.custom-css .content a,.custom-css article,.custom-css form input,.custom-css form textarea{transition:transform .28s ease,box-shadow .28s ease,opacity .28s ease,background-color .28s ease,border-color .28s ease}
-.custom-css .btn:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(24,26,51,.18)}
-.custom-css .moonstone-practice-card:hover,.custom-css #team .flex.flex-col:hover,.custom-css article:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(24,26,51,.12)}
+.custom-css .btn:hover{transform:translateY(-1px);box-shadow:0 9px 22px rgba(24,26,51,.14)}
+.custom-css .moonstone-practice-card:hover,.custom-css #team .flex.flex-col:hover,.custom-css article:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(24,26,51,.1)}
 .custom-css form input:focus,.custom-css form textarea:focus{outline:none;border-color:#6481b9;box-shadow:0 0 0 4px rgba(100,129,185,.16)}
-.custom-css .banner img{animation:moonstone-soft-float 7s ease-in-out infinite alternate}
-.custom-css .bg-yellow.rounded-full,.custom-css .bg-purple.rounded-full{animation:moonstone-pulse 5.5s ease-in-out infinite alternate}
 .custom-css nav a{transition:opacity .25s ease,color .25s ease,transform .25s ease}
-.custom-css nav a:hover{transform:translateY(-1px)}
+.custom-css nav a:hover{opacity:.82}
 .moonstone-clickable{cursor:pointer;position:relative}
 .moonstone-clickable:focus-visible{outline:3px solid #eab736;outline-offset:5px}
 .moonstone-reveal{opacity:1;transform:none}
-.moonstone-reveal.is-visible{animation:moonstone-reveal-up .75s cubic-bezier(.2,.7,.2,1) var(--moonstone-delay,0ms) both}
-.moonstone-reveal.moonstone-reveal-left.is-visible{animation-name:moonstone-reveal-left}
-.moonstone-reveal.moonstone-reveal-right.is-visible{animation-name:moonstone-reveal-right}
-.moonstone-reveal.moonstone-reveal-scale.is-visible{animation-name:moonstone-reveal-scale}
-.moonstone-section-heading{max-width:760px;margin:0 auto 3rem;text-align:center}.moonstone-section-heading>span,.moonstone-eyebrow{display:inline-block;font-family:Jost,sans-serif;font-size:.78rem;text-transform:uppercase;color:#6f3e78;margin-bottom:.6rem}.moonstone-insight-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem}.moonstone-insight-card{position:relative;background:#fff;padding:1.75rem;border-top:4px solid #6481b9;box-shadow:0 12px 35px rgba(24,26,52,.08);transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease}.moonstone-insight-card:hover{transform:translateY(-8px);box-shadow:0 24px 50px rgba(24,26,52,.14);border-color:#eab736}.moonstone-insight-card>span{display:inline-block;font-family:Jost,sans-serif;color:#6f3e78;font-size:.82rem}.moonstone-insight-card time{float:right;font-size:.82rem;opacity:.7}.moonstone-insight-card h2{font-size:1.45rem!important;line-height:1.2!important;margin:1.2rem 0 .75rem}.moonstone-insight-card h2 a{color:#181a34;text-decoration:none}.moonstone-text-link{display:inline-block;font-family:Jost,sans-serif;font-weight:700;color:#181a34;text-underline-offset:4px;transition:transform .25s ease,color .25s ease}.moonstone-text-link:hover{transform:translateX(6px);color:#6f3e78}.moonstone-standard-grid{max-width:1100px;margin:3rem auto 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}.moonstone-standard-grid article{background:#fff;padding:1.5rem;border-bottom:4px solid #eab736;transition:transform .35s ease,box-shadow .35s ease}.moonstone-standard-grid article:hover{transform:translateY(-7px);box-shadow:0 20px 40px rgba(24,26,52,.12)}.moonstone-standard-grid strong{font-family:Jost,sans-serif;font-size:1.15rem}.moonstone-article-meta{display:flex;justify-content:space-between;gap:1rem;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid rgba(24,26,52,.15);font-family:Jost,sans-serif}.moonstone-article aside{margin:2rem 0;padding:1.25rem 1.5rem;background:#eef0ff;border-left:4px solid #6f3e78}.moonstone-article aside p{margin-bottom:0}.moonstone-cookie-open{overflow:hidden}.moonstone-profile-layout{max-width:1160px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:minmax(280px,.78fr) minmax(0,1.22fr);gap:4rem;align-items:start}.moonstone-profile-image{position:sticky;top:9rem;min-height:540px;background:#181a34;overflow:hidden}.moonstone-profile-image img{display:block;width:100%;height:100%;min-height:540px;object-fit:contain;object-position:center bottom;transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .5s ease}.moonstone-profile-image:hover img{transform:scale(1.035);filter:saturate(1.06)}.moonstone-profile article h2{font-size:2.35rem!important;margin-top:.25rem}.moonstone-profile article ul{columns:2;column-gap:2rem}.moonstone-profile article li{break-inside:avoid;margin-bottom:.45rem}.moonstone-profile blockquote{margin:2rem 0;padding:1.25rem 1.5rem;border-left:4px solid #eab736;background:#fff;font-family:Jost,sans-serif;font-size:1.15rem}
+.moonstone-reveal.is-visible{animation:moonstone-reveal-up .5s ease-out both}
+.moonstone-section-heading{max-width:760px;margin:0 auto 3rem;text-align:center}.moonstone-section-heading>span,.moonstone-eyebrow{display:inline-block;font-family:Jost,sans-serif;font-size:.78rem;text-transform:uppercase;color:#6f3e78;margin-bottom:.6rem}.moonstone-insight-grid{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem}.moonstone-insight-card{position:relative;background:#fff;padding:1.75rem;border-top:4px solid #6481b9;box-shadow:0 12px 35px rgba(24,26,52,.08);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}.moonstone-insight-card:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(24,26,52,.11);border-color:#eab736}.moonstone-insight-card>span{display:inline-block;font-family:Jost,sans-serif;color:#6f3e78;font-size:.82rem}.moonstone-insight-card time{float:right;font-size:.82rem;opacity:.7}.moonstone-insight-card h2{font-size:1.45rem!important;line-height:1.2!important;margin:1.2rem 0 .75rem}.moonstone-insight-card h2 a{color:#181a34;text-decoration:none}.moonstone-text-link{display:inline-block;font-family:Jost,sans-serif;font-weight:700;color:#181a34;text-underline-offset:4px;transition:color .2s ease}.moonstone-text-link:hover{color:#6f3e78}.moonstone-standard-grid{max-width:1100px;margin:3rem auto 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}.moonstone-standard-grid article{background:#fff;padding:1.5rem;border-bottom:4px solid #eab736;transition:box-shadow .25s ease}.moonstone-standard-grid article:hover{box-shadow:0 14px 32px rgba(24,26,52,.1)}.moonstone-standard-grid strong{font-family:Jost,sans-serif;font-size:1.15rem}.moonstone-article-meta{display:flex;justify-content:space-between;gap:1rem;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid rgba(24,26,52,.15);font-family:Jost,sans-serif}.moonstone-article aside{margin:2rem 0;padding:1.25rem 1.5rem;background:#eef0ff;border-left:4px solid #6f3e78}.moonstone-article aside p{margin-bottom:0}.moonstone-cookie-open{overflow:hidden}.moonstone-profile-layout{max-width:1160px;margin:0 auto;padding:0 2rem;display:grid;grid-template-columns:minmax(280px,.78fr) minmax(0,1.22fr);gap:4rem;align-items:start}.moonstone-profile-image{position:sticky;top:9rem;min-height:540px;background:#181a34;overflow:hidden}.moonstone-profile-image img{display:block;width:100%;height:100%;min-height:540px;object-fit:contain;object-position:center bottom}.moonstone-profile article h2{font-size:2.35rem!important;margin-top:.25rem}.moonstone-profile article ul{columns:2;column-gap:2rem}.moonstone-profile article li{break-inside:avoid;margin-bottom:.45rem}.moonstone-profile blockquote{margin:2rem 0;padding:1.25rem 1.5rem;border-left:4px solid #eab736;background:#fff;font-family:Jost,sans-serif;font-size:1.15rem}
 .moonstone-page-loader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:#fcf7fb;transition:opacity .65s ease,visibility .65s ease}
 .moonstone-loader-inner{display:flex;flex-direction:column;align-items:center;gap:1.25rem}.moonstone-loader-inner img{width:auto;height:auto;max-width:180px;max-height:58px;object-fit:contain;animation:moonstone-loader-logo 1.2s ease-in-out infinite alternate}.moonstone-loader-line{width:170px;height:3px;overflow:hidden;background:rgba(24,26,52,.12)}.moonstone-loader-line:after{content:"";display:block;width:55%;height:100%;background:#eab736;animation:moonstone-loader-line 1.1s ease-in-out infinite}.moonstone-loader-inner span{font-family:Jost,sans-serif;font-size:.8rem;text-transform:uppercase;letter-spacing:0;color:#181a34}
 .moonstone-page-loader.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
 .moonstone-page-ready main{animation:moonstone-page-in .7s ease both}
-@keyframes moonstone-soft-float{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(0,-10px,0) scale(1.015)}}
-@keyframes moonstone-pulse{from{transform:scale(1);opacity:.92}to{transform:scale(1.06);opacity:1}}
-@keyframes moonstone-spin{to{transform:rotate(360deg)}}
 @keyframes moonstone-page-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-@keyframes moonstone-reveal-up{from{opacity:0;transform:translate3d(0,34px,0)}to{opacity:1;transform:none}}
-@keyframes moonstone-reveal-left{from{opacity:0;transform:translate3d(-38px,0,0)}to{opacity:1;transform:none}}
-@keyframes moonstone-reveal-right{from{opacity:0;transform:translate3d(38px,0,0)}to{opacity:1;transform:none}}
-@keyframes moonstone-reveal-scale{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
-@keyframes moonstone-field-in{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+@keyframes moonstone-reveal-up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 @keyframes moonstone-loader-logo{from{opacity:.68;transform:translateY(3px)}to{opacity:1;transform:translateY(-3px)}}
 @keyframes moonstone-loader-line{from{transform:translateX(-110%)}to{transform:translateX(210%)}}
 .moonstone-cookie-layer{position:fixed;inset:0;z-index:9998;display:grid;place-items:center;padding:1.25rem}.moonstone-cookie-layer[hidden]{display:none}.moonstone-cookie-backdrop{position:absolute;inset:0;background:rgba(24,26,52,.72);backdrop-filter:blur(7px);animation:moonstone-cookie-fade .45s ease both}.moonstone-cookie-panel{position:relative;width:min(520px,100%);max-height:calc(100vh - 2.5rem);overflow-y:auto;background:#fff;color:#181a34;padding:2.25rem;border-top:5px solid #eab736;box-shadow:0 28px 90px rgba(0,0,0,.28);animation:moonstone-cookie-in .6s cubic-bezier(.2,.8,.2,1) both}.moonstone-cookie-panel h2{font-family:Jost,sans-serif;font-size:2rem;line-height:1.08;margin:.35rem 0 1rem}.moonstone-cookie-panel p{line-height:1.65;margin:0 0 .65rem}.moonstone-cookie-kicker{font-family:Jost,sans-serif;text-transform:uppercase;font-size:.75rem;color:#6f3e78}.moonstone-cookie-policy{color:#181a34;text-underline-offset:4px}.moonstone-cookie-close{position:absolute;right:1rem;top:.75rem;border:0;background:transparent;font-size:1.8rem;line-height:1;color:#181a34;cursor:pointer}.moonstone-cookie-options{margin:1.4rem 0;border-top:1px solid rgba(24,26,52,.14)}.moonstone-cookie-options[hidden]{display:none}.moonstone-cookie-options label{display:flex;justify-content:space-between;gap:1rem;padding:1rem 0;border-bottom:1px solid rgba(24,26,52,.14);cursor:pointer}.moonstone-cookie-options span{display:flex;flex-direction:column;gap:.2rem}.moonstone-cookie-options small{line-height:1.4;opacity:.72}.moonstone-cookie-options input{width:42px;height:22px;accent-color:#6f3e78;flex:0 0 auto}.moonstone-cookie-actions{display:grid;gap:.7rem;margin-top:1.75rem}.moonstone-cookie-actions button{min-height:52px;border:2px solid #181a34;padding:.75rem 1rem;font-family:Jost,sans-serif;font-weight:700;cursor:pointer;transition:transform .25s ease,box-shadow .25s ease,background .25s ease,color .25s ease}.moonstone-cookie-actions button:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(24,26,52,.16)}.moonstone-cookie-accept{background:#181a34;color:#fff}.moonstone-cookie-reject,.moonstone-cookie-save{background:#eef0ff;color:#181a34}.moonstone-cookie-manage{border-color:transparent!important;background:transparent;color:#181a34;text-decoration:underline;text-underline-offset:4px}.moonstone-cookie-tab{position:fixed;z-index:90;left:1rem;bottom:1rem;border:0;background:#181a34;color:#fff;padding:.7rem 1rem;font-family:Jost,sans-serif;font-weight:700;box-shadow:0 8px 24px rgba(24,26,52,.25);cursor:pointer;animation:moonstone-cookie-tab .5s ease both}.moonstone-cookie-tab[hidden]{display:none}
@@ -4550,9 +4570,8 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
 .moonstone-footer-logo{display:inline-block;margin-bottom:1.35rem}.moonstone-footer-logo img{display:block;width:auto;height:auto;max-width:150px;max-height:44px;object-fit:contain;transition:transform .4s ease}.moonstone-footer-logo:hover img{transform:translateY(-3px) scale(1.025)}
 .moonstone-footer-links{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem}.moonstone-footer-links div{display:flex;flex-direction:column;align-items:flex-start;gap:.65rem}.moonstone-footer-links h3{font-family:Jost,sans-serif;font-size:1.05rem;margin:0 0 .4rem}.moonstone-footer-links a{color:#181a34;text-decoration:none;line-height:1.45;transition:color .25s ease,transform .25s ease}.moonstone-footer-links a:hover{color:#6f3e78;transform:translateX(4px)}
 .moonstone-footer-bottom{background:#181a34;color:#fff;display:flex;justify-content:space-between;gap:1rem;padding:1rem max(2rem,calc((100vw - 1216px)/2));font-size:.9rem}.moonstone-footer-bottom a{color:#fff;text-decoration:none}
-.moonstone-area-highlight{position:relative;min-height:420px;display:flex;flex-direction:column;justify-content:center;padding:4rem;color:#fff;background:#181a34;overflow:hidden}.moonstone-area-highlight:before,.moonstone-area-highlight:after{content:"";position:absolute;right:-12%;width:65%;height:1px;background:rgba(234,183,54,.65);transform:rotate(-18deg);animation:moonstone-highlight-line 7s ease-in-out infinite alternate}.moonstone-area-highlight:before{top:28%}.moonstone-area-highlight:after{bottom:25%;animation-delay:-2.5s}.moonstone-area-highlight>*{position:relative;z-index:1;max-width:520px}.moonstone-area-highlight span{font-family:Jost,sans-serif;color:#eab736;text-transform:uppercase;font-size:.8rem}.moonstone-area-highlight h3{font-size:2rem;margin:.65rem 0 1rem}.moonstone-area-highlight p{line-height:1.7;color:rgba(255,255,255,.84)}.moonstone-area-highlight a{align-self:flex-start;color:#fff;font-family:Jost,sans-serif;font-weight:700;text-underline-offset:5px;transition:transform .3s ease,color .3s ease}.moonstone-area-highlight a:hover{color:#eab736;transform:translateX(7px)}
-@keyframes moonstone-highlight-line{from{transform:translateX(-6%) rotate(-18deg)}to{transform:translateX(9%) rotate(-18deg)}}
-.moonstone-support-band{background:#181a34;color:#fff;padding:5rem 2rem}.moonstone-support-inner{max-width:1180px;margin:0 auto}.moonstone-support-inner>h2{max-width:720px;margin:0 0 3rem}.moonstone-support-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3rem}.moonstone-support-steps>div{position:relative;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.3);transition:transform .35s ease,border-color .35s ease}.moonstone-support-steps>div:hover{transform:translateY(-7px);border-color:#eab736}.moonstone-support-steps strong{display:block;color:#eab736;font-family:Jost,sans-serif;font-size:.82rem;margin-bottom:.75rem}.moonstone-support-steps h3{font-size:1.35rem;margin:0 0 .55rem}.moonstone-support-steps p{margin:0;line-height:1.65;color:rgba(255,255,255,.82)}.moonstone-explore-band{background:#eef0ff;padding:4.5rem 2rem}.moonstone-explore-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(240px,.75fr) minmax(0,1.25fr);gap:4rem;align-items:center}.moonstone-explore-inner h2{margin:.15rem 0 .75rem}.moonstone-explore-inner nav{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(24,26,52,.2);border-left:1px solid rgba(24,26,52,.2)}.moonstone-explore-inner nav a{display:flex;flex-direction:column;gap:.3rem;min-height:120px;padding:1.3rem;color:#181a34;text-decoration:none;border-right:1px solid rgba(24,26,52,.2);border-bottom:1px solid rgba(24,26,52,.2);transition:background .3s ease,transform .3s ease,color .3s ease}.moonstone-explore-inner nav a:hover{position:relative;background:#6f3e78;color:#fff;transform:translateY(-4px)}.moonstone-explore-inner nav span{font-size:.8rem;opacity:.72}.moonstone-explore-inner nav strong{font-family:Jost,sans-serif;font-size:1.05rem}
+.moonstone-area-highlight{position:relative;min-height:420px;display:flex;flex-direction:column;justify-content:center;padding:4rem;color:#fff;background:#181a34;overflow:hidden}.moonstone-area-highlight:before,.moonstone-area-highlight:after{content:"";position:absolute;right:-12%;width:65%;height:1px;background:rgba(234,183,54,.65);transform:rotate(-18deg)}.moonstone-area-highlight:before{top:28%}.moonstone-area-highlight:after{bottom:25%}.moonstone-area-highlight>*{position:relative;z-index:1;max-width:520px}.moonstone-area-highlight span{font-family:Jost,sans-serif;color:#eab736;text-transform:uppercase;font-size:.8rem}.moonstone-area-highlight h3{font-size:2rem;margin:.65rem 0 1rem}.moonstone-area-highlight p{line-height:1.7;color:rgba(255,255,255,.84)}.moonstone-area-highlight a{align-self:flex-start;color:#fff;font-family:Jost,sans-serif;font-weight:700;text-underline-offset:5px;transition:color .2s ease}.moonstone-area-highlight a:hover{color:#eab736}
+.moonstone-support-band{background:#181a34;color:#fff;padding:5rem 2rem}.moonstone-support-inner{max-width:1180px;margin:0 auto}.moonstone-support-inner>h2{max-width:720px;margin:0 0 3rem}.moonstone-support-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:3rem}.moonstone-support-steps>div{position:relative;padding-top:1.2rem;border-top:1px solid rgba(255,255,255,.3);transition:border-color .2s ease}.moonstone-support-steps>div:hover{border-color:#eab736}.moonstone-support-steps strong{display:block;color:#eab736;font-family:Jost,sans-serif;font-size:.82rem;margin-bottom:.75rem}.moonstone-support-steps h3{font-size:1.35rem;margin:0 0 .55rem}.moonstone-support-steps p{margin:0;line-height:1.65;color:rgba(255,255,255,.82)}.moonstone-explore-band{background:#eef0ff;padding:4.5rem 2rem}.moonstone-explore-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(240px,.75fr) minmax(0,1.25fr);gap:4rem;align-items:center}.moonstone-explore-inner h2{margin:.15rem 0 .75rem}.moonstone-explore-inner nav{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid rgba(24,26,52,.2);border-left:1px solid rgba(24,26,52,.2)}.moonstone-explore-inner nav a{display:flex;flex-direction:column;gap:.3rem;min-height:120px;padding:1.3rem;color:#181a34;text-decoration:none;border-right:1px solid rgba(24,26,52,.2);border-bottom:1px solid rgba(24,26,52,.2);transition:background .2s ease,color .2s ease}.moonstone-explore-inner nav a:hover{position:relative;background:#6f3e78;color:#fff}.moonstone-explore-inner nav span{font-size:.8rem;opacity:.72}.moonstone-explore-inner nav strong{font-family:Jost,sans-serif;font-size:1.05rem}
 @media (prefers-reduced-motion:reduce){.custom-css *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 @media (max-width:767px){.custom-css header img[src="/images/logo.png"]{max-width:92px;max-height:28px}.custom-css section>.relative,.custom-css section>.container,.custom-css .content{padding-left:1rem!important;padding-right:1rem!important}.custom-css .banner{margin-left:0!important;margin-right:0!important;padding-left:0!important;padding-right:0!important}.custom-css .banner .px-6,.custom-css .banner .px-8,.custom-css .banner .px-4{padding-left:1rem!important;padding-right:1rem!important}.custom-css h1{font-size:2.25rem!important;line-height:1.05!important;overflow-wrap:anywhere}.custom-css h2{font-size:1.85rem!important;line-height:1.12!important;overflow-wrap:anywhere}.custom-css p,.custom-css li,.custom-css a{overflow-wrap:anywhere}.custom-css .btn{white-space:normal;text-align:center}.custom-css #team .flex.flex-wrap{margin-left:0!important;margin-right:0!important}.custom-css #team .flex.flex-col{width:100%!important;max-width:320px}.moonstone-contact-form{max-width:100%}.moonstone-form-grid,.moonstone-contact-layout,.moonstone-visit-grid{grid-template-columns:1fr}.moonstone-contact-layout,.moonstone-visit-grid{gap:2rem}.moonstone-contact-form-panel{padding:1.25rem}.moonstone-form-stage{align-items:start;flex-direction:column}.moonstone-form-stage strong{text-align:left}.moonstone-reveal{transform:none}.moonstone-footer-main{padding:3.25rem 1.25rem 2.5rem;grid-template-columns:1fr;gap:2.75rem}.moonstone-footer-links{grid-template-columns:1fr 1fr;gap:2.25rem 1.25rem}.moonstone-footer-links div:last-child{grid-column:1/-1}.moonstone-footer-bottom{padding:1rem 1.25rem;flex-direction:column}.moonstone-footer-intro h2{font-size:1.75rem!important}.moonstone-cookie-layer{padding:.75rem;align-items:end}.moonstone-cookie-panel{padding:1.5rem;max-height:calc(100vh - 1.5rem)}.moonstone-cookie-panel h2{font-size:1.7rem!important}.moonstone-cookie-actions button{min-height:48px}.moonstone-loader-inner img{max-width:130px;max-height:44px}.moonstone-support-band,.moonstone-explore-band{padding:3.5rem 1rem}.moonstone-support-steps,.moonstone-explore-inner,.moonstone-explore-inner nav{grid-template-columns:1fr}.moonstone-support-steps{gap:2rem}.moonstone-explore-inner{gap:2rem}.moonstone-explore-inner nav a{min-height:96px}.moonstone-area-highlight{min-height:340px;padding:3rem 1.25rem}.moonstone-area-highlight h3{font-size:1.7rem}}
 .moonstone-services-menu{width:min(92vw,760px)!important;gap:1rem}
@@ -4571,40 +4590,19 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
 @keyframes moonstone-menu-drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 .custom-css section .content a:not(.btn){position:relative;text-decoration-thickness:1px;text-underline-offset:4px;transition:color .25s ease,text-decoration-color .25s ease}
 .custom-css section .content a:not(.btn):hover{color:#6f3e78;text-decoration-color:#eab736}
-.custom-css .btn{position:relative;isolation:isolate;overflow:hidden}
-.custom-css .btn:after{content:"";position:absolute;z-index:-1;inset:-2px;transform:translateX(-115%) skewX(-18deg);background:rgba(255,255,255,.22);transition:transform .55s ease}
-.custom-css .btn:hover:after{transform:translateX(115%) skewX(-18deg)}
-.custom-css section h2:after{content:"";display:block;width:0;height:3px;margin-top:.65rem;background:#eab736;transition:width .8s cubic-bezier(.2,.7,.2,1)}
-.custom-css section h2.is-visible:after,.custom-css .is-visible h2:after{width:min(72px,35%)}
-.custom-css #team .flex.flex-col img{transition:transform .5s cubic-bezier(.2,.8,.2,1),filter .4s ease}.custom-css #team .flex.flex-col:hover img{transform:scale(1.045) translateY(-5px);filter:saturate(1.08)}.custom-css #team .flex.flex-col p{transition:color .3s ease,transform .3s ease}.custom-css #team .flex.flex-col:hover p{transform:translateY(-2px)}.custom-css section li{transition:transform .25s ease,color .25s ease}.custom-css section li:hover{transform:translateX(4px)}
+.custom-css .btn{position:relative}
+.custom-css #team .flex.flex-col img{transition:filter .2s ease}.custom-css #team .flex.flex-col:hover img{filter:saturate(1.04)}
 @media (max-width:767px){.moonstone-insight-grid,.moonstone-standard-grid,.moonstone-profile-layout{grid-template-columns:1fr}.moonstone-insight-card time{float:none;display:block;margin-top:.25rem}.moonstone-article-meta{flex-direction:column}.moonstone-profile-layout{padding:0 1rem;gap:2rem}.moonstone-profile-image{position:relative;top:auto;min-height:380px}.moonstone-profile-image img{min-height:380px}.moonstone-profile article ul{columns:1}}
+@media (max-width:900px){.moonstone-services-layout{grid-template-columns:1fr;gap:2.5rem}.moonstone-services-index{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 1rem}.moonstone-services-index strong{grid-column:1/-1}.moonstone-service-section ul{columns:1}.moonstone-team-directory{grid-template-columns:1fr}}
+@media (max-width:560px){.moonstone-services-index{grid-template-columns:1fr}.moonstone-team-card{grid-template-columns:1fr}.moonstone-team-card-image,.moonstone-team-card-image img{min-height:340px}.moonstone-team-card-content{padding:1.25rem}.moonstone-sector-summary{padding:2.5rem 1.25rem}}
 </style>
 <style id="moonstone-final-header-fix">
 .custom-css header.menu img[src="/images/logo.png"]{max-width:118px!important;max-height:34px!important;width:auto!important;height:auto!important;object-fit:contain!important}
 @media (max-width:767px){.custom-css header.menu img[src="/images/logo.png"]{max-width:92px!important;max-height:28px!important;width:auto!important;height:auto!important}}
 </style>
-<title>Banking, Finance &amp; Securities | Moonstone Advocates</title>
-<meta name="description" content="Moonstone Advocates is a Kampala-based law firm providing practical legal solutions to businesses, organisations and individuals in Uganda." />
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-<meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-<link rel="canonical" href="https://www.moonstoneadvocates.com/services/banking-finance-and-securities/" />
-<meta property="og:locale" content="en_UG" />
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Moonstone Advocates" />
-<meta property="og:title" content="Banking, Finance &amp; Securities | Moonstone Advocates" />
-<meta property="og:description" content="Moonstone Advocates is a Kampala-based law firm providing practical legal solutions to businesses, organisations and individuals in Uganda." />
-<meta property="og:url" content="https://www.moonstoneadvocates.com/services/banking-finance-and-securities/" />
-<meta property="og:image" content="https://www.moonstoneadvocates.com/images/logo.png" />
-<meta property="og:image:alt" content="Moonstone Advocates" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Banking, Finance &amp; Securities | Moonstone Advocates" />
-<meta name="twitter:description" content="Moonstone Advocates is a Kampala-based law firm providing practical legal solutions to businesses, organisations and individuals in Uganda." />
-<meta name="twitter:image" content="https://www.moonstoneadvocates.com/images/logo.png" />
-<meta name="theme-color" content="#181a34" />
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LegalService","@id":"https://www.moonstoneadvocates.com/#organization","name":"Moonstone Advocates","url":"https://www.moonstoneadvocates.com/","logo":{"@type":"ImageObject","url":"https://www.moonstoneadvocates.com/images/logo.png"},"image":"https://www.moonstoneadvocates.com/images/logo.png","telephone":"+256778616565","email":"info@moonstoneadvocates.com","foundingDate":"2026-06","address":{"@type":"PostalAddress","streetAddress":"Plot 134 Semwata Road, Ntinda","postOfficeBoxNumber":"189860","addressLocality":"Kampala","addressCountry":"UG"},"areaServed":{"@type":"Country","name":"Uganda"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:30","closes":"17:30"}],"sameAs":["https://www.instagram.com/moonstoneadvocates/"]},{"@type":"WebSite","@id":"https://www.moonstoneadvocates.com/#website","url":"https://www.moonstoneadvocates.com/","name":"Moonstone Advocates","publisher":{"@id":"https://www.moonstoneadvocates.com/#organization"},"inLanguage":"en-UG"},{"@type":"WebPage","@id":"https://www.moonstoneadvocates.com/services/banking-finance-and-securities/#webpage","url":"https://www.moonstoneadvocates.com/services/banking-finance-and-securities/","name":"Banking, Finance & Securities | Moonstone Advocates","description":"Moonstone Advocates is a Kampala-based law firm providing practical legal solutions to businesses, organisations and individuals in Uganda.","isPartOf":{"@id":"https://www.moonstoneadvocates.com/#website"},"about":{"@id":"https://www.moonstoneadvocates.com/#organization"},"inLanguage":"en-UG","mainEntity":{"@id":"https://www.moonstoneadvocates.com/services/banking-finance-and-securities/#service"},"breadcrumb":{"@id":"https://www.moonstoneadvocates.com/services/banking-finance-and-securities/#breadcrumb"}},{"@type":"Service","@id":"https://www.moonstoneadvocates.com/services/banking-finance-and-securities/#service","name":"Banking, Finance & Securities","description":"Moonstone Advocates is a Kampala-based law firm providing practical legal solutions to businesses, organisations and individuals in Uganda.","provider":{"@id":"https://www.moonstoneadvocates.com/#organization"},"areaServed":{"@type":"Country","name":"Uganda"},"url":"https://www.moonstoneadvocates.com/services/banking-finance-and-securities/"},{"@type":"BreadcrumbList","@id":"https://www.moonstoneadvocates.com/services/banking-finance-and-securities/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.moonstoneadvocates.com/"},{"@type":"ListItem","position":2,"name":"Legal Services","item":"https://www.moonstoneadvocates.com/services/"},{"@type":"ListItem","position":3,"name":"Banking, Finance & Securities","item":"https://www.moonstoneadvocates.com/services/banking-finance-and-securities/"}]}]}</script>
 </head>
 
-<body class="wp-singular key_practice_area-template-default single single-key_practice_area postid-7244 wp-theme-briffa custom-css"><div class="moonstone-page-loader" aria-hidden="true"><div class="moonstone-loader-inner"><img src="/images/logo.png" alt="" /><div class="moonstone-loader-line"></div><span>Illuminating the path to justice</span></div></div><div class="moonstone-cookie-layer" hidden>
+<body class="wp-singular key_industry_sector-template-default single single-key_industry_sector postid-7223 wp-theme-briffa custom-css"><div class="moonstone-page-loader" aria-hidden="true"><div class="moonstone-loader-inner"><img src="/images/logo.png" alt="" /><div class="moonstone-loader-line"></div><span>Illuminating the path to justice</span></div></div><div class="moonstone-cookie-layer" hidden>
   <div class="moonstone-cookie-backdrop"></div>
   <section class="moonstone-cookie-panel" role="dialog" aria-modal="true" aria-labelledby="moonstone-cookie-title">
     <button class="moonstone-cookie-close" type="button" aria-label="Close cookie settings">&times;</button>
@@ -4637,418 +4635,15 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
         <img src="/wp-content/themes/briffa/assets/images/briffa-logo.svg" alt="Moonstone Advocates" />
       </a>
     </aside>
-    <nav class=" hidden flex-1 fixed bg-purple w-full left-0 top-0 bottom-0 overflow-y-auto lg:overflow-y-visible mt-24
-          lg:mt-0 lg:bg-inherit z-20 lg:block lg:relative lg:min-w-[720px]" id="menu">
-      <ul class="lg:flex justify-center items-center py-3">
-                <li
-          class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy group hover:bg-purple hover:text-base-light hover:rounded-t-md">
-
-          <a class="py-2 px-4 font-heading text-base xl:text-lg" href="/services/"
-            title="Services">Services</a>
-                    <span
-            class="svg-white lg:svg-dark group-hover:svg-white group-hover:transform group-hover:rotate-180 transition-all inline-block -ml-5 px-2 mx-2 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="10.909" height="8" viewBox="0 0 10.909 8">
-  <path id="caret_down" d="M2.388.431c.5.669,1.006,1.33,1.519,1.978S4.921,3.715,5.4,4.388c.331-.4.658-.8.977-1.207s.633-.812.952-1.228c.075-.11.166-.237.273-.4s.224-.314.352-.481.261-.322.4-.469A1.521,1.521,0,0,1,8.78.272,1.491,1.491,0,0,1,9.575.1a1.645,1.645,0,0,1,.737.212,1.212,1.212,0,0,1,.5.547,1.233,1.233,0,0,1,.058.828,1.773,1.773,0,0,1-.4.759c-.2.237-.389.457-.555.669-.273.343-.542.685-.816,1.028s-.551.685-.84,1.028c-.182.224-.311.383-.385.481s-.145.188-.215.269-.145.184-.236.3-.236.3-.431.534q-.317.422-.621.771a1.48,1.48,0,0,1-.849.457,1.064,1.064,0,0,1-.712-.11,2.339,2.339,0,0,1-.588-.457A3.831,3.831,0,0,1,3.758,6.8a5.452,5.452,0,0,0-.385-.559q-.59-.783-1.18-1.542T1.013,3.156C.848,2.931.67,2.711.479,2.487a1.98,1.98,0,0,1-.4-.738,1.467,1.467,0,0,1,0-.963,1.2,1.2,0,0,1,.5-.6A1.4,1.4,0,0,1,1.382,0,1.852,1.852,0,0,1,2.3.317Z" transform="translate(-0.001)" fill="#181a34"/>
-</svg>
-</span>
-          <ul
-            class="lg:absolute lg:shadow-md left-0 z-10 hidden lg:mt-4 group-hover:flex p-4 flex-wrap bg-purple text-base-light lg:rounded-r-md lg:rounded-bl-md lg:w-128">
-                        <li class="moonstone-service-menu-item my-2">
-              <details>
-                <summary>
-                  <a class="text-base-light font-heading text-base hover:underline" href="/services/corporate-and-commercial-advisory/"
-                    title="Corporate & Commercial Advisory">
-                    Corporate & Commercial Advisory
-                  </a>
-                </summary>
-                <ul>
-                  <li><a href="/services/corporate-and-commercial-advisory/#company-incorporation-and-business-structuring">Company incorporation and business structuring</a></li>
-                  <li><a href="/services/corporate-and-commercial-advisory/#corporate-governance-and-regulatory-compliance">Corporate governance and regulatory compliance</a></li>
-                  <li><a href="/services/corporate-and-commercial-advisory/#shareholder-agreements-and-corporate-documentation">Shareholder agreements and corporate documentation</a></li>
-                  <li><a href="/services/corporate-and-commercial-advisory/#commercial-agreements-and-contract-drafting">Commercial agreements and contract drafting</a></li>
-                  <li><a href="/services/corporate-and-commercial-advisory/#legal-due-diligence">Legal due diligence</a></li>
-                  <li><a href="/services/corporate-and-commercial-advisory/#business-restructuring-and-reorganisations">Business restructuring and reorganisations</a></li>
-                  <li><a href="/services/corporate-and-commercial-advisory/#mergers-acquisitions-and-investment-transactions">Mergers, acquisitions and investment transactions</a></li>
-                  <li><a href="/services/corporate-and-commercial-advisory/#corporate-advisory-and-general-business-support">Corporate advisory and general business support</a></li>
-                </ul>
-              </details>
-            </li>
-                        <li class="moonstone-service-menu-item my-2">
-              <details>
-                <summary>
-                  <a class="text-base-light font-heading text-base hover:underline" href="/services/tax-and-regulatory-advisory/"
-                    title="Tax & Regulatory Advisory">
-                    Tax & Regulatory Advisory
-                  </a>
-                </summary>
-                <ul>
-                  <li><a href="/services/tax-and-regulatory-advisory/#tax-advisory">Tax advisory</a></li>
-                  <li><a href="/services/tax-and-regulatory-advisory/#tax-compliance-support">Tax compliance support</a></li>
-                  <li><a href="/services/tax-and-regulatory-advisory/#regulatory-compliance-reviews">Regulatory compliance reviews</a></li>
-                  <li><a href="/services/tax-and-regulatory-advisory/#business-licensing-and-approvals">Business licensing and approvals</a></li>
-                  <li><a href="/services/tax-and-regulatory-advisory/#advisory-on-statutory-obligations">Advisory on statutory obligations</a></li>
-                  <li><a href="/services/tax-and-regulatory-advisory/#tax-dispute-support">Tax dispute support</a></li>
-                </ul>
-              </details>
-            </li>
-                        <li class="moonstone-service-menu-item my-2">
-              <details>
-                <summary>
-                  <a class="text-base-light font-heading text-base hover:underline" href="/services/dispute-resolution/"
-                    title="Dispute Resolution">
-                    Dispute Resolution
-                  </a>
-                </summary>
-                <ul>
-                  <li><a href="/services/dispute-resolution/#commercial-disputes">Commercial disputes</a></li>
-                  <li><a href="/services/dispute-resolution/#civil-disputes">Civil disputes</a></li>
-                  <li><a href="/services/dispute-resolution/#debt-recovery">Debt recovery</a></li>
-                  <li><a href="/services/dispute-resolution/#contractual-disputes">Contractual disputes</a></li>
-                  <li><a href="/services/dispute-resolution/#employment-disputes">Employment disputes</a></li>
-                  <li><a href="/services/dispute-resolution/#land-and-property-disputes">Land and property disputes</a></li>
-                  <li><a href="/services/dispute-resolution/#arbitration-and-alternative-dispute-resolution">Arbitration and alternative dispute resolution</a></li>
-                  <li><a href="/services/dispute-resolution/#enforcement-of-judgments-and-court-orders">Enforcement of judgments and court orders</a></li>
-                </ul>
-              </details>
-            </li>
-                        <li class="moonstone-service-menu-item my-2">
-              <details>
-                <summary>
-                  <a class="text-base-light font-heading text-base hover:underline" href="/services/real-estate-land-and-property/"
-                    title="Real Estate, Land & Property">
-                    Real Estate, Land & Property
-                  </a>
-                </summary>
-                <ul>
-                  <li><a href="/services/real-estate-land-and-property/#land-transactions">Land transactions</a></li>
-                  <li><a href="/services/real-estate-land-and-property/#property-acquisitions-and-disposals">Property acquisitions and disposals</a></li>
-                  <li><a href="/services/real-estate-land-and-property/#conveyancing">Conveyancing</a></li>
-                  <li><a href="/services/real-estate-land-and-property/#lease-agreements">Lease agreements</a></li>
-                  <li><a href="/services/real-estate-land-and-property/#real-estate-due-diligence">Real estate due diligence</a></li>
-                  <li><a href="/services/real-estate-land-and-property/#property-development-advisory">Property development advisory</a></li>
-                  <li><a href="/services/real-estate-land-and-property/#land-dispute-resolution">Land dispute resolution</a></li>
-                  <li><a href="/services/real-estate-land-and-property/#security-documentation-involving-property">Security documentation involving property</a></li>
-                </ul>
-              </details>
-            </li>
-                        <li class="moonstone-service-menu-item my-2">
-              <details>
-                <summary>
-                  <a class="text-base-light font-heading text-base hover:underline" href="/services/employment-labour-and-immigration/"
-                    title="Employment, Labour & Immigration">
-                    Employment, Labour & Immigration
-                  </a>
-                </summary>
-                <ul>
-                  <li><a href="/services/employment-labour-and-immigration/#employment-contracts">Employment contracts</a></li>
-                  <li><a href="/services/employment-labour-and-immigration/#human-resource-policies-and-manuals">Human resource policies and manuals</a></li>
-                  <li><a href="/services/employment-labour-and-immigration/#labour-law-compliance">Labour law compliance</a></li>
-                  <li><a href="/services/employment-labour-and-immigration/#disciplinary-and-termination-processes">Disciplinary and termination processes</a></li>
-                  <li><a href="/services/employment-labour-and-immigration/#workplace-disputes">Workplace disputes</a></li>
-                  <li><a href="/services/employment-labour-and-immigration/#employee-benefits-advisory">Employee benefits advisory</a></li>
-                  <li><a href="/services/employment-labour-and-immigration/#immigration-and-work-permit-support">Immigration and work permit support</a></li>
-                </ul>
-              </details>
-            </li>
-                        <li class="moonstone-service-menu-item my-2">
-              <details>
-                <summary>
-                  <a class="text-base-light font-heading text-base hover:underline" href="/services/family-law/"
-                    title="Family Law">
-                    Family Law
-                  </a>
-                </summary>
-                <ul>
-                  <li><a href="/services/family-law/#marriage-and-matrimonial-advisory">Marriage and matrimonial advisory</a></li>
-                  <li><a href="/services/family-law/#divorce-and-separation-matters">Divorce and separation matters</a></li>
-                  <li><a href="/services/family-law/#child-custody-and-maintenance-disputes">Child custody and maintenance disputes</a></li>
-                  <li><a href="/services/family-law/#family-mediation">Family mediation</a></li>
-                  <li><a href="/services/family-law/#succession-and-inheritance-planning">Succession and inheritance planning</a></li>
-                  <li><a href="/services/family-law/#wills-and-estate-planning">Wills and estate planning</a></li>
-                  <li><a href="/services/family-law/#probate-and-administration-of-estates">Probate and administration of estates</a></li>
-                  <li><a href="/services/family-law/#family-property-arrangements">Family property arrangements</a></li>
-                </ul>
-              </details>
-            </li>
-                        <li class="moonstone-service-menu-item my-2">
-              <details>
-                <summary>
-                  <a class="text-base-light font-heading text-base hover:underline" href="/services/banking-finance-and-securities/"
-                    title="Banking, Finance & Securities">
-                    Banking, Finance & Securities
-                  </a>
-                </summary>
-                <ul>
-                  <li><a href="/services/banking-finance-and-securities/#loan-and-facility-documentation">Loan and facility documentation</a></li>
-                  <li><a href="/services/banking-finance-and-securities/#security-creation-and-perfection">Security creation and perfection</a></li>
-                  <li><a href="/services/banking-finance-and-securities/#mortgages-charges-and-guarantees">Mortgages, charges and guarantees</a></li>
-                  <li><a href="/services/banking-finance-and-securities/#banking-regulatory-advisory">Banking regulatory advisory</a></li>
-                  <li><a href="/services/banking-finance-and-securities/#debt-recovery-and-enforcement">Debt recovery and enforcement</a></li>
-                  <li><a href="/services/banking-finance-and-securities/#financial-services-agreements">Financial services agreements</a></li>
-                  <li><a href="/services/banking-finance-and-securities/#lending-and-financing-transactions">Lending and financing transactions</a></li>
-                  <li><a href="/services/banking-finance-and-securities/#restructuring-and-insolvency-advisory">Restructuring and insolvency advisory</a></li>
-                </ul>
-              </details>
-            </li>
-                        <li class="moonstone-service-menu-item my-2">
-              <details>
-                <summary>
-                  <a class="text-base-light font-heading text-base hover:underline" href="/services/public-sector-and-regulatory-advisory/"
-                    title="Public Sector & Regulatory Advisory">
-                    Public Sector & Regulatory Advisory
-                  </a>
-                </summary>
-                <ul>
-                  <li><a href="/services/public-sector-and-regulatory-advisory/#regulatory-advisory">Regulatory advisory</a></li>
-                  <li><a href="/services/public-sector-and-regulatory-advisory/#public-procurement-support">Public procurement support</a></li>
-                  <li><a href="/services/public-sector-and-regulatory-advisory/#government-contracting">Government contracting</a></li>
-                  <li><a href="/services/public-sector-and-regulatory-advisory/#policy-and-compliance-advisory">Policy and compliance advisory</a></li>
-                  <li><a href="/services/public-sector-and-regulatory-advisory/#administrative-law-matters">Administrative law matters</a></li>
-                </ul>
-              </details>
-            </li>
-                        <li class="moonstone-service-menu-item my-2">
-              <details>
-                <summary>
-                  <a class="text-base-light font-heading text-base hover:underline" href="/services/energy-and-infrastructure/"
-                    title="Energy & Infrastructure">
-                    Energy & Infrastructure
-                  </a>
-                </summary>
-                <ul>
-                  <li><a href="/services/energy-and-infrastructure/#oil-and-gas-law">Oil and gas law</a></li>
-                  <li><a href="/services/energy-and-infrastructure/#energy-regulatory-compliance">Energy regulatory compliance</a></li>
-                  <li><a href="/services/energy-and-infrastructure/#infrastructure-development-and-financing">Infrastructure development and financing</a></li>
-                  <li><a href="/services/energy-and-infrastructure/#project-development-agreements">Project development agreements</a></li>
-                  <li><a href="/services/energy-and-infrastructure/#power-purchase-agreements-ppas">Power Purchase Agreements (PPAs)</a></li>
-                  <li><a href="/services/energy-and-infrastructure/#environmental-and-social-impact-advisory">Environmental and social impact advisory</a></li>
-                  <li><a href="/services/energy-and-infrastructure/#construction-and-engineering-contracts">Construction and engineering contracts</a></li>
-                  <li><a href="/services/energy-and-infrastructure/#public-private-partnerships-ppps">Public-private partnerships (PPPs)</a></li>
-                  <li><a href="/services/energy-and-infrastructure/#renewable-energy-and-sustainability-advisory">Renewable energy and sustainability advisory</a></li>
-                </ul>
-              </details>
-            </li>
-                        <li class="moonstone-service-menu-item my-2">
-              <details>
-                <summary>
-                  <a class="text-base-light font-heading text-base hover:underline" href="/services/criminal-law/"
-                    title="Criminal Law">
-                    Criminal Law
-                  </a>
-                </summary>
-                <ul>
-                  <li><a href="/services/criminal-law/#criminal-defence">Criminal defence</a></li>
-                  <li><a href="/services/criminal-law/#bail-and-bond-applications">Bail and bond applications</a></li>
-                  <li><a href="/services/criminal-law/#police-station-representation">Police station representation</a></li>
-                  <li><a href="/services/criminal-law/#criminal-appeals">Criminal appeals</a></li>
-                  <li><a href="/services/criminal-law/#legal-representation-during-investigations">Legal representation during investigations</a></li>
-                  <li><a href="/services/criminal-law/#extradition-matters">Extradition matters</a></li>
-                  <li><a href="/services/criminal-law/#regulatory-and-compliance-offences">Regulatory and compliance offences</a></li>
-                  <li><a href="/services/criminal-law/#human-rights-and-constitutional-petitions-in-criminal-matters">Human rights and constitutional petitions in criminal matters</a></li>
-                </ul>
-              </details>
-            </li>
-          </ul>
-                  </li>
-                <li
-          class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy group hover:bg-purple hover:text-base-light hover:rounded-t-md">
-
-          <a class="py-2 px-4 font-heading text-base xl:text-lg" href="/sectors/"
-            title="Sectors">Sectors</a>
-                    <span
-            class="svg-white lg:svg-dark group-hover:svg-white group-hover:transform group-hover:rotate-180 transition-all inline-block -ml-5 px-2 mx-2 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="10.909" height="8" viewBox="0 0 10.909 8">
-  <path id="caret_down" d="M2.388.431c.5.669,1.006,1.33,1.519,1.978S4.921,3.715,5.4,4.388c.331-.4.658-.8.977-1.207s.633-.812.952-1.228c.075-.11.166-.237.273-.4s.224-.314.352-.481.261-.322.4-.469A1.521,1.521,0,0,1,8.78.272,1.491,1.491,0,0,1,9.575.1a1.645,1.645,0,0,1,.737.212,1.212,1.212,0,0,1,.5.547,1.233,1.233,0,0,1,.058.828,1.773,1.773,0,0,1-.4.759c-.2.237-.389.457-.555.669-.273.343-.542.685-.816,1.028s-.551.685-.84,1.028c-.182.224-.311.383-.385.481s-.145.188-.215.269-.145.184-.236.3-.236.3-.431.534q-.317.422-.621.771a1.48,1.48,0,0,1-.849.457,1.064,1.064,0,0,1-.712-.11,2.339,2.339,0,0,1-.588-.457A3.831,3.831,0,0,1,3.758,6.8a5.452,5.452,0,0,0-.385-.559q-.59-.783-1.18-1.542T1.013,3.156C.848,2.931.67,2.711.479,2.487a1.98,1.98,0,0,1-.4-.738,1.467,1.467,0,0,1,0-.963,1.2,1.2,0,0,1,.5-.6A1.4,1.4,0,0,1,1.382,0,1.852,1.852,0,0,1,2.3.317Z" transform="translate(-0.001)" fill="#181a34"/>
-</svg>
-</span>
-          <ul
-            class="lg:absolute lg:shadow-md left-0 z-10 hidden lg:mt-4 group-hover:flex p-4 flex-wrap bg-purple text-base-light lg:rounded-r-md lg:rounded-bl-md lg:w-128">
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/sectors/"
-                title="Art">
-                Art              </a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/sectors/"
-                title="Automotive">
-                Automotive              </a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/sectors/"
-                title="Baby & Child">
-                Baby & Child              </a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/sectors/"
-                title="Fashion">
-                Fashion              </a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/sectors/"
-                title="Food &#038; Drink">
-                Food &#038; Drink              </a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/sectors/"
-                title="Graphic Design &#038; Branding">
-                Graphic Design &#038; Branding              </a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/sectors/"
-                title="Health &#038; Wellbeing">
-                Health &#038; Wellbeing              </a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/sectors/"
-                title="Product Design">
-                Product Design              </a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/sectors/"
-                title="Technology">
-                Technology              </a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/sectors/"
-                title="Video Games">
-                Video Games              </a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-                      </ul>
-                  </li>
-                <li
-          class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy group hover:bg-purple hover:text-base-light hover:rounded-t-md">
-
-          <a class="py-2 px-4 font-heading text-base xl:text-lg" href="/about/"
-            title="About">About</a>
-                    <span
-            class="svg-white lg:svg-dark group-hover:svg-white group-hover:transform group-hover:rotate-180 transition-all inline-block -ml-5 px-2 mx-2 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="10.909" height="8" viewBox="0 0 10.909 8">
-  <path id="caret_down" d="M2.388.431c.5.669,1.006,1.33,1.519,1.978S4.921,3.715,5.4,4.388c.331-.4.658-.8.977-1.207s.633-.812.952-1.228c.075-.11.166-.237.273-.4s.224-.314.352-.481.261-.322.4-.469A1.521,1.521,0,0,1,8.78.272,1.491,1.491,0,0,1,9.575.1a1.645,1.645,0,0,1,.737.212,1.212,1.212,0,0,1,.5.547,1.233,1.233,0,0,1,.058.828,1.773,1.773,0,0,1-.4.759c-.2.237-.389.457-.555.669-.273.343-.542.685-.816,1.028s-.551.685-.84,1.028c-.182.224-.311.383-.385.481s-.145.188-.215.269-.145.184-.236.3-.236.3-.431.534q-.317.422-.621.771a1.48,1.48,0,0,1-.849.457,1.064,1.064,0,0,1-.712-.11,2.339,2.339,0,0,1-.588-.457A3.831,3.831,0,0,1,3.758,6.8a5.452,5.452,0,0,0-.385-.559q-.59-.783-1.18-1.542T1.013,3.156C.848,2.931.67,2.711.479,2.487a1.98,1.98,0,0,1-.4-.738,1.467,1.467,0,0,1,0-.963,1.2,1.2,0,0,1,.5-.6A1.4,1.4,0,0,1,1.382,0,1.852,1.852,0,0,1,2.3.317Z" transform="translate(-0.001)" fill="#181a34"/>
-</svg>
-</span>
-          <ul
-            class="lg:absolute lg:shadow-md left-0 z-10 hidden lg:mt-4 group-hover:flex p-4 flex-wrap bg-purple text-base-light lg:rounded-r-md lg:rounded-bl-md lg:w-128">
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/about/#team"
-                title="Meet Our Team">Meet Our Team</a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/careers/"
-                title="Join Us">Careers</a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/partners/"
-                title="Partners">Professional Relationships</a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/events/"
-                title="Events">
-                Events              </a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/contact/"
-                title="Contact">
-                Contact              </a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-
-
-
-
-
-                      </ul>
-                  </li>
-                <li
-          class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy hover:text-purple transition-all">
-
-          <a class="py-2 px-4 font-heading text-base xl:text-lg" href="/case-studies/"
-            title="Uganda Law News">Uganda Law News</a>
-                  </li>
-                <li
-          class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy hover:text-purple transition-all">
-
-          <a class="py-2 px-4 font-heading text-base xl:text-lg" href="/reviews/"
-            title="Client Care">Client Care</a>
-                  </li>
-                <li
-          class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy group hover:bg-purple hover:text-base-light hover:rounded-t-md">
-
-          <a class="py-2 px-4 font-heading text-base xl:text-lg" href="/content-hub/"
-            title="Content Hub">Content Hub</a>
-                    <span
-            class="svg-white lg:svg-dark group-hover:svg-white group-hover:transform group-hover:rotate-180 transition-all inline-block -ml-5 px-2 mx-2 cursor-pointer"><svg xmlns="http://www.w3.org/2000/svg" width="10.909" height="8" viewBox="0 0 10.909 8">
-  <path id="caret_down" d="M2.388.431c.5.669,1.006,1.33,1.519,1.978S4.921,3.715,5.4,4.388c.331-.4.658-.8.977-1.207s.633-.812.952-1.228c.075-.11.166-.237.273-.4s.224-.314.352-.481.261-.322.4-.469A1.521,1.521,0,0,1,8.78.272,1.491,1.491,0,0,1,9.575.1a1.645,1.645,0,0,1,.737.212,1.212,1.212,0,0,1,.5.547,1.233,1.233,0,0,1,.058.828,1.773,1.773,0,0,1-.4.759c-.2.237-.389.457-.555.669-.273.343-.542.685-.816,1.028s-.551.685-.84,1.028c-.182.224-.311.383-.385.481s-.145.188-.215.269-.145.184-.236.3-.236.3-.431.534q-.317.422-.621.771a1.48,1.48,0,0,1-.849.457,1.064,1.064,0,0,1-.712-.11,2.339,2.339,0,0,1-.588-.457A3.831,3.831,0,0,1,3.758,6.8a5.452,5.452,0,0,0-.385-.559q-.59-.783-1.18-1.542T1.013,3.156C.848,2.931.67,2.711.479,2.487a1.98,1.98,0,0,1-.4-.738,1.467,1.467,0,0,1,0-.963,1.2,1.2,0,0,1,.5-.6A1.4,1.4,0,0,1,1.382,0,1.852,1.852,0,0,1,2.3.317Z" transform="translate(-0.001)" fill="#181a34"/>
-</svg>
-</span>
-          <ul
-            class="lg:absolute lg:shadow-md left-0 z-10 hidden lg:mt-4 group-hover:flex p-4 flex-wrap bg-purple text-base-light lg:rounded-r-md lg:rounded-bl-md lg:w-128">
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/content-hub/"
-                title="Videos">Recent Updates</a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/content-hub/"
-                title="Blog">Legal Briefings</a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-
-                        <li class="my-2">
-              <a class="text-base-light font-heading text-base hover:underline" href="/reviews/"
-                title="Podcast">Client Care</a>
-            </li>
-            <li style="flex-basis: 100%;" class="h-0"></li>
-
-                      </ul>
-                  </li>
-              </ul>
-    </nav>
+    <nav class="hidden flex-1 fixed bg-purple w-full left-0 top-0 bottom-0 overflow-y-auto lg:overflow-y-visible mt-24 lg:mt-0 lg:bg-inherit z-20 lg:block lg:relative lg:min-w-[650px]" id="menu" aria-label="Primary navigation">
+  <ul class="lg:flex justify-center items-center py-3">
+    <li class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy hover:bg-purple hover:text-base-light hover:rounded-md"><a class="py-2 px-4 font-heading text-base xl:text-lg" href="/">Home</a></li>
+    <li class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy hover:bg-purple hover:text-base-light hover:rounded-md"><a class="py-2 px-4 font-heading text-base xl:text-lg" href="/about/">About</a></li>
+    <li class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy hover:bg-purple hover:text-base-light hover:rounded-md"><a class="py-2 px-4 font-heading text-base xl:text-lg" href="/services/">Services</a></li>
+    <li class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy hover:bg-purple hover:text-base-light hover:rounded-md"><a class="py-2 px-4 font-heading text-base xl:text-lg" href="/meet-the-team/">Meet the Team</a></li>
+    <li class="py-2 lg:py-4 relative px-1 text-base-light lg:text-navy hover:bg-purple hover:text-base-light hover:rounded-md"><a class="py-2 px-4 font-heading text-base xl:text-lg" href="/content-hub/">Legal Insights</a></li>
+  </ul>
+</nav>
     <aside class="z-30 min-w-[188px] lg:min-w-[150px]">
       <a class="btn btn-secondary " href="/contact/"
   target="_self">
@@ -5062,8 +4657,10 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
         <div class="relative container z-[1]">
             <div class="px-6 mb-12 md:w-8/12 text-base-light">
                 <div class="max-w-3xl ">
-                    <h1 class="vc_custom_heading us_custom_6df4bc3a">Banking, Finance &amp; Securities</h1>
-<p class="vc_custom_heading us_custom_6df4bc3a">Banking, Finance &amp; Securities support for clients seeking reliable, strategic and practical legal solutions in Uganda.</p>
+                    <h1 class="vc_custom_heading us_custom_6df4bc3a">Technology law Lawyers</h1>
+<p class="vc_custom_heading us_custom_6df4bc3a">With over 25 years of experience, our technology lawyers are experts in commercial and private legal for the technology sector.</p>
+<p>Perhaps your business creates physical and biotechnologies, works on the cutting edge of machine learning and data processing, or produces new computer software and games. Either way, you&#8217;ll need the help of specialists in law to protect and monetise your valuable assets. That&#8217;s where we come in – we work with everyone, from individuals to startups to established brands.</p>
+
                 </div>
             </div>
                                 </div>
@@ -5098,68 +4695,292 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
 </aside>    </div>
     <div class="bg"></div>
 </section>
-<section class="relative grid grid-cols-1 overflow-hidden md:grid-cols-2 bg-base-light">
-  <div class="lg:flex lg:pr-32 py-28">
-    <div class="content px-4 md:pl-12 lg:pl-24 xl:pl-24 4k:pl-64" data-aos="fade-up">
-      <h2>Banking, Finance &amp; Securities Lawyers</h2>
-      <p>Banking, Finance &amp; Securities support for clients seeking reliable, strategic and practical legal solutions in Uganda.</p>
-      <p>Moonstone Advocates works with clients in Uganda through clear advice, carefully prepared documentation and practical representation. We focus on the legal details that affect the commercial, regulatory and personal outcome of each matter.</p>
-    </div>
-  </div>
-  <div class="moonstone-area-highlight">
-    <span>Practical legal support</span>
-    <h3>Clear advice. Careful execution.</h3>
-    <p>We identify the legal and practical priorities, explain the available options and carry out the agreed work with direct lawyer involvement.</p>
-    <a href="/about/#team">Meet the Moonstone team</a>
-  </div>
-</section>
+
+
+
+
 <section class="pt-32 bg-base-light">
-  <div class="relative z-[1] px-4 | md:container">
-    <div class="mb-12 mx-auto max-w-3xl content" data-aos="fade-up">
-      <h2 style="text-align: center;">How can we help?</h2>
-      <p style="text-align: center;">Our team supports clients with the following matters:</p>
-      <ul><li id="loan-and-facility-documentation">Loan and facility documentation</li>
-<li id="security-creation-and-perfection">Security creation and perfection</li>
-<li id="mortgages-charges-and-guarantees">Mortgages, charges and guarantees</li>
-<li id="banking-regulatory-advisory">Banking regulatory advisory</li>
-<li id="debt-recovery-and-enforcement">Debt recovery and enforcement</li>
-<li id="financial-services-agreements">Financial services agreements</li>
-<li id="lending-and-financing-transactions">Lending and financing transactions</li>
-<li id="restructuring-and-insolvency-advisory">Restructuring and insolvency advisory</li></ul>
+
+    <div class="container">
+    <div class="mb-16 mx-auto w-10/12 | md:w-7/12 text-center content">
+      <h2 style="text-align: center;">How Can We Help?</h2>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 overflow-hidden">
+            <div class="px-8 py-12 md:px-12 md:py-16 lg:px-16 lg:py-24 bg-purple text-base-light" data-aos="fade-in">
+      <div class="max-w-2xl ml-auto">
+        <div class="mb-12 content">
+          <h3 class="vc_custom_heading us_custom_d80dff68">Corporate Law</h3>
+<div class="wpb_text_column">
+<div class="wpb_wrapper">
+<p>In the technology industry your reputation is the key to making sure your cutting edge products are trusted and adopted by as many people as possible.</p>
+<p>A <a href="/services/">corporate</a> gives you the exclusive right to use your brand in relation to what you do. Your brand is your identity, a sign of quality and usually a major driving force behind a consumer purchase. We can advise you on your brand strategy and make sure it’s registered and properly protected anywhere in the world.</p>
+</div>
+</div>
+        </div>
+                      </div>
+    </div>
+            <div class="px-8 py-12 md:px-12 md:py-16 lg:px-16 lg:py-24 bg-base-light " data-aos="fade-in">
+      <div class="max-w-2xl ">
+        <div class="mb-12 content">
+          <div class="g-cols wpb_row type_default valign_top vc_inner">
+<div class="vc_col-sm-6 wpb_column vc_column_container">
+<div class="vc_column-inner">
+<div class="wpb_wrapper">
+<h3 class="vc_custom_heading us_custom_d80dff68">Tax Advisory</h3>
+<div class="wpb_text_column">
+<div class="wpb_wrapper">
+<p>Technology companies must rely heavily on data to make the right call while developing new products, often in uncertain conditions.</p>
+<p>Since the introduction of GDPR, the use and processing of <a href="/services/">personal data</a> has been under the spotlight. With substantial fines for companies that breach the complex regulatory framework, you don’t want to find yourself at odds with data protection laws.</p>
+<p>We can help you navigate the legal landscape and ensure that you have the correct policies and procedures to keep your company and the data it handles GDPR compliant.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+        </div>
+                      </div>
+    </div>
+            <div class="px-8 py-12 md:px-12 md:py-16 lg:px-16 lg:py-24 bg-base-light " data-aos="fade-in">
+      <div class="max-w-2xl ml-auto">
+        <div class="mb-12 content">
+          <h3 class="vc_custom_heading us_custom_d80dff68">Dispute Resolution</h3>
+<div class="wpb_text_column">
+<div class="wpb_wrapper">
+<p><a href="/services/">Dispute Resolution</a> automatically arises when creating certain types of work to keep your efforts protected, but sometimes you may need a hand enforcing your rights.</p>
+<p>Software code makes up a substantial percentage of dispute resolution works. Our team can advise on monetising and licensing these works and what to do if they are copied.</p>
+</div>
+</div>
+        </div>
+                      </div>
+    </div>
+            <div class="px-8 py-12 md:px-12 md:py-16 lg:px-16 lg:py-24 bg-navy text-base-light" data-aos="fade-in">
+      <div class="max-w-2xl ">
+        <div class="mb-12 content">
+          <h3 class="vc_custom_heading us_custom_d80dff68">Confidential information</h3>
+<div class="wpb_text_column">
+<div class="wpb_wrapper">
+<p>Your technology organisation’s competitive edge relies on numerous people working harmoniously across several fields, whether it be coding and web development, researchers or logistics. These components are vital to your technology company’s success, so it is critical that the <a href="/services/">sensitive information</a> they handle is appropriately managed and kept secure.</p>
+<p>To keep one of your most valuable assets safe, we can help to protect your proprietary information with non-disclosure agreements and advice on confidentiality.</p>
+</div>
+</div>
+        </div>
+                      </div>
+    </div>
+            <div class="px-8 py-12 md:px-12 md:py-16 lg:px-16 lg:py-24 bg-purple text-base-light" data-aos="fade-in">
+      <div class="max-w-2xl ml-auto">
+        <div class="mb-12 content">
+          <h3 class="vc_custom_heading us_custom_d80dff68">Real Estate</h3>
+<div class="wpb_text_column">
+<div class="wpb_wrapper">
+<p>A <a href="/services/">patent</a> can be one of the most powerful tools you have for keeping your inventions safe. From complex software code to technological advances, we can advise you on patent protection and guide you through the application process.</p>
+</div>
+</div>
+        </div>
+                      </div>
+    </div>
+      </div>
+
+
+</section>
+<section class="py-16 md:py-32 xl:pt-40 relative overflow-hidden bg-base-light">
+
+  <div class="w-128 h-128 rounded-full bg-base-shade absolute -top-48 -right-12 z-[-1]"></div>
+  <div class="w-96 h-96 rounded-full bg-base-shade absolute -bottom-24 -left-24 z-[-1]"></div>
+
+  <div class="container">
+        <div class="mb-12 mx-auto text-center | md:w-7/12 content">
+      <div class="wpb_text_column">
+<h2 class="wpb_wrapper">Why Choose Moonstone Advocates?</h2>
+</div>
+    </div>
+
+    <div class="strong-purple flex flex-wrap align-top justify-between | md:mx-auto | lg:w-10/12">
+            <div class="flex items-center my-4 | md:my-12 md:w-5/12 content" data-aos="fade-in"
+        data-aos-delay="200">
+        <div class="mr-8 relative">
+          <div class="w-8 h-8 md:w-12 md:h-12 rounded-full bg-navy"></div>
+          <div
+            class="w-4 h-4 md:w-6 md:h-6 rounded-full bg-yellow -right-1 absolute -bottom-1">
+          </div>
+        </div>
+        <p>We’ve provided legal support for the technology industry since 1995.</p>
+      </div>
+            <div class="flex items-center my-4 | md:my-12 md:w-5/12 content" data-aos="fade-in"
+        data-aos-delay="400">
+        <div class="mr-8 relative">
+          <div class="w-8 h-8 md:w-12 md:h-12 rounded-full bg-purple"></div>
+          <div
+            class="w-4 h-4 md:w-6 md:h-6 rounded-full bg-navy -left-1 absolute -bottom-1">
+          </div>
+        </div>
+        <p>We offer consultations with expert solicitors and fixed fee quotes.</p>
+      </div>
+            <div class="flex items-center my-4 | md:my-12 md:w-5/12 content" data-aos="fade-in"
+        data-aos-delay="600">
+        <div class="mr-8 relative">
+          <div class="w-8 h-8 md:w-12 md:h-12 rounded-full bg-yellow"></div>
+          <div
+            class="w-4 h-4 md:w-6 md:h-6 rounded-full bg-purple -left-1 absolute -bottom-1">
+          </div>
+        </div>
+        <p>We have offices in the Uganda and the Uganda.</p>
+      </div>
+            <div class="flex items-center my-4 | md:my-12 md:w-5/12 content" data-aos="fade-in"
+        data-aos-delay="800">
+        <div class="mr-8 relative">
+          <div class="w-8 h-8 md:w-12 md:h-12 rounded-full bg-navy"></div>
+          <div
+            class="w-4 h-4 md:w-6 md:h-6 rounded-full bg-yellow -right-1 absolute -bottom-1">
+          </div>
+        </div>
+        <p>We offer an industry-leading service with short turnaround times and business-focused advice.</p>
+      </div>
+          </div>
+  </div>
+
+
+</section>
+<section class="overflow-hidden relative pb-16 bg-base-light">
+            <div class="bg-yellow py-16 text-center">
+        <div class="mx-auto w-10/12 | md:w-7/12">
+            <h2 class="mb-0 text-2xl md:text-3xl lg:text-4xl xl:text-5xl">Frequently Asked Questions</h2>
+        </div>
+    </div>
+
+    <div class="w-96 h-96 rounded-full bg-base-shade absolute top-2/4 -left-24 z-[-1]"></div>
+    <div class="w-128 h-128 rounded-full bg-base-shade absolute top-12 -right-12 z-[-1]"></div>
+
+    <div class="container content">
+
+                        <div class="mx-auto lg:w-8/12 mt-16" data-aos="fade-up">
+            <h3 class="mb-8 text-2xl text-purple font-bold font-heading">What are the benefits of a patent for companies in the technology industry?</h3>
+            <p>Few other industries provide the world with as many new and exciting developments as the technology industry. However, naturally with this comes the threat of having your inventions stolen by malicious companies looking to profit from your hard work. This is where real estate come in.</p>
+<p>Although the process can be expensive, but not as expensive as the potential losses from not having a patent, and take a long time, a few months to even years, a patent protects you from others copying, manufacturing, selling or importing your product without permission. it is essential therefore that you begin the process of patenting your inventions as soon as possible.</p>
+<p>This protection also facilitates the monetisation of your product in a number of ways to best suit your needs, such as licensing and joint ventures.</p>
+        </div>
+                        <div class="mx-auto lg:w-8/12 mt-16" data-aos="fade-up">
+            <h3 class="mb-8 text-2xl text-purple font-bold font-heading">My technology company is in the research and development stage of a new project, what do we need to be aware of?</h3>
+            <p>Developing a new product or service can be an exciting time, and you’ll want to make sure your hard work puts you ahead of the competition by the time it comes to launch day.</p>
+<p>Amongst your legal considerations during the R&amp;D phase, you will want to ensure the information you gather is in line with GDPR regulations, you will want to keep commercially sensitive developments confidential and a strong patent strategy and filing along with a thorough corporate registration will go a long way to making that all-important launch go as smooth as possible.</p>
+        </div>
+                        <div class="mx-auto lg:w-8/12 mt-16" data-aos="fade-up">
+            <h3 class="mb-8 text-2xl text-purple font-bold font-heading">What’s the difference between a corporate, patent, employment law and dispute resolution? And which do I need?
+</h3>
+            <p>Bringing new and innovative products to the market is central to what the technology industry is about, keeping your inventions and ideas safe and profitable is the job of a number of facets of commercial and private legal services.</p>
+<p>The main differences are that real estate protect original inventions, employment law are for the physical appearance of a product, dispute resolution protects original expressions (such as art or music) and corporate law protect elements of branding (brand name, logos, slogans etc).</p>
+<p>The protections you or your organisation may need will vary depending on your circumstances and what you are wanting to protect. Thankfully that’s where our expert team can assist and guide you through the process.</p>
+        </div>
+            </div>
+
+
+</section>
+<section class="py-16 relative overflow-hidden bg-base-light">
+  <div class="relative z-[1] px-4 | md:container | lg:py-20 p-limit">
+    <div class="mx-auto max-w-3xl text-center content">
+      <span class="moonstone-eyebrow">Our people</span>
+      <h2>Experienced lawyers. Direct support.</h2>
+      <p>Meet the advocates and consultants who provide Moonstone Advocates' partner-led legal service.</p>
+      <a class="btn btn-primary_alt" href="/meet-the-team/">Meet the Team</a>
     </div>
   </div>
 </section>
-<section id="team" class="py-16 relative overflow-hidden bg-base-light">
-  <div class="relative z-[1] px-4 | md:container">
-    <div class="mb-12 mx-auto max-w-3xl content" data-aos="fade-up">
-      <h2>Key Contacts for Banking, Finance &amp; Securities</h2>
-      <p>Speak with Moonstone Advocates for partner-led guidance and responsive support. We will review the issue, explain the available options and help you move forward with confidence.</p>
+
+<section class="py-16 relative overflow-hidden bg-base-light">
+
+    <div class="w-96 h-96 rounded-full bg-base-shade absolute top-1/4 -left-24 z-[-1]"></div>
+    <div class="w-128 h-128 rounded-full bg-base-shade absolute -top-48 -right-12 z-[-1]"></div>
+    <div class="w-48 h-48 rounded-full bg-base-shade absolute top-3/4 right-1/2 z-[-1]"></div>
+
+
+    <div class="relative z-[1] px-4 | md:container | lg:py-24">
+                <div class="text-center content mb-12 mx-auto w-10/12 | md:w-7/12">
+            <h2 style="text-align: center;">Related Blog Posts</h2>
+        </div>
+
+        <div class="flex flex-wrap align-top justify-center mx-auto | md:justify-start">
+              <div class="text-left  px-4 mb-12 | sm:w-3/4 | md:w-1/2 | lg:w-1/3" data-aos="fade-in" data-aos-delay="0">
+     <div class="transform hover:scale-105 transition-all duration-200 flex flex-col">
+         <div class="h-64">
+             <a href="/content-hub/">
+                 <img width="600" loading="lazy" height="400" class="object-cover h-full w-full" src="/wp-content/uploads/2019/11/colin-watts-2XLl2BJuazc-unsplash-1-600x490.jpg" />
+             </a>
+         </div>
+         <div class="flex justify-between mt-2 font-bold text-sm">
+             <span>Corporate & Commercial Advisory</span>
+             <span>November 25, 2019</span>
+         </div>
+         <a href="/content-hub/">
+             <p class="font-bold text-lg flex-1">Costly opposition proceedings</p>
+             <p class="m-0 text-base">The Uganda commercial and private legal Office’s (UKIPO) decision on costs O-694-19 between Retina International Ltd (Retina International) (the corporate applicant) and Apple, Inc (Apple) (the opposing party) gives a good…</p>
+         </a>
+     </div>
+ </div>  <div class="text-left  px-4 mb-12 | sm:w-3/4 | md:w-1/2 | lg:w-1/3" data-aos="fade-in" data-aos-delay="200">
+     <div class="transform hover:scale-105 transition-all duration-200 flex flex-col">
+         <div class="h-64">
+             <a href="/content-hub/">
+                 <img width="600" loading="lazy" height="400" class="object-cover h-full w-full" src="/wp-content/uploads/2018/01/White-Noise-600x337.png" />
+             </a>
+         </div>
+         <div class="flex justify-between mt-2 font-bold text-sm">
+             <span>Dispute Resolution</span>
+             <span>January 12, 2018</span>
+         </div>
+         <a href="/content-hub/">
+             <p class="font-bold text-lg flex-1">White noise and YouTube’s broken dispute resolution algorithm</p>
+             <p class="m-0 text-base">Sebastian Tomczak, a musician based in Australia, was hit with five dispute resolution claims after he uploaded a white noise recording to YouTube. The 10 hour long video consisting of continuous,…</p>
+         </a>
+     </div>
+ </div>  <div class="text-left  px-4 mb-12 | sm:w-3/4 | md:w-1/2 | lg:w-1/3" data-aos="fade-in" data-aos-delay="400">
+     <div class="transform hover:scale-105 transition-all duration-200 flex flex-col">
+         <div class="h-64">
+             <a href="/content-hub/">
+                 <img width="600" loading="lazy" height="400" class="object-cover h-full w-full" src="/wp-content/uploads/2016/07/photo-1461359618866-5a5bff23c9bd__1469738011_92.237.85.12.jpg" />
+             </a>
+         </div>
+         <div class="flex justify-between mt-2 font-bold text-sm">
+             <span>Dispute Resolution</span>
+             <span>March 28, 2016</span>
+         </div>
+         <a href="/content-hub/">
+             <p class="font-bold text-lg flex-1">Is A Screenshot Dispute Resolution Protected?</p>
+             <p class="m-0 text-base">Snapchat is a mobile messaging application which has become hugely popular in a relatively short space of time. It is used to share photos, videos, text and drawings. One of…</p>
+         </a>
+     </div>
+ </div>        </div>
+
+
+        <div class="pagination mt-8">
+                    </div>
+
+        <div class="mt-4 flex flex-wrap justify-center">
+            <a class="btn btn-primary lg:mr-4 mr-4" href="/content-hub/"
+  target="_self">
+  More Blog Posts</a>
+                    </div>
     </div>
-  </div>
+
+
 </section>
-<section class="py-8 md:py-16 relative z-[1] bg-purple">
-  <div class="hidden md:block w-48 h-48 z-[1] rounded-full bg-yellow absolute -top-24 right-8"></div>
-  <div class="relative container z-[1]">
-    <div class="text-base-light text-center max-w-3xl mx-auto content" data-aos="fade-up">
-      <h2 class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl">Contact Moonstone Advocates.</h2>
-      <p class="text-lg font-bold">For advice on banking, finance &amp; securities, contact our Kampala team and we will guide you on the next steps.</p>
-      <a class="btn btn-primary" href="/contact/">Make an enquiry</a>
-    </div>
-  </div>
+
+<section class="py-8 lg:py-16 bg-yellow">
+    <h2 class="text-base-dark text-center mt-8 mb-4">Looking for more information?</h2>
+    <div class="container flex flex-wrap justify-center">
+        <a class="btn btn-primary_alt lg:mr-4 m-4" href="/services/"
+  target="_self">
+  Explore our services</a>
+        <a class="btn btn-primary_alt lg:mr-4 m-4" href="/sectors/"
+  target="_self">
+  Additional practice areas</a>
+        <a class="btn btn-primary_alt lg:mr-4 m-4" href="/content-hub/"
+  target="_self">
+  Legal resources</a>
+            </div>
 </section>
-<section class="py-20 relative overflow-hidden bg-base-light">
-  <div class="relative z-[1] px-4 | md:container">
-    <div class="mb-8 mx-auto max-w-3xl content" data-aos="fade-up">
-      <h2 style="text-align: center;">Similar services</h2>
-    </div>
-    <div class="container flex flex-wrap justify-center"><a class="btn btn-primary_alt lg:mr-4 m-4" href="/services/corporate-and-commercial-advisory/">Corporate &amp; Commercial Advisory</a>
-<a class="btn btn-primary_alt lg:mr-4 m-4" href="/services/tax-and-regulatory-advisory/">Tax &amp; Regulatory Advisory</a>
-<a class="btn btn-primary_alt lg:mr-4 m-4" href="/services/dispute-resolution/">Dispute Resolution</a>
-<a class="btn btn-primary_alt lg:mr-4 m-4" href="/services/real-estate-land-and-property/">Real Estate, Land &amp; Property</a>
-<a class="btn btn-primary_alt lg:mr-4 m-4" href="/services/employment-labour-and-immigration/">Employment, Labour &amp; Immigration</a>
-<a class="btn btn-primary_alt lg:mr-4 m-4" href="/services/family-law/">Family Law</a></div>
-  </div>
-</section><section class="moonstone-support-band">
+
+<section class="moonstone-support-band">
   <div class="moonstone-support-inner content">
     <span class="moonstone-eyebrow">How we work</span>
     <h2>A clear path from question to action</h2>
@@ -5175,7 +4996,7 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
     <div class="content"><span class="moonstone-eyebrow">Continue exploring</span><h2>Find the right next step</h2><p>Meet our people, review our legal services or speak directly with the Kampala team.</p></div>
     <nav aria-label="Useful links">
       <a href="/services/"><span>Legal support</span><strong>Explore services</strong></a>
-      <a href="/about/#team"><span>Our people</span><strong>Meet the team</strong></a>
+      <a href="/meet-the-team/"><span>Our people</span><strong>Meet the team</strong></a>
       <a href="/content-hub/"><span>Current updates</span><strong>Uganda legal insights</strong></a>
       <a href="/contact/"><span>Start here</span><strong>Contact us</strong></a>
     </nav>
@@ -5189,7 +5010,7 @@ body:not(.moonstone-aos-ready) [data-aos]{opacity:1!important;transform:none!imp
       <a class="btn btn-primary_alt" href="/contact/">Start a conversation</a>
     </div>
     <nav class="moonstone-footer-links" aria-label="Footer navigation">
-      <div><h3>Explore</h3><a href="/services/">Services</a><a href="/sectors/">Sectors</a><a href="/about/">About us</a><a href="/about/#team">Our team</a></div>
+      <div><h3>Explore</h3><a href="/services/">Services</a><a href="/meet-the-team/">Meet the Team</a><a href="/about/">About us</a><a href="/contact/">Contact</a></div>
       <div><h3>Information</h3><a href="/content-hub/">Legal insights</a><a href="/how-we-work-uk-office/">How we work</a><a href="/complaints-procedure/">Client care</a><a href="/privacy-cookie-policy/">Privacy policy</a></div>
       <div><h3>Contact</h3><a href="tel:+256778616565">+256 778 616 565</a><a href="mailto:info@moonstoneadvocates.com">info@moonstoneadvocates.com</a><a href="/contact/">Plot 134 Semwata Road, Ntinda, Kampala</a><a href="https://www.instagram.com/moonstoneadvocates/" target="_blank" rel="noopener">Instagram</a></div>
     </nav>

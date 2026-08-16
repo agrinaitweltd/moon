@@ -71,36 +71,14 @@
     saveCookies(settings);
   });
 
-  const animatedSelectors = [
-    ['section:not(.banner)', 'fade-up'],
-    ['.banner h1, .banner p', 'fade-up'],
-    ['.content h1, .content h2, .content h3, .content p', 'fade-up'],
-    ['.content li', 'fade-up'],
-    ['.moonstone-practice-card', 'zoom-in'],
-    ['.grid > div, .grid > article', 'fade-up'],
-    ['article, .content blockquote, form label', 'fade-up'],
-    ['section img', 'zoom-in'],
-    ['#team .flex.flex-col', 'fade-up'],
-    ['.moonstone-footer-intro, .moonstone-footer-links > div, .moonstone-footer-bottom > *', 'fade-up']
-  ];
-
   document.querySelectorAll('[data-aos]').forEach((element) => {
     element.removeAttribute('data-aos');
     element.removeAttribute('data-aos-delay');
     element.removeAttribute('data-aos-duration');
   });
 
-  animatedSelectors.forEach(([selector, animation]) => {
-    document.querySelectorAll(selector).forEach((element, index) => {
-      if (element.matches('a, button') || element.closest('header')) return;
-      element.classList.add('moonstone-reveal');
-      if (animation === 'zoom-in') element.classList.add('moonstone-reveal-scale');
-      if (animation === 'fade-left') element.classList.add('moonstone-reveal-left');
-      if (animation === 'fade-right') element.classList.add('moonstone-reveal-right');
-      if (animation === 'fade-up' && index % 5 === 1) element.classList.add('moonstone-reveal-left');
-      if (animation === 'fade-up' && index % 5 === 3) element.classList.add('moonstone-reveal-right');
-      element.style.setProperty('--moonstone-delay', Math.min((index % 7) * 55, 330) + 'ms');
-    });
+  document.querySelectorAll('section:not(.moonstone-cookie-panel)').forEach((element) => {
+    element.classList.add('moonstone-reveal');
   });
 
   const reveals = document.querySelectorAll('.moonstone-reveal');
@@ -111,7 +89,7 @@
         entry.target.classList.add('is-visible');
         observer.unobserve(entry.target);
       });
-    }, { threshold: 0.08, rootMargin: '0px 0px -28px' });
+    }, { threshold: 0.06, rootMargin: '0px 0px -18px' });
     reveals.forEach((element) => observer.observe(element));
   } else {
     reveals.forEach((element) => element.classList.add('is-visible'));
@@ -187,7 +165,7 @@
     });
   }
 
-  const enquiryOptions = {"Corporate & Commercial Advisory":["Company incorporation and business structuring","Corporate governance and regulatory compliance","Shareholder agreements and corporate documentation","Commercial agreements and contract drafting","Legal due diligence","Business restructuring and reorganisations","Mergers, acquisitions and investment transactions","Corporate advisory and general business support"],"Tax & Regulatory Advisory":["Tax advisory","Tax compliance support","Regulatory compliance reviews","Business licensing and approvals","Advisory on statutory obligations","Tax dispute support"],"Dispute Resolution":["Commercial disputes","Civil disputes","Debt recovery","Contractual disputes","Employment disputes","Land and property disputes","Arbitration and alternative dispute resolution","Enforcement of judgments and court orders"],"Real Estate, Land & Property":["Land transactions","Property acquisitions and disposals","Conveyancing","Lease agreements","Real estate due diligence","Property development advisory","Land dispute resolution","Security documentation involving property"],"Employment, Labour & Immigration":["Employment contracts","Human resource policies and manuals","Labour law compliance","Disciplinary and termination processes","Workplace disputes","Employee benefits advisory","Immigration and work permit support"],"Family Law":["Marriage and matrimonial advisory","Divorce and separation matters","Child custody and maintenance disputes","Family mediation","Succession and inheritance planning","Wills and estate planning","Probate and administration of estates","Family property arrangements"],"Banking, Finance & Securities":["Loan and facility documentation","Security creation and perfection","Mortgages, charges and guarantees","Banking regulatory advisory","Debt recovery and enforcement","Financial services agreements","Lending and financing transactions","Restructuring and insolvency advisory"],"Public Sector & Regulatory Advisory":["Regulatory advisory","Public procurement support","Government contracting","Policy and compliance advisory","Administrative law matters"],"Energy & Infrastructure":["Oil and gas law","Energy regulatory compliance","Infrastructure development and financing","Project development agreements","Power Purchase Agreements (PPAs)","Environmental and social impact advisory","Construction and engineering contracts","Public-private partnerships (PPPs)","Renewable energy and sustainability advisory"],"Criminal Law":["Criminal defence","Bail and bond applications","Police station representation","Criminal appeals","Legal representation during investigations","Extradition matters","Regulatory and compliance offences","Human rights and constitutional petitions in criminal matters"]};
+  const enquiryOptions = {"Corporate & Commercial Advisory":["Company incorporation and business structuring","Corporate governance and regulatory compliance","Shareholder agreements and corporate documentation","Commercial agreements and contract drafting","Legal due diligence","Business restructuring and reorganisations","Mergers, acquisitions and investment transactions","Corporate advisory and general business support"],"Tax & Regulatory Advisory":["Tax advisory","Tax compliance support","Regulatory compliance reviews","Business licensing and approvals","Advisory on statutory obligations","Tax dispute support"],"Dispute Resolution":["Commercial disputes","Civil disputes","Debt recovery","Contractual disputes","Employment disputes","Land and property disputes","Arbitration and alternative dispute resolution","Enforcement of judgments and court orders"],"Real Estate, Land & Property":["Land transactions","Property acquisitions and disposals","Conveyancing","Lease agreements","Real estate due diligence","Property development advisory","Land dispute resolution","Security documentation involving property"],"Employment, Labour & Immigration":["Employment contracts","Human resource policies and manuals","Labour law compliance","Disciplinary and termination processes","Workplace disputes","Employee benefits advisory","Immigration and work permit support"],"Family Law":["Marriage and matrimonial advisory","Divorce and separation matters","Child custody and maintenance disputes","Family mediation","Succession and inheritance planning","Wills and estate planning","Probate and administration of estates","Family property arrangements"],"Banking, Finance & Securities":["Loan and facility documentation","Security creation and perfection","Mortgages, charges and guarantees","Banking regulatory advisory","Debt recovery and enforcement","Financial services agreements","Lending and financing transactions","Restructuring and insolvency advisory"],"Public Sector & Regulatory Advisory":["Regulatory advisory","Public procurement support","Government contracting","Policy and compliance advisory","Administrative law matters"],"Energy & Infrastructure":["Oil and gas law","Energy regulatory compliance","Infrastructure development and financing","Project development agreements","Power Purchase Agreements (PPAs)","Environmental and social impact advisory","Construction and engineering contracts","Public-private partnerships (PPPs)","Renewable energy and sustainability advisory"],"Criminal Law":["Criminal defence","Bail and bond applications","Police station representation","Criminal appeals","Legal representation during investigations","Extradition matters","Regulatory and compliance offences","Human rights and constitutional petitions in criminal matters"],"Intellectual Property":["Trade mark registration and portfolio support","Copyright and digital content advisory","Patent and design rights advisory","Intellectual property licensing and commercialisation","Brand protection and enforcement","Intellectual property due diligence","Technology, confidentiality and data-related agreements"]};
   const matterPrompts = {
     'Corporate & Commercial Advisory': ['Company, transaction or document details', 'For example: company name, transaction type or document involved'],
     'Tax & Regulatory Advisory': ['Tax period, licence or authority reference', 'For example: tax type, filing period, URA reference or licence'],
